@@ -442,6 +442,13 @@
     nav: (b) => ir(b.dataset.id),
     fechar: fecharModal,
     sair: async () => { if (sb) await sb.auth.signOut(); location.reload(); },
+    senha: async () => {
+      const nova = prompt('Nova senha (mínimo 10 caracteres):'); if (!nova) return;
+      if (nova.length < 10) return alert('A senha precisa ter pelo menos 10 caracteres.');
+      if (prompt('Repita a nova senha:') !== nova) return alert('As senhas não conferem.');
+      const { error } = await sb.auth.updateUser({ password: nova });
+      alert(error ? 'Não foi possível trocar a senha: ' + error.message : 'Senha trocada. Use a nova senha nos próximos acessos.');
+    },
     resultado: (b) => modalResultado(b.dataset.id),
     evento: (b) => modalEvento(b.dataset.id),
     ficha: (b) => fichaLead(b.dataset.id),
@@ -589,7 +596,7 @@
   }
   async function abrirApp() {
     $('#tela').classList.remove('ativa'); $('#app').hidden = false;
-    $('#usuario').textContent = usuario || ''; $('#btn-sair').hidden = DEMO_MODE;
+    $('#usuario').textContent = usuario || ''; $('#btn-sair').hidden = DEMO_MODE; $('#btn-senha').hidden = DEMO_MODE;
     await carregar();
     const v = location.hash.slice(1); UI.view = VIEWS[v] ? v : 'equipe';
     render('nav'); iniciarAoVivo();
