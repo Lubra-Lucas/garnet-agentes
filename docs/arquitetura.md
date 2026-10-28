@@ -65,7 +65,7 @@ Todas: RLS ligado; leitura/escrita para `authenticated` somente se `public.ai_pe
   `tipo`: info|acao|decisao|handoff|alerta|erro, `mensagem` text, `dados` jsonb) — feed "ao vivo" do painel.
 - **ai_fila** (`id` uuid pk, `tipo` text, `agente_id`, `lead_id`, `prioridade` smallint 1–5,
   `status`: pendente|em_execucao|concluida|falhou|cancelada, `tentativas` int, `max_tentativas` int default 3,
-  `chave_idempotencia` text unique, `payload` jsonb, `agendada_para` timestamptz, `resultado` jsonb, `updated_at`)
+  `chave_idempotencia` text unique, `payload` jsonb (classificar_resposta: {interacao_id, rascunho_id|null}), `agendada_para` timestamptz, `resultado` jsonb, `updated_at`)
 - **ai_leads_qualificacao** (`lead_id` uuid pk → leads, `publico`, `score` smallint 0–100,
   `motivos` jsonb [{criterio, pontos, evidencia, fonte}], `sinais` jsonb, `resumo` text, `agente_id`, `atualizado_em`)
 - **ai_rascunhos** (`id` uuid pk, `lead_id`, `execucao_id`, `agente_id`, `canal`: whatsapp|email|instagram,
@@ -82,11 +82,11 @@ Todas: RLS ligado; leitura/escrita para `authenticated` somente se `public.ai_pe
   `proxima_acao` text, `proxima_acao_em` date, `updated_at`)
 - **ai_bloqueios** (`id` uuid pk, `lead_id` null, `email` null, `telefone` null, `motivo`) — opt-out permanente.
 - **ai_conteudos** (`id` uuid pk, `tipo`: post|reels|carrossel|story|anuncio, `titulo`, `roteiro`, `legenda`,
-  `publico`, `data_sugerida` date, `status`: rascunho|aguardando_aprovacao|aprovado|publicado|rejeitado,
+  `publico`, `data_sugerida` date, `status`: rascunho|reprovado_auditoria|aguardando_aprovacao|aprovado|publicado|rejeitado,
   `auditoria` jsonb, `agente_id`, `updated_at`)
 - **ai_campanhas** (`id` uuid pk, `nome`, `plataforma`: meta|google|outro, `objetivo`, `publico`,
   `orcamento` numeric, `gasto` numeric default 0, `status`: proposta|aprovada|ativa|pausada|encerrada,
-  `criativos` jsonb, `resultados` jsonb, `updated_at`)
+  `criativos` jsonb, `resultados` jsonb, `auditoria` jsonb, `updated_at`)
 
 Funções: `ai_permitido()` (bool), `ai_lead_bloqueado(lead uuid)` (bool: bloqueio por id, e-mail ou telefone do lead).
 
@@ -106,7 +106,7 @@ JSON pode ser passado inline ou como `@caminho/arquivo.json`. Saída sempre JSON
 
 ```
 get <tabela|view> [query-postgrest]                 # leitura (qualquer tabela/view)
-post <tabela_ai> <json>                             # insere (lista ou objeto), retorna linhas
+post <tabela_ai> <json> [--upsert] [--on-conflict col]  # insere (lista ou objeto); --upsert faz merge pela pk/col
 patch <tabela_ai> <query> <json>                    # atualiza, retorna linhas
 config <chave>                                      # valor de ai_config
 turno-iniciar <tipo>                                # sai com código 3 se kill_switch = true; imprime {id}
@@ -117,6 +117,12 @@ exec-finalizar <execucao_id> <status> <resultado> [--erro TEXTO]
 evento <agente_id> <tipo> <mensagem> [--turno ID] [--execucao ID] [--lead ID] [--dados JSON]
 bloqueado <lead_id>                                 # true/false
 ```
+
+## Convenções
+
+- Cadência: `cadencia_dias` = dias desde o 1º envio (passo 0) até cada passo; próximo passo = maior passo enviado + 1, máximo 3; para ao receber resposta ou opt-out.
+- O orquestrador passa `turno_id` (e a instância, para o SDR) no prompt de cada subagente; só o orquestrador chama `turno-finalizar`.
+- Opt-out: cria ai_bloqueios e descarta rascunhos abertos do lead (`status=descartado`, `motivo_rejeicao='opt_out'`).
 
 ## Fluxo de um rascunho
 
