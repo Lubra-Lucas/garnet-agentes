@@ -550,13 +550,33 @@
     telaCentral(html`<form class="card login" id="form-login"><h1>Garnet <em>AI</em></h1><p class="muted">Entre para acompanhar e aprovar o trabalho da sua equipe de agentes.</p>
       ${msg ? html`<div class="aviso" style="margin-bottom:14px">${msg}</div>` : ''}
       <div class="campo"><label for="lg-email">E-mail</label><input type="email" id="lg-email" required autocomplete="username"></div>
-      <div class="campo"><label for="lg-senha">Senha</label><input type="password" id="lg-senha" required autocomplete="current-password"></div>
-      <button class="btn primario" type="submit" style="width:100%;justify-content:center">Entrar</button><p class="peq muted" style="margin-top:14px">Quer só ver como funciona? <a href="?demo=1" style="color:var(--gold-text)">Abrir demonstração</a></p></form>`);
+      <div class="campo"><label for="lg-senha">Senha</label><input type="password" id="lg-senha" autocomplete="current-password"></div>
+      <button class="btn primario" type="submit" style="width:100%;justify-content:center">Entrar</button>
+      <button class="btn" type="button" id="lg-link" style="width:100%;justify-content:center;margin-top:10px">Sem senha? Receber link de acesso no e-mail</button>
+      <details style="margin-top:12px"><summary class="peq muted">O link do e-mail abriu outro site? Cole-o aqui</summary>
+        <div class="campo" style="margin-top:8px"><input type="url" id="lg-colar" placeholder="https://papaicnydbcajkfghwem.supabase.co/auth/v1/verify?..."></div>
+        <button class="btn" type="button" id="lg-colar-ok" style="width:100%;justify-content:center">Entrar com o link</button></details><p class="peq muted" style="margin-top:14px">Quer só ver como funciona? <a href="?demo=1" style="color:var(--gold-text)">Abrir demonstração</a></p></form>`);
     $('#form-login').addEventListener('submit', async (e) => {
       e.preventDefault();
+      if (!$('#lg-senha').value) return telaLogin('Digite a senha, ou use "Receber link de acesso no e-mail".');
       const { error } = await sb.auth.signInWithPassword({ email: $('#lg-email').value.trim(), password: $('#lg-senha').value });
       if (error) telaLogin('Não foi possível entrar: ' + (error.message === 'Invalid login credentials' ? 'e-mail ou senha incorretos.' : error.message));
       else entrar();
+    });
+    // Acesso sem senha: link mágico enviado ao e-mail do operador (só para contas já existentes)
+    $('#lg-link').addEventListener('click', async () => {
+      const email = $('#lg-email').value.trim();
+      if (!email) return telaLogin('Digite o seu e-mail e clique de novo em "Receber link".');
+      const { error } = await sb.auth.signInWithOtp({ email, options: { shouldCreateUser: false, emailRedirectTo: location.origin + location.pathname } });
+      telaLogin(error ? 'Não foi possível enviar o link: ' + error.message : 'Link enviado para ' + email + '. Abra o e-mail (veja também o spam) e clique no link. Se ele abrir outro site, copie o endereço do link e cole no campo abaixo.');
+    });
+    $('#lg-colar-ok').addEventListener('click', async () => {
+      let u; try { u = new URL($('#lg-colar').value.trim()); } catch { return telaLogin('Esse link não parece válido.'); }
+      const token = u.searchParams.get('token') || u.searchParams.get('token_hash');
+      const type = u.searchParams.get('type') || 'magiclink';
+      if (!token) return telaLogin('Não encontrei o código de acesso nesse link.');
+      const { error } = await sb.auth.verifyOtp({ token_hash: token, type });
+      if (error) telaLogin('Link expirado ou já usado: peça um novo.'); else entrar();
     });
   }
   async function entrar() {
