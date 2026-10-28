@@ -136,3 +136,42 @@ uma vez) → humano no painel aprova/edita (aprovado) ou rejeita → humano envi
 Pedido mínimo: 1.000 peças (compactados); 3.000 peças (perfumaria, loções e demais). Prazo de referência: ~30 dias.
 Preço: depende de embalagem e personalização → nunca informar; encaminhar para orçamento.
 Orçamento de anúncios: R$ 1.000 no primeiro mês, gasto só com aprovação humana.
+
+## Mídia social (adicionado em 28/10/2026)
+
+Novo agente **`social` — Gestor de Mídia Social**: produz todo dia útil 1 peça orgânica pronta para Instagram e
+Facebook (prioridade: **carrossel** de 5–8 lâminas; também post único e roteiro de Reels), com imagens renderizadas,
+legenda e hashtags. Publicação é **manual** pelo dono (Meta Business Suite, grátis) depois da aprovação no painel.
+O agente `marketing` passa a se chamar **Gestor de Tráfego & Marketing** (anúncios pagos, orçamento, campanhas,
+calendário estratégico); o `social` executa o orgânico.
+
+Mudanças no banco (migração `20261028010000_midia_social.sql`, aplicada pelo dono no SQL Editor):
+- `ai_agentes`: insere `social` (nome "Gestor de Mídia Social", ícone `image`); renomeia `marketing` para
+  "Gestor de Tráfego & Marketing".
+- `ai_conteudos` ganha: `midia jsonb not null default '[]'` (lista `[{url, ordem, alt}]` das lâminas/imagens),
+  `canais text[] not null default '{instagram,facebook}'`, `hashtags text`, `publicado_em timestamptz`,
+  `formato_dados jsonb` (o JSON de origem do carrossel, para re-renderizar).
+- Storage: bucket público `ai-midia` (leitura pública; escrita só `service_role`). Caminho:
+  `conteudos/<AAAA-MM-DD>/<id-do-conteudo>/<NN>.png`.
+
+Renderizador: `node scripts/carrossel/render.mjs <spec.json> <pasta_saida>` → PNGs 1080×1350 (`01.png`, `02.png`…),
+identidade Garnet (off-white, ink, dourado, Montserrat 300 + Cormorant itálico). Spec:
+```json
+{"tema":"claro|escuro","lâminas":[
+  {"tipo":"capa","titulo":"…","destaque":"palavra em itálico dourado","subtitulo":"…","imagem":"url opcional"},
+  {"tipo":"texto","numero":"01","titulo":"…","texto":"…"},
+  {"tipo":"lista","titulo":"…","itens":["…","…"]},
+  {"tipo":"etapas","titulo":"…","etapas":[{"n":"01","nome":"Briefing","texto":"…"}]},
+  {"tipo":"dado","valor":"1.000","rotulo":"peças de pedido mínimo em compactados","texto":"…"},
+  {"tipo":"imagem","imagem":"url","legenda":"…"},
+  {"tipo":"cta","titulo":"…","texto":"…","acao":"Fale com a gente: link na bio"}]}
+```
+Imagens permitidas: logo e fotos de produto da vitrine/site (`https://garnetcosmeticos.com.br/assets/img/...`);
+imagens de conceito geradas por IA só com selo "imagem ilustrativa"; **fotos da fábrica não** (pedido da Garnet).
+
+CLI novo: `upload <arquivo_local> <caminho_no_bucket>` → envia ao bucket `ai-midia` e imprime `{"url": "<url pública>"}`
+(só aceita o bucket `ai-midia`).
+
+Fluxo: `social` cria `ai_conteudos` (status `rascunho`, com `midia`, legenda, hashtags) → `auditor` →
+`aguardando_aprovacao` → dono aprova no painel, baixa as lâminas, copia a legenda e publica → marca **publicado**
+(`publicado_em`). Runbook: `runbooks/social-diario.md` (seg–sex).
