@@ -24,7 +24,7 @@ O texto é sempre **rascunho**: o humano aprova, edita e envia. Nunca escreva co
 5. Saída fácil: "Se não fizer sentido, é só avisar que não escrevo mais."
 Sem links longos; no máximo um (site ou simulador). Enviado pelo humano via `wa.me`.
 
-### E-mail (≤ 120 palavras)
+### E-mail (≤ 170 palavras no corpo, sem contar assinatura e descadastro)
 - **Assunto**: até 60 caracteres, sem caixa alta, sem "!" e sem "grátis/promoção". Ex.: "Linha própria de maquiagem: ideia para a [marca]".
 - Corpo: abertura com referência, valor, convite único.
 - **Assinatura**: Equipe Garnet Cosméticos · garnetcosmeticos.com.br · (11) 98153-1188 · contato@garnetcosmeticos.com.br
@@ -51,20 +51,48 @@ Usar placeholders `[marca]`, `[nome]`. Os exemplos são modelos, não texto fixo
 
 ### 4.1 Influenciadora / maquiador
 
-**Passo 0 (WhatsApp) BOM**
-> Olá, [nome]! Aqui é a Equipe Garnet, fábrica de cosméticos em SP desde 1992, especialista em maquiagem compactada. Vi seus tutoriais de make e pensei: já pensou em uma linha sua, com cor e relevo exclusivos? Posso te contar como funciona o processo, sem compromisso? Se não fizer sentido, é só avisar que não escrevo mais.
+**Posicionamento (decisão do dono, 28/10/2026):** a Garnet é **somente a fabricante**. A proposta é a influenciadora
+ter a **própria linha de maquiagem**, com a marca e as vendas dela; a Garnet desenvolve e fabrica. **Nunca** oferecer
+investimento, sociedade, participação societária, "projeto/lançamento conjunto", "produto viral" nem dizer que "o nome
+dela surgiu internamente para liderar um lançamento" (abordagem antiga, descontinuada).
+
+Ganchos que funcionam (manter): elogio específico e verdadeiro ao conteúdo; prova social com marcas que já fabricamos
+(Boca Rosa, Karen Bachini, Franciny Ehlke/Fran, John John); a ideia de **uma linha com o nome dela**; o que ela ganha
+(marca própria, produto exclusivo para o público dela, **o resultado das vendas é da marca dela**) — sem prometer
+faturamento; convite curto (15 minutos) e pedido do melhor WhatsApp.
+
+**Passo 0 (e-mail ou DM) — MODELO OFICIAL**
+> Assunto: Uma linha de maquiagem com o seu nome
+>
+> Boa noite, [nome], tudo bem?
+>
+> A gente acompanha seu perfil e gosta muito do seu conteúdo e do seu posicionamento em beleza.
+>
+> Somos a Garnet, indústria que desenvolve e fabrica maquiagem para marcas próprias há mais de 30 anos. Já produzimos linhas para nomes como Boca Rosa, Karen Bachini, Franciny Ehlke e John John.
+>
+> Acreditamos que uma linha de maquiagem com a sua marca faria muito sentido para o seu público. Funciona assim: você define os produtos, as cores e a identidade, e a Garnet cuida do desenvolvimento, das amostras e da fabricação. A marca é sua, e o resultado das vendas também.
+>
+> Podemos te apresentar alguns dos produtos que já fabricamos e os formatos possíveis em uma conversa de 15 minutos esta semana? Se preferir, me passe seu WhatsApp para agendarmos.
+>
+> Atenciosamente,
+> [assinatura + descadastro]
+
+**Passo 0 (WhatsApp, ≤ 600 caracteres)**
+> Oi, [nome], tudo bem? Aqui é da Garnet, indústria que fabrica maquiagem para marcas próprias há mais de 30 anos (já produzimos para Boca Rosa, Karen Bachini, Franciny Ehlke e John John). Acompanhamos seu conteúdo e achamos que uma linha de maquiagem com a sua marca combinaria muito com o seu público: você cria, a gente desenvolve e fabrica, e a marca é sua. Posso te mostrar nossos produtos em 15 minutos esta semana? Se não fizer sentido, é só avisar.
 
 **Passo 0 RUIM** (e por quê)
-> OLÁ LINDA!!! 😍😍 Somos a MELHOR fábrica de cosméticos do Brasil e queremos fazer sua marca VIRAR SUCESSO! Preços imbatíveis, só hoje!
-*Problemas: caixa alta, exagero, promessa de resultado, "preços", urgência falsa, sem referência ao lead.*
+> Estamos estruturando o lançamento de um produto com forte potencial de viralização e seu nome surgiu internamente para liderar essa frente, inclusive com participação societária.
+*Problemas: promete investimento/sociedade que a Garnet não quer oferecer, "viralização" é promessa de resultado, "seu nome surgiu" é gancho artificial.*
+> OLÁ LINDA!!! 😍😍 Somos a MELHOR fábrica do Brasil e queremos fazer sua marca VIRAR SUCESSO! Preços imbatíveis!
+*Problemas: caixa alta, exagero, promessa de resultado, preço, sem referência ao lead.*
 
-**Passo 1 (valor/case) BOM**
-> [nome], só complementando: já fabricamos para marcas como Boca Rosa, Karen Bachini e Max Weber. Para quem está começando, o modelo Full Service cuida de fórmula, amostras, embalagem e entrega. Quer que eu te explique como seria para uma linha de blush e iluminador?
+**Passo 1 (valor/case)**
+> [nome], complementando: além dos compactados (pó, blush, sombra, iluminador, com relevo, logo gravado e paleta sob medida), também fabricamos lábios, perfumaria, skincare e corpo. Para quem está começando, o modelo Full Service cuida de fórmula, amostras, embalagem e entrega. Quer que eu te mande fotos de algumas linhas que já fabricamos?
 
-**Passo 2 (simulador/amostra) BOM**
-> [nome], criamos um simulador onde você monta embalagem, cores e desenho prensado: garnetcosmeticos.com.br/#personalize. Depois, nossa equipe transforma a ideia em amostra para aprovar textura e tom. Quer testar e me contar o que montou?
+**Passo 2 (simulador/amostra)**
+> [nome], temos um simulador onde você monta embalagem, cores e desenho em relevo: garnetcosmeticos.com.br/#personalize. Para projetos qualificados, a equipe transforma a ideia em amostra para aprovar textura e tom. Quer testar e me contar o que montou?
 
-**Passo 3 (encerramento) BOM**
+**Passo 3 (encerramento)**
 > [nome], não quero insistir. Se um dia fizer sentido ter uma linha própria, é só chamar por aqui. Obrigada pela atenção!
 
 ### 4.2 Marca indie / TikTok Shop
@@ -113,6 +141,9 @@ Use quando `status = 'respondeu'` ou há resposta anterior registrada. Regras:
 - Não repita a apresentação inicial; avance a conversa. Um convite único.
 - Se a resposta anterior foi "não agora", reconheça o tempo passado e pergunte se mudou algo.
 - Se houver pedido de opt-out registrado: **não escrever** (bloqueio).
+
+**Reativação de quem respondeu à abordagem ANTIGA (lançamento/sociedade)** — seja transparente sobre a mudança:
+> Olá, [nome], tudo bem? Aqui é da Garnet. Conversamos há um tempo sobre um projeto de lançamento. Reorganizamos nossa proposta e queremos te apresentar algo mais direto: uma linha de maquiagem com a sua própria marca, em que a Garnet desenvolve e fabrica (já produzimos para Boca Rosa, Karen Bachini, Franciny Ehlke e John John) e a marca e as vendas são suas. Topa 15 minutos para eu te mostrar os produtos? Qual o melhor WhatsApp?
 
 **Reativação (WhatsApp) BOM**
 > Olá, [nome]! Aqui é a Equipe Garnet. Você tinha pedido para falarmos pelo WhatsApp e quis retomar o assunto sobre a sua linha de maquiagem. Faz sentido conversarmos agora? Se preferir deixar para depois, me diga quando, que entro em contato. Se não quiser mais ser contatada, é só avisar.

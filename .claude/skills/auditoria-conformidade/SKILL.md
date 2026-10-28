@@ -41,7 +41,7 @@ Status: tudo `ok` → `aguardando_aprovacao`; qualquer `ok=false` → `reprovado
 4. **sem_preco**: nenhum valor, faixa, "a partir de", desconto, condição de pagamento ou frete.
 5. **moq_prazo_confirmados**: pedido mínimo só 1.000 (compactados) / 3.000 (perfumaria, loções e demais); prazo só "cerca de 30 dias" de referência; sem outra promessa.
 6. **email_descadastro**: e-mail com assunto, assinatura da Garnet e linha de descadastro. (Não se aplica a WhatsApp/Instagram: marcar `ok` com nota "n/a".)
-7. **tamanho**: WhatsApp ≤ 600 caracteres; e-mail ≤ 120 palavras e assunto ≤ 60 caracteres.
+7. **tamanho**: WhatsApp ≤ 600 caracteres; e-mail ≤ 170 palavras no corpo (sem assinatura e descadastro) e assunto ≤ 60 caracteres.
 8. **sem_promessa_de_resultado**: nada de vender mais, viralizar, lucro, aprovação garantida, prazo garantido, "melhor do Brasil".
 9. **sem_se_passar_por_pessoa**: assina como Equipe Garnet ou operador humano real; não finge ser cliente, influenciadora ou pessoa específica; sem "como conversamos" inexistente.
 10. **sem_dados_sensiveis**: nada de saúde, religião, orientação, política, menores, família, endereço residencial, CPF; só dados profissionais.
@@ -80,3 +80,6 @@ O auditor nunca envia nada nem altera o texto do SDR. A aprovação final é do 
 
 ## Terminologia obrigatória
 - Reprove qualquer texto ou lâmina que diga "logo prensado": o correto é **"logo gravado"** (decisão do dono, 28/10/2026). "Prensado" só descreve o pó compactado.
+- Reprove qualquer mensagem que ofereça investimento, sociedade, participação societária, royalties ou co-lançamento,
+  ou que use "produto viral", "viralização" ou "seu nome surgiu internamente" (a Garnet atua só como fabricante — ver
+  `conhecimento/garnet.md`, "Modelo de negócio na prospecção").

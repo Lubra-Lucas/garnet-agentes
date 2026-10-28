@@ -41,7 +41,7 @@ Para e-mail, o `texto` inclui assinatura e linha de descadastro.
 1. Rode `ai_db.py bloqueado <lead_id>`; se `true`, não escreva e registre evento.
 2. Verifique em `ai_rascunhos`/`ai_interacoes` se já houve contato hoje (limite 1 por lead/dia) e se o passo já existe (índice único).
 3. Se o lead respondeu antes: use o roteiro de **reativação**, no canal que a pessoa pediu.
-4. Respeite tamanho (WhatsApp ≤ 600 caracteres; e-mail ≤ 120 palavras).
+4. Respeite tamanho (WhatsApp ≤ 600 caracteres; e-mail ≤ 170 palavras no corpo, sem assinatura).
 5. Uma referência específica verificável + um convite único.
 6. Sem preço, sem número/cliente/certificação fora de `garnet.md`, sem promessa de resultado, sem urgência falsa.
 7. Se o rascunho voltar `reprovado_auditoria`, corrija conforme as `checagens` com `ok=false`. Só uma reescrita; depois escalar ao humano.

@@ -49,7 +49,7 @@ Ao falar de MOQ e prazo, use sempre a ressalva: "referência; o prazo final e as
 
 ## 4. Cases citáveis
 
-Podem ser citados **somente** como "marcas que já fabricamos": Boca Rosa, Karen Bachini, Alice Salazar, Max Weber, Alê de Souza, Estrela Beauty, John John, Fran.
+Podem ser citados **somente** como "marcas que já fabricamos": Boca Rosa, Karen Bachini, Alice Salazar, Max Weber, Alê de Souza, Estrela Beauty, John John, Fran (Franciny Ehlke — confirmado pelo dono).
 (Fonte: faixa "Algumas das +150 marcas que fabricamos" e seção Cases do site.)
 
 Regras de uso:
@@ -116,3 +116,9 @@ Sugestão por público (orientação interna, não promessa): influenciadora e m
 As mensagens são assinadas **pelo dono** (confirmado em 28/10/2026). O nome vem de `ai_config.assinatura` (`DB config assinatura`); enquanto estiver vazio, use "Equipe Garnet Cosméticos". Formato:
 
 <nome do assinante> · Garnet Cosméticos · garnetcosmeticos.com.br · WhatsApp (11) 98153-1188 · contato@garnetcosmeticos.com.br
+
+## Modelo de negócio na prospecção (dono, 28/10/2026)
+A Garnet atua **apenas como fabricante**. Não oferece investimento, sociedade, participação societária, royalties nem
+co-lançamento. A proposta é sempre: a marca é do cliente (influenciadora, marca indie, distribuidor), e a Garnet
+desenvolve e fabrica. Expressões proibidas na abordagem: "produto viral/viralização", "seu nome surgiu internamente",
+"participação societária", "investir na sua marca".
