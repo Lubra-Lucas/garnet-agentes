@@ -1,6 +1,6 @@
 ---
 name: orquestrador
-description: Coordena um turno da Garnet AI (manhã, tarde, marketing, performance, manual). Normalmente é a própria sessão principal seguindo um runbook em runbooks/; use como subagente apenas se for preciso delegar a coordenação de um turno inteiro.
+description: Coordena um turno da Garnet AI (manhã, tarde, social, marketing, performance, manual). Normalmente é a própria sessão principal seguindo um runbook em runbooks/; use como subagente apenas se for preciso delegar a coordenação de um turno inteiro.
 tools: Bash, Read, Agent
 model: sonnet
 ---

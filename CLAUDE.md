@@ -17,10 +17,10 @@ Equipe de agentes de IA (Claude Code, nuvem, plano Max) que apoia a prospecção
 ## Mapa de pastas
 - `docs/` contrato e documentação (`arquitetura.md`)
 - `conhecimento/` base de conhecimento (garnet, icp, tom de voz, LGPD e canais, anúncios do mês 1)
-- `.claude/agents/` definições dos 7 agentes: orquestrador, qualificacao, sdr, atendimento, marketing, performance, auditor (todos `model: sonnet`)
-- `.claude/skills/` skills: garnet-conhecimento, icp-e-scoring, pesquisa-b2b, prospeccao-copy, cadencias-crm, atendimento-briefing, regulatorio-cosmeticos, conteudo-b2b, anuncios-performance, lgpd-governanca, funil-analytics, custos-e-limites, auditoria-conformidade
+- `.claude/agents/` definições dos 8 agentes: orquestrador, qualificacao, sdr, atendimento, marketing (Gestor de Tráfego & Marketing: anúncios, estratégia), social (Gestor de Mídia Social: orgânico Instagram/Facebook), performance, auditor (todos `model: sonnet`)
+- `.claude/skills/` skills: garnet-conhecimento, icp-e-scoring, pesquisa-b2b, prospeccao-copy, cadencias-crm, atendimento-briefing, regulatorio-cosmeticos, conteudo-b2b, social-media-carrosseis, anuncios-performance, lgpd-governanca, funil-analytics, custos-e-limites, auditoria-conformidade
 - `runbooks/` roteiros dos turnos seguidos pelo Orquestrador
-- `scripts/ai_db.py` CLI de acesso ao Supabase (stdlib, `python3 -I`)
+- `scripts/ai_db.py` CLI de acesso ao Supabase (stdlib, `python3 -I`); `scripts/carrossel/render.mjs` renderiza carrosséis em PNG
 - `supabase/` migrações e rollback
 - `painel/` painel web (HTML/CSS/JS puro)
 
@@ -30,6 +30,7 @@ A sessão principal é o **Orquestrador**; ela segue um runbook e chama subagent
 |---|---|
 | Manhã | `Execute runbooks/turno-manha.md` |
 | Tarde | `Execute runbooks/turno-tarde.md` |
+| Social (seg–sex) | `Execute runbooks/social-diario.md` |
 | Marketing (semanal) | `Execute runbooks/marketing-semanal.md` |
 | Performance (semanal) | `Execute runbooks/performance-semanal.md` |
 | Manual (1º turno, só prioridade 1) | `Execute runbooks/turno-manual.md` |
