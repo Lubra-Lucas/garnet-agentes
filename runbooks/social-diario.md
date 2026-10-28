@@ -11,7 +11,7 @@ Você é o **Orquestrador**. `DB` = `python3 -I scripts/ai_db.py`. Produz rascun
 
 1. Kill switch e abertura: `DB turno-iniciar social` (código 3 = kill switch ligado: pare sem fazer nada). Guarde o `id` como `TURNO`. `DB exec-iniciar $TURNO orquestrador - "Planejando o conteúdo do dia"` → `EXEC_ORQ`.
 2. Contexto: `DB get ai_conteudos "order=created_at.desc&limit=30"`. Conte os `aguardando_aprovacao` e `rascunho`. Se houver 12 ou mais aguardando o dono (4 dias de fila), não crie mais: `DB evento orquestrador alerta "Fila de aprovação de conteúdos cheia (N); nenhum novo conteúdo hoje" --turno $TURNO --execucao $EXEC_ORQ`, vá ao passo 7. Veja o dia da semana (sexta = Reels extra).
-3. Planeje as **3 peças do dia** (data_sugerida = **próximo dia útil**, para o dono aprovar e agendar as 3 no Meta Business Suite com antecedência), cada uma com **pilar diferente** e sem repetir pautas dos últimos 14 dias:
+3. Planeje as **3 peças do dia** (data_sugerida = **próximo dia útil que ainda não tenha 3 peças** em `ai_conteudos` com status diferente de rejeitado/reprovado_auditoria; assim o dono aprova e agenda as 3 no Meta Business Suite com antecedência), cada uma com **pilar diferente** e sem repetir pautas dos últimos 14 dias:
    - **Manhã (9h)** — carrossel educativo (pilar "Como funciona", "Personalização" ou "Perguntas frequentes").
    - **Almoço (12h30)** — post único de 1 lâmina (tipo `dado` ou `capa`: um número confirmado, um mito × verdade, uma pergunta rápida).
    - **Noite (19h)** — carrossel de engajamento (pilar "Mitos e verdades", "Cases" ou "Tendências").
