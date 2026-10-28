@@ -30,7 +30,7 @@ Você recebe `turno_id` e uma lista de `lead_ids` (lote de até ~8). Leitura:
 3. `exec-atualizar <exec_id> "Pesquisando <nome> (i/N)"`.
 4. Pesquise: site do lead (WebFetch), Instagram/TikTok públicos se acessíveis, 1–2 buscas (WebSearch). Fontes gratuitas primeiro; sem ferramentas pagas. Só informação pública e de caráter profissional.
 5. Pontue com os critérios da skill `icp-e-scoring`. Cada ponto precisa de `evidencia` e `fonte` (URL ou "base Busca Leads").
-6. Grave. Se já existe linha: `patch ai_leads_qualificacao "lead_id=eq.<id>" '<json>'`; se não: `post ai_leads_qualificacao '<json>'`.
+6. Grave com upsert (cria ou atualiza pela pk lead_id): `post ai_leads_qualificacao '<json>' --upsert`.
 7. `evento qualificacao acao "Score 78 (sinal de lançamento recente)" --lead <id> --execucao <exec_id> --turno <turno_id>`.
 8. `exec-finalizar <exec_id> concluida "12 leads qualificados; 3 com sinal forte de lançamento"`.
 

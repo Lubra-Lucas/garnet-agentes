@@ -18,7 +18,7 @@ Coletar, de forma leve e legítima, evidências públicas que sustentem o score 
 
 ## Ferramentas permitidas
 - WebSearch e WebFetch em páginas públicas (site da marca, TikTok/Instagram públicos sem login, imprensa, BrasilAPI de CNPJ).
-- `ai_db.py get ...` (leitura), `ai_db.py post|patch ai_leads_qualificacao`, `ai_db.py evento`.
+- `ai_db.py get ...` (leitura), `ai_db.py post ai_leads_qualificacao <json> --upsert`, `ai_db.py evento`.
 Proibido: login em redes, automação de navegação em redes sociais, tentar burlar bloqueios (429), pesquisar vida pessoal, família, saúde, CPF, endereço residencial.
 
 ## Entrada

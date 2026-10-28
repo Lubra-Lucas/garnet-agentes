@@ -18,7 +18,7 @@ Transformar sinais públicos em score auditável (0–100) com motivos e evidên
 
 ## Ferramentas permitidas
 - `python3 -I scripts/ai_db.py get ai_v_leads_alvo "..."`, `get leads ...` (somente leitura do Busca Leads).
-- `ai_db.py post|patch ai_leads_qualificacao`, `ai_db.py evento`.
+- `ai_db.py post ai_leads_qualificacao <json> --upsert`, `ai_db.py evento`.
 - Read; WebSearch/WebFetch apenas via skill `pesquisa-b2b`.
 Proibido escrever em `leads`, `segmentos`, `interacoes`, `favoritos`.
 
