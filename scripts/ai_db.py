@@ -21,10 +21,15 @@ Uso (python3 -I scripts/ai_db.py ...):
   exec-finalizar <execucao_id> <status> <resultado> [--erro TEXTO]
   evento <agente_id> <tipo> <mensagem> [--turno ID] [--execucao ID] [--lead ID] [--dados JSON]
   bloqueado <lead_id>                                 true/false
+  upload <arquivo_local> <caminho_no_bucket>          envia ao bucket público ai-midia (x-upsert) e imprime
+                                                      {"url": ".../storage/v1/object/public/ai-midia/<caminho>"};
+                                                      caminho sem ".." e sem "/" inicial
+                                                      ex.: upload 01.png conteudos/2026-10-29/<id>/01.png
 
 Filtros seguem o PostgREST: https://postgrest.org/en/stable/references/api/tables_views.html
 """
 import json
+import mimetypes
 import os
 import re
 import sys
@@ -82,6 +87,39 @@ def requisitar(metodo, caminho, corpo=None, extra=None):
     except urllib.error.URLError as e:
         print(f'Erro de rede: {str(e.reason).replace(chave, "***")}', file=sys.stderr)
         sys.exit(1)
+
+
+def upload(arquivo, caminho):
+    partes = caminho.split('/')
+    if not caminho or caminho.startswith('/') or '\\' in caminho or '..' in partes or '' in partes \
+            or any(p in ('.', '..') or '..' in p for p in partes):
+        print(f'Caminho recusado: "{caminho}" (sem "..", sem "/" inicial).', file=sys.stderr)
+        sys.exit(2)
+    try:
+        with open(arquivo, 'rb') as f:
+            conteudo = f.read()
+    except OSError as e:
+        print(f'Não foi possível ler {arquivo}: {e}', file=sys.stderr)
+        sys.exit(2)
+    chave = os.environ.get('SUPABASE_SERVICE_ROLE_KEY')
+    if not chave:
+        print('Defina SUPABASE_SERVICE_ROLE_KEY no ambiente.', file=sys.stderr)
+        sys.exit(2)
+    tipo = mimetypes.guess_type(arquivo)[0] or 'application/octet-stream'
+    destino = urllib.parse.quote(caminho, safe='/')
+    r = urllib.request.Request(
+        f'{URL}/storage/v1/object/ai-midia/{destino}', data=conteudo, method='POST',
+        headers={'apikey': chave, 'Authorization': f'Bearer {chave}', 'Content-Type': tipo, 'x-upsert': 'true'})
+    try:
+        with urllib.request.urlopen(r, timeout=120):
+            pass
+    except urllib.error.HTTPError as e:
+        print(f'HTTP {e.code}: {e.read().decode(errors="replace").replace(chave, "***")}', file=sys.stderr)
+        sys.exit(1)
+    except urllib.error.URLError as e:
+        print(f'Erro de rede: {str(e.reason).replace(chave, "***")}', file=sys.stderr)
+        sys.exit(1)
+    return {'url': f'{URL}/storage/v1/object/public/ai-midia/{destino}'}
 
 
 def saida(dados):
@@ -215,6 +253,9 @@ def principal(argv):
         n(1)
         r = requisitar('POST', '/rest/v1/rpc/ai_lead_bloqueado', {'lead': a[0]})
         print('true' if r is True else 'false')
+    elif acao == 'upload':
+        n(2)
+        saida(upload(a[0], a[1]))
     else:
         uso(f'Ação desconhecida: {acao}')
 

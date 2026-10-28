@@ -33,6 +33,9 @@
     alert: '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4M12 17h.01"/>',
     ban: '<circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/>', pen: '<path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z"/>',
     workflow: '<rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/>',
+    image: '<rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.09-3.09a2 2 0 0 0-2.82 0L6 21"/>',
+    download: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>',
+    chev: '<path d="m15 18-6-6 6-6"/>', film: '<rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 3v18M17 3v18M3 8h4M3 12h4M3 16h4M17 8h4M17 12h4M17 16h4"/>',
     arrow: '<path d="m9 18 6-6-6-6"/>', info: '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>',
   };
   const ic = (n) => new Safe(`<svg class="ico" viewBox="0 0 24 24" aria-hidden="true">${P[n] || P.bot}</svg>`);
@@ -44,8 +47,8 @@
   const ST_EXEC = { trabalhando: ['Trabalhando', 'ouro'], na_fila: ['Na fila', 'info'], concluida: ['Concluído', 'ok'], falhou: ['Erro', 'err'], bloqueada: ['Bloqueado', 'warn'], ocioso: ['Ocioso', ''] };
   const TIPO_EV = { info: ['Info', 'info'], acao: ['Ação', 'ouro'], decisao: ['Decisão', 'viol'], handoff: ['Passagem', 'ok'], alerta: ['Alerta', 'warn'], erro: ['Erro', 'err'] };
   const NAV = [['equipe', 'Equipe', 'users'], ['aovivo', 'Ao vivo', 'activity'], ['aprovacoes', 'Aprovações', 'checksq'], ['leads', 'Leads', 'list'],
-    ['registrar', 'Registrar resposta', 'message'], ['oportunidades', 'Oportunidades', 'kanban'], ['marketing', 'Marketing & Anúncios', 'megaphone'], ['turnos', 'Turnos', 'history']];
-  const TIPO_TURNO = { manha: 'Manhã', tarde: 'Tarde', marketing: 'Marketing', performance: 'Performance', manual: 'Manual' };
+    ['registrar', 'Registrar resposta', 'message'], ['oportunidades', 'Oportunidades', 'kanban'], ['marketing', 'Mídia social & Anúncios', 'image'], ['turnos', 'Turnos', 'history']];
+  const TIPO_TURNO = { manha: 'Manhã', tarde: 'Tarde', marketing: 'Marketing', social: 'Mídia social', performance: 'Performance', manual: 'Manual' };
   const ST_TURNO = { em_andamento: ['Em andamento', 'ouro'], concluido: ['Concluído', 'ok'], falhou: ['Falhou', 'err'], interrompido: ['Interrompido', 'warn'] };
 
   // ---------- Utilitários ----------
@@ -75,7 +78,7 @@
 
   // ---------- Estado ----------
   const S = { agentes: [], execs: [], eventos: [], turnos: [], leads: [], rascunhos: [], qualif: {}, interacoes: [], opps: [], conteudos: [], campanhas: [], config: {}, funil: [], contagens: {}, contatos: {} };
-  const UI = { view: 'equipe', filtroAg: '', filtroTipo: '', filtroPublico: '', busca: '', edits: {}, regLead: null, regBusca: '', regCanal: 'whatsapp', regTexto: '', vistos: new Set(), primeira: true, sig: '' };
+  const UI = { view: 'equipe', filtroCont: 'aguardando', filtroAg: '', filtroTipo: '', filtroPublico: '', busca: '', edits: {}, regLead: null, regBusca: '', regCanal: 'whatsapp', regTexto: '', vistos: new Set(), primeira: true, sig: '' };
   let sb = null, usuario = null, realtimeOk = false, carregando = false, timerPoll = null;
 
   // ---------- Camada de dados (Supabase real ou memória do demo) ----------
@@ -217,7 +220,7 @@
     <section class="secao"><h2>Fluxo <em>entre agentes</em></h2><div class="card fluxo">
       <div class="fluxo-linha">${no('orquestrador')}${seta}${no('qualificacao', 'Qualificação')}${seta}${no('sdr')}${seta}${no('auditor')}${seta}
         <span class="no voce"><i></i>Você ${n ? html`<span class="cont">${n}</span>` : ''}</span>${seta}${no('atendimento')}</div>
-      <div class="fluxo-lat"><span class="rotulo">Laterais</span>${no('marketing')}${no('performance')}</div></div></section>
+      <div class="fluxo-lat"><span class="rotulo">Laterais</span>${no('social', 'Mídia Social')}${no('marketing', 'Tráfego')}${no('performance')}</div></div></section>
     <section class="secao"><h2>Agentes</h2><div class="agentes">${S.agentes.map(cartaoAgente)}</div></section>`;
   }
   function cartaoAgente(a) {
@@ -353,12 +356,98 @@
         <select data-etapa="${o.id}" aria-label="Mudar etapa">${ETAPAS.map(([e, er]) => html`<option value="${e}" ${e === o.etapa ? 'selected' : ''}>${er}</option>`)}</select></article>`)}</section>`; })}</div>`;
   }
 
+  // Mídia social: carrosséis, posts e roteiros (ai_conteudos.midia = [{url, ordem, alt}])
+  const FILTROS_CONT = [['aguardando', 'Aguardando aprovação'], ['aprovado', 'Aprovados'], ['publicado', 'Publicados'], ['todos', 'Todos']];
+  const ROTULO_CANAL = { instagram: 'Instagram', facebook: 'Facebook' };
+  const ROTULO_TIPO = { post: 'Post', reels: 'Reels', carrossel: 'Carrossel', story: 'Story', anuncio: 'Anúncio' };
+  const imgUrl = (u) => { u = String(u || '').trim(); return /^https?:\/\//i.test(u) || /^data:image\/(png|jpe?g|webp|gif|svg\+xml)[;,]/i.test(u) ? u : ''; };
+  const midiaDe = (c) => (Array.isArray(c.midia) ? c.midia : []).filter((m) => m && imgUrl(m.url)).slice().sort((a, b) => (a.ordem ?? 0) - (b.ordem ?? 0));
+  const textoPublicar = (c) => [c.legenda, c.hashtags].filter((x) => x && String(x).trim()).join('\n\n');
+  function contFiltrados(k) {
+    const ord = { aguardando: 0, aprovado: 1 };
+    let l = S.conteudos.filter((c) => k === 'todos' || (k === 'aguardando' ? c.status === 'aguardando_aprovacao' : c.status === k));
+    return l.sort((a, b) => k === 'publicado' ? String(b.publicado_em || b.data_sugerida).localeCompare(String(a.publicado_em || a.data_sugerida)) : String(a.data_sugerida).localeCompare(String(b.data_sugerida)) || (ord[a.status] ?? 9) - (ord[b.status] ?? 9));
+  }
+  const botoesConteudo = (c) => html`${c.status === 'aguardando_aprovacao' ? html`<button class="btn primario" data-act="cont-aprovar" data-id="${c.id}">${ic('check')}Aprovar</button><button class="btn perigo" data-act="cont-rejeitar" data-id="${c.id}">${ic('x')}Rejeitar</button>` : ''}
+    ${c.status === 'aprovado' ? html`<button class="btn primario" data-act="cont-publicar" data-id="${c.id}">${ic('send')}Marcar como publicado</button>` : ''}`;
+  function cartaoConteudo(c) {
+    const st = ST_CONT[c.status] || [c.status, ''], m = midiaDe(c), capa = m[0];
+    const canais = Array.isArray(c.canais) ? c.canais : [];
+    const thumb = capa ? html`<button type="button" class="thumb" data-act="cont-abrir" data-id="${c.id}" aria-label="Abrir ${c.titulo}"><img src="${imgUrl(capa.url)}" alt="${capa.alt || 'Capa: ' + c.titulo}" loading="lazy">${m.length > 1 ? html`<span class="thumb-n">${m.length}</span>` : ''}</button>`
+      : html`<div class="thumb vazia" aria-hidden="true">${ic(c.tipo === 'reels' || c.tipo === 'story' ? 'film' : 'pen')}<span>${ROTULO_TIPO[c.tipo] || c.tipo}</span></div>`;
+    return html`<article class="card cont ${capa ? 'com-midia' : ''}">
+      ${thumb}
+      <div class="cont-corpo">
+        <div class="cont-cab"><span class="rotulo">${dataCurta(c.data_sugerida)} · ${ROTULO_TIPO[c.tipo] || c.tipo}</span><span class="badge ${st[1]}">${st[0]}</span></div>
+        <h3>${c.titulo}</h3>
+        <div class="meta">${canais.map((k) => html`<span class="badge info">${ROTULO_CANAL[k] || k}</span>`)}${c.publico ? html`<span class="badge">${ROTULO_PUBLICO[c.publico] || c.publico}</span>` : ''}${c.status === 'publicado' && c.publicado_em ? html`<span class="badge ok">Publicado ${dataHora(c.publicado_em)}</span>` : ''}</div>
+        ${c.auditoria && c.auditoria.motivo ? html`<p class="peq" style="color:var(--err);margin:0">Auditor: ${c.auditoria.motivo}</p>` : ''}
+        ${c.auditoria && c.auditoria.rejeicao ? html`<p class="peq" style="color:var(--err);margin:0">Seu motivo: ${c.auditoria.rejeicao.motivo}</p>` : ''}
+        ${!capa && c.roteiro ? html`<details><summary>Ver roteiro</summary><div class="leg" style="margin-top:8px">${c.roteiro}</div></details>` : ''}
+        ${!capa && c.legenda ? html`<div class="leg">${c.legenda}</div>` : ''}
+        <div class="linha">${capa ? html`<button class="btn ${c.status === 'aguardando_aprovacao' ? 'primario' : ''}" data-act="cont-abrir" data-id="${c.id}">${ic('image')}${c.status === 'aguardando_aprovacao' ? 'Revisar' : 'Abrir'}</button>` : botoesConteudo(c)}
+          ${!capa && c.legenda ? html`<button class="btn" data-act="copiar" data-id="${c.id}">${ic('copy')}Copiar legenda</button>` : ''}</div>
+      </div></article>`;
+  }
+  const VZ = { id: null, i: 0 };
+  function abrirVisualizador(id, i) {
+    const c = S.conteudos.find((x) => x.id === id); if (!c) return;
+    const m = midiaDe(c); if (!m.length) return;
+    VZ.id = id; VZ.i = Math.min(Math.max(i || 0, 0), m.length - 1);
+    const st = ST_CONT[c.status] || [c.status, ''], canais = Array.isArray(c.canais) ? c.canais : [];
+    abrirModal(c.titulo, html`<div class="vz">
+      <div class="vz-palco">
+        <div class="vz-slide" id="vz-slide"><img id="vz-img" src="${imgUrl(m[0].url)}" alt="" draggable="false"></div>
+        ${m.length > 1 ? html`<button type="button" class="vz-nav ant" data-act="vz-ant" aria-label="Lâmina anterior">${ic('chev')}</button><button type="button" class="vz-nav prox" data-act="vz-prox" aria-label="Próxima lâmina">${ic('chev')}</button>` : ''}
+        <div class="vz-barra"><span class="vz-cont" id="vz-cont" aria-live="polite"></span>
+          ${m.length > 1 ? html`<span class="vz-pontos">${m.map((_, k) => html`<button type="button" data-act="vz-ir" data-id="${k}" aria-label="Ir para a lâmina ${k + 1}"></button>`)}</span>` : ''}</div>
+      </div>
+      <div class="vz-info">
+        <div class="meta"><span class="badge ${st[1]}">${st[0]}</span><span class="badge">${dataCurta(c.data_sugerida)}</span>${canais.map((k) => html`<span class="badge info">${ROTULO_CANAL[k] || k}</span>`)}</div>
+        ${c.auditoria && c.auditoria.motivo ? html`<p class="peq" style="color:var(--err);margin:0">Auditor: ${c.auditoria.motivo}</p>` : ''}
+        <div><div class="rotulo">Legenda</div><div class="leg" style="margin-top:6px">${c.legenda || 'Sem legenda.'}</div></div>
+        ${c.hashtags ? html`<div><div class="rotulo">Hashtags</div><div class="leg" style="margin-top:6px">${c.hashtags}</div></div>` : ''}
+        <div class="linha"><button class="btn" data-act="copiar" data-id="${c.id}">${ic('copy')}Copiar legenda</button><button class="btn" data-act="cont-baixar" data-id="${c.id}">${ic('download')}Baixar lâminas</button></div>
+        <div class="linha vz-decisao">${botoesConteudo(c)}</div>
+        ${c.status === 'aprovado' ? html`<p class="muted peq" style="margin:0">Baixe as lâminas, copie a legenda e publique no Meta Business Suite; depois marque como publicado.</p>` : ''}
+      </div></div>`, 'larga');
+    vzMostrar();
+  }
+  function vzMostrar() {
+    const c = S.conteudos.find((x) => x.id === VZ.id), img = $('#vz-img'); if (!c || !img) return;
+    const m = midiaDe(c), a = m[VZ.i]; if (!a) return;
+    img.src = imgUrl(a.url); img.alt = a.alt || `Lâmina ${VZ.i + 1} de ${m.length}`;
+    $('#vz-cont').textContent = `${VZ.i + 1}/${m.length}`;
+    document.querySelectorAll('.vz-pontos button').forEach((b, k) => { if (k === VZ.i) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current'); });
+    const ant = $('.vz-nav.ant'), prox = $('.vz-nav.prox'); if (ant) ant.disabled = VZ.i === 0; if (prox) prox.disabled = VZ.i === m.length - 1;
+  }
+  function vzMover(d) {
+    const c = S.conteudos.find((x) => x.id === VZ.id); if (!c || $('#modal').hidden) return;
+    const n = midiaDe(c).length, k = Math.min(Math.max(VZ.i + d, 0), n - 1); if (k !== VZ.i) { VZ.i = k; vzMostrar(); }
+  }
+  const vzAberto = () => VZ.id && !$('#modal').hidden && $('#vz-img');
+  async function baixarLaminas(c) {
+    const m = midiaDe(c); if (!m.length) return toast('Este conteúdo não tem imagens.', true);
+    toast(`Baixando ${m.length} lâmina${m.length > 1 ? 's' : ''}…`);
+    let abertas = 0;
+    for (let k = 0; k < m.length; k++) {
+      const nome = String(k + 1).padStart(2, '0') + '.png';
+      try {
+        const r = await fetch(m[k].url); if (!r.ok) throw new Error('http ' + r.status);
+        const u = URL.createObjectURL(await r.blob()); const a = document.createElement('a');
+        a.href = u; a.download = nome; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(u), 5000);
+      } catch (e) { window.open(imgUrl(m[k].url), '_blank', 'noopener'); abertas++; }
+      await new Promise((ok) => setTimeout(ok, 350));
+    }
+    if (abertas) toast(`${abertas} imagem(ns) abertas em nova aba (salve com o botão direito). Libere pop-ups se faltar alguma.`, true);
+  }
+
   // Marketing
   const ST_CONT = { rascunho: ['Rascunho', ''], aguardando_aprovacao: ['Aguardando você', 'ouro'], aprovado: ['Aprovado', 'ok'], publicado: ['Publicado', 'info'], rejeitado: ['Rejeitado', 'err'], reprovado_auditoria: ['Reprovado pelo auditor', 'err'] };
   function viewMarketing() {
     const orc = Number(S.config.orcamento_ads_mes ?? 1000), gasto = S.campanhas.reduce((s, c) => s + Number(c.gasto || 0), 0), pct = orc ? Math.min(100, gasto / orc * 100) : 0;
-    const cs = S.conteudos.slice().sort((a, b) => String(a.data_sugerida).localeCompare(String(b.data_sugerida)));
-    return html`${cabeca('Marketing &', 'anúncios', 'Conteúdos por data sugerida e campanhas dentro do orçamento do mês.')}
+    const lista = contFiltrados(UI.filtroCont);
+    return html`${cabeca('Mídia social &', 'anúncios', 'Carrosséis e posts para aprovar, baixar e publicar; campanhas dentro do orçamento do mês.')}
     <section class="card"><div class="linha" style="justify-content:space-between"><div><div class="rotulo">Orçamento de anúncios do mês</div><b style="font-size:24px;font-weight:300">${brl(gasto)}</b> <span class="muted">de ${brl(orc)}</span></div><span class="badge ${gasto > orc ? 'err' : 'ouro'}">${pct.toFixed(0)}% usado</span></div>
       <div class="barra ${gasto > orc ? 'estourou' : ''}" style="margin-top:10px" role="progressbar" aria-valuenow="${pct.toFixed(0)}" aria-valuemin="0" aria-valuemax="100"><span style="width:${pct}%"></span></div></section>
     <section class="secao"><h2>Campanhas</h2><div class="cols2">${S.campanhas.length ? S.campanhas.map((c) => { const p = c.orcamento ? Math.min(100, Number(c.gasto || 0) / Number(c.orcamento) * 100) : 0;
@@ -366,14 +455,9 @@
         <div class="meta"><span class="badge info">${c.plataforma}</span>${c.publico ? html`<span class="badge">${ROTULO_PUBLICO[c.publico] || c.publico}</span>` : ''}</div><p class="muted peq" style="margin:0">${c.objetivo}</p>
         <div class="barra"><span style="width:${p}%"></span></div><span class="peq">${brl(c.gasto)} gastos de ${brl(c.orcamento)}</span>
         ${c.status === 'proposta' ? html`<div class="linha"><button class="btn primario mini" data-act="camp-aprovar" data-id="${c.id}">Aprovar campanha</button></div>` : ''}</article>`; }) : vazio('Nenhuma campanha.')}</div></section>
-    <section class="secao"><h2>Conteúdos</h2><div class="cols2">${cs.length ? cs.map((c) => { const st = ST_CONT[c.status] || [c.status, ''];
-      return html`<article class="card" style="display:grid;gap:10px"><div class="rasc-cab"><div><span class="rotulo">${dataCurta(c.data_sugerida)} · ${c.tipo}</span><h3>${c.titulo}</h3></div><span class="badge ${st[1]}">${st[0]}</span></div>
-        ${c.publico ? html`<div class="meta"><span class="badge">${ROTULO_PUBLICO[c.publico] || c.publico}</span></div>` : ''}
-        ${c.roteiro ? html`<details><summary>Ver roteiro</summary><div class="leg" style="margin-top:8px">${c.roteiro}</div></details>` : ''}
-        ${c.legenda ? html`<div class="leg">${c.legenda}</div>` : ''}
-        ${c.auditoria && c.auditoria.motivo ? html`<p class="peq" style="color:var(--err);margin:0">Auditor: ${c.auditoria.motivo}</p>` : ''}
-        <div class="linha">${['rascunho', 'aguardando_aprovacao'].includes(c.status) ? html`<button class="btn primario mini" data-act="cont-aprovar" data-id="${c.id}">Aprovar</button><button class="btn perigo mini" data-act="cont-rejeitar" data-id="${c.id}">Rejeitar</button>` : ''}
-        ${c.legenda ? html`<button class="btn mini" data-act="copiar" data-id="${c.id}">${ic('copy')}Copiar legenda</button>` : ''}</div></article>`; }) : vazio('Nenhum conteúdo.')}</div></section>`;
+    <section class="secao"><h2>Conteúdos <em>orgânicos</em></h2>
+      <div class="chips" role="group" aria-label="Filtrar conteúdos" style="margin:12px 0 16px">${FILTROS_CONT.map(([k, r]) => html`<button type="button" class="chip" data-act="cont-filtro" data-id="${k}" aria-pressed="${UI.filtroCont === k}">${r} <span class="muted">${contFiltrados(k).length}</span></button>`)}</div>
+      <div class="cols2">${lista.length ? lista.map(cartaoConteudo) : vazio('Nenhum conteúdo neste filtro.')}</div></section>`;
   }
 
   // Turnos
@@ -413,13 +497,13 @@
 
   // ---------- Modal, toast, confirmação ----------
   let focoAnterior = null;
-  function abrirModal(titulo, corpo) {
+  function abrirModal(titulo, corpo, classe) {
     focoAnterior = document.activeElement;
     const m = $('#modal');
-    m.innerHTML = html`<div class="modal-caixa" role="dialog" aria-modal="true" aria-label="${titulo}"><div class="modal-cab"><h2>${titulo}</h2><button class="btn mini" data-act="fechar" aria-label="Fechar">${ic('x')}</button></div>${corpo}</div>`.s;
+    m.innerHTML = html`<div class="modal-caixa ${classe || ''}" role="dialog" aria-modal="true" aria-label="${titulo}"><div class="modal-cab"><h2>${titulo}</h2><button class="btn mini" data-act="fechar" aria-label="Fechar">${ic('x')}</button></div>${corpo}</div>`.s;
     m.hidden = false; const b = m.querySelector('button'); if (b) b.focus();
   }
-  function fecharModal() { const m = $('#modal'); m.hidden = true; m.innerHTML = ''; if (focoAnterior && focoAnterior.focus) try { focoAnterior.focus(); } catch (e) { /* elemento removido */ } }
+  function fecharModal() { VZ.id = null; const m = $('#modal'); m.hidden = true; m.innerHTML = ''; if (focoAnterior && focoAnterior.focus) try { focoAnterior.focus(); } catch (e) { /* elemento removido */ } }
   function toast(msg, erro) {
     const t = document.createElement('div'); t.className = 'toast' + (erro ? ' erro' : ''); t.textContent = msg; $('#toasts').appendChild(t); setTimeout(() => t.remove(), 4500);
   }
@@ -487,13 +571,36 @@
     },
     copiar: async (b) => {
       const c = S.conteudos.find((x) => x.id === b.dataset.id); if (!c) return;
-      try { await navigator.clipboard.writeText(c.legenda); toast('Legenda copiada.'); } catch (e) {
-        const ta = document.createElement('textarea'); ta.value = c.legenda; document.body.appendChild(ta); ta.select();
+      const tx = textoPublicar(c);
+      try { await navigator.clipboard.writeText(tx); toast('Legenda copiada.'); } catch (e) {
+        const ta = document.createElement('textarea'); ta.value = tx; document.body.appendChild(ta); ta.select();
         try { document.execCommand('copy'); toast('Legenda copiada.'); } catch (e2) { toast('Não foi possível copiar.', true); } ta.remove();
       }
     },
-    'cont-aprovar': (b) => seguro(() => atualizar('ai_conteudos', b.dataset.id, { status: 'aprovado' }), 'Conteúdo aprovado.'),
-    'cont-rejeitar': (b) => seguro(() => atualizar('ai_conteudos', b.dataset.id, { status: 'rejeitado' }), 'Conteúdo rejeitado.'),
+    'cont-filtro': (b) => { UI.filtroCont = b.dataset.id; render(true); },
+    'cont-abrir': (b) => abrirVisualizador(b.dataset.id, 0),
+    'cont-baixar': (b) => { const c = S.conteudos.find((x) => x.id === b.dataset.id); if (c) baixarLaminas(c); },
+    'vz-ant': () => vzMover(-1), 'vz-prox': () => vzMover(1),
+    'vz-ir': (b) => { VZ.i = Number(b.dataset.id) || 0; vzMostrar(); },
+    'cont-aprovar': async (b) => {
+      const id = b.dataset.id; if (!$('#modal').hidden) fecharModal();
+      await seguro(() => atualizar('ai_conteudos', id, { status: 'aprovado' }), 'Conteúdo aprovado. Agora é só baixar e publicar.');
+    },
+    'cont-rejeitar': async (b) => {
+      const id = b.dataset.id, c = S.conteudos.find((x) => x.id === id); if (!c) return;
+      const reabrir = vzAberto();
+      const m = await pedir({ titulo: 'Rejeitar conteúdo', texto: 'Explique o motivo; o agente de mídia social usa isso para melhorar as próximas peças.', campo: true, rotulo: 'Motivo', ok: 'Rejeitar', perigo: true });
+      if (!m) { if (reabrir) abrirVisualizador(id, VZ.i); return; }
+      const aud = Object.assign({}, c.auditoria || {}, { rejeicao: { motivo: m, em: agora() } });
+      seguro(() => atualizar('ai_conteudos', id, { status: 'rejeitado', auditoria: aud }), 'Conteúdo rejeitado.');
+    },
+    'cont-publicar': async (b) => {
+      const id = b.dataset.id, c = S.conteudos.find((x) => x.id === id); if (!c) return;
+      const reabrir = vzAberto();
+      const ok = await pedir({ titulo: 'Marcar como publicado?', texto: `Confirme que "${c.titulo}" já foi publicado no Instagram/Facebook.`, ok: 'Marcar como publicado' });
+      if (!ok) { if (reabrir) abrirVisualizador(id, VZ.i); return; }
+      seguro(() => atualizar('ai_conteudos', id, { status: 'publicado', publicado_em: agora() }), 'Marcado como publicado.');
+    },
     'camp-aprovar': (b) => seguro(() => atualizar('ai_campanhas', b.dataset.id, { status: 'aprovada' }), 'Campanha aprovada.'),
   };
   document.addEventListener('click', (e) => {
@@ -501,7 +608,18 @@
     if (b && ACOES[b.dataset.act]) { ACOES[b.dataset.act](b); return; }
     if (e.target.id === 'modal') fecharModal();
   });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !$('#modal').hidden) fecharModal(); });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !$('#modal').hidden) fecharModal();
+    else if (vzAberto() && (e.key === 'ArrowLeft' || e.key === 'ArrowRight') && !e.target.matches('input, textarea, select')) { e.preventDefault(); vzMover(e.key === 'ArrowLeft' ? -1 : 1); }
+  });
+  // Deslizar para trocar de lâmina (toque ou mouse).
+  let swipe = null;
+  document.addEventListener('pointerdown', (e) => { swipe = e.target.closest && e.target.closest('#vz-slide') ? { x: e.clientX, y: e.clientY } : null; });
+  document.addEventListener('pointerup', (e) => {
+    if (!swipe) return; const dx = e.clientX - swipe.x, dy = e.clientY - swipe.y; swipe = null;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.2) vzMover(dx < 0 ? 1 : -1);
+  });
+  document.addEventListener('pointercancel', () => { swipe = null; });
   document.addEventListener('input', (e) => {
     const t = e.target;
     if (t.dataset.edit) UI.edits[t.dataset.edit] = t.value;

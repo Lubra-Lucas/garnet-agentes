@@ -11,8 +11,9 @@
     { id: 'sdr', nome: 'SDR', papel: 'Escreve rascunhos de primeiro contato e follow-up', cor: '#b0526a', icone: 'pen', ordem: 3, ativo: true },
     { id: 'auditor', nome: 'Auditor de Conformidade', papel: 'Revisa todo texto antes de chegar a você', cor: '#6a5aa8', icone: 'shield', ordem: 4, ativo: true },
     { id: 'atendimento', nome: 'Atendimento & Pré-vendas', papel: 'Classifica respostas e monta briefing', cor: '#4d8a5e', icone: 'message', ordem: 5, ativo: true },
-    { id: 'marketing', nome: 'Marketing & Social', papel: 'Calendário, roteiros, legendas e anúncios', cor: '#c07a3a', icone: 'megaphone', ordem: 6, ativo: true },
-    { id: 'performance', nome: 'Performance', papel: 'KPIs do funil e relatório semanal', cor: '#4a6fa5', icone: 'trending', ordem: 7, ativo: true },
+    { id: 'social', nome: 'Gestor de Mídia Social', papel: 'Carrosséis, posts e legendas para Instagram e Facebook', cor: '#d0634b', icone: 'image', ordem: 6, ativo: true },
+    { id: 'marketing', nome: 'Gestor de Tráfego & Marketing', papel: 'Anúncios, orçamento, campanhas e calendário estratégico', cor: '#c07a3a', icone: 'megaphone', ordem: 7, ativo: true },
+    { id: 'performance', nome: 'Performance', papel: 'KPIs do funil e relatório semanal', cor: '#4a6fa5', icone: 'trending', ordem: 8, ativo: true },
   ];
 
   const T1 = 'demo-turno-1', T0 = 'demo-turno-0', TA = 'demo-turno-a', TB = 'demo-turno-b';
@@ -35,6 +36,8 @@
     ex(T1, 'sdr', 'distribuidores', 'na_fila', 'Aguardando qualificação de 2 distribuidores', null, 20, null),
     ex(T1, 'auditor', null, 'concluida', 'Auditar 5 rascunhos', '4 aprovados e enviados para a sua aprovação; 1 reprovado (promessa de prazo sem confirmação).', 60, 45),
     ex(T1, 'atendimento', null, 'concluida', 'Classificar resposta de "Distribuidora Exemplo Norte"', 'Intenção: orçamento. Criei oportunidade na etapa Briefing e sugeri pedir categoria e quantidade.', 30, 8),
+    ex(T1, 'social', null, 'trabalhando', 'Renderizando as lâminas do carrossel "Do briefing ao lançamento"', null, 18, null),
+    ex(T1, 'marketing', null, 'concluida', 'Revisar distribuição do orçamento de anúncios', 'Orçamento mantido: R$ 600 em Meta e R$ 400 em Google; nenhuma campanha ativa estourou o limite.', 50, 35),
     ex(T1, 'performance', null, 'bloqueada', 'Gerar relatório do funil', null, 25, null, 'Sem dados de anúncios ainda (ai_campanhas sem gasto registrado).'),
     ex(T0, 'marketing', null, 'concluida', 'Roteiros da semana', '5 conteúdos propostos para a semana; 2 já aprovados.', 1395, 1360),
     ex(T0, 'sdr', 'influenciadoras', 'concluida', 'Rascunhos do turno da tarde', '3 rascunhos criados.', 1390, 1370),
@@ -59,6 +62,9 @@
     ev(48, 'auditor', 'decisao', '4 rascunhos aprovados e enviados para aprovação humana.', null, { aprovados: 4 }),
     ev(30, 'atendimento', 'acao', 'Classificando resposta de "Distribuidora Exemplo Norte".', 'demo-lead-09', {}),
     ev(8, 'atendimento', 'decisao', 'Intenção: orçamento. Oportunidade criada em Briefing.', 'demo-lead-09', { intencao: 'orcamento' }),
+    ev(36, 'marketing', 'decisao', 'Orçamento do mês mantido: nenhuma campanha ativa passou do limite.', null, { gasto: 215.4 }),
+    ev(18, 'social', 'acao', 'Comecei o carrossel "Do briefing ao lançamento" (7 lâminas).', null, { formato: 'carrossel' }),
+    ev(12, 'social', 'handoff', 'Entreguei o carrossel "5 perguntas antes de lançar sua linha" ao Auditor.', null, { destino: 'auditor' }),
     ev(25, 'performance', 'erro', 'Não consegui gerar o relatório: sem dados de anúncios.', null, { erro: 'sem dados' }),
   ].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
@@ -140,12 +146,61 @@
     { id: 'demo-op-6', lead_id: 'demo-lead-12', etapa: 'perdido', categoria_produto: 'Compacto', quantidade_estimada: 1000, valor_estimado: null, briefing: {}, proxima_acao: 'Reavaliar em 90 dias', proxima_acao_em: dia(90), updated_at: ago(8000) },
   ];
 
+  // Lâminas fictícias: SVG 1080x1350 (fundo off-white) em data URI, para o demo funcionar sem rede.
+  const lamina = (n, total, linhas, o) => {
+    o = o || {};
+    const fundo = o.escuro ? '#161310' : '#f7f4ef', tinta = o.escuro ? '#f3eee6' : '#161310', ouro = o.escuro ? '#d9bc88' : '#a07235', suave = o.escuro ? '#a39a8e' : '#6b6258';
+    const x = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+    let y = o.y || 560;
+    const textos = linhas.map(([t, tam, estilo]) => {
+      const cor = estilo === 'ouro' ? ouro : estilo === 'suave' ? suave : tinta;
+      const fam = estilo === 'ouro' ? "Georgia, 'Times New Roman', serif" : "'Helvetica Neue', Arial, sans-serif";
+      const it = estilo === 'ouro' ? 'italic' : 'normal', pe = estilo === 'suave' ? 300 : 300;
+      y += tam * 1.28;
+      return `<text x="100" y="${Math.round(y)}" font-family="${fam}" font-style="${it}" font-weight="${pe}" font-size="${tam}" fill="${cor}">${x(t)}</text>`;
+    }).join('');
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350"><rect width="1080" height="1350" fill="${fundo}"/>`
+      + `<rect x="60" y="60" width="960" height="1230" fill="none" stroke="${ouro}" stroke-opacity=".45" stroke-width="2"/>`
+      + `<text x="100" y="150" font-family="'Helvetica Neue', Arial, sans-serif" font-size="30" letter-spacing="10" fill="${tinta}">GARNET</text>`
+      + `<text x="980" y="150" text-anchor="end" font-family="'Helvetica Neue', Arial, sans-serif" font-size="26" fill="${suave}">${n}/${total}</text>`
+      + textos
+      + `<text x="100" y="1240" font-family="'Helvetica Neue', Arial, sans-serif" font-size="24" fill="${suave}">Imagem de demonstração · conteúdo fictício</text></svg>`;
+    return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+  };
+  const carrossel = (grade) => grade.map((l, k) => ({ url: lamina(k + 1, grade.length, l.l, l.o), ordem: k + 1, alt: l.alt }));
+  const midia1 = carrossel([
+    { alt: 'Capa: 5 perguntas antes de lançar sua linha', l: [['5 perguntas', 92], ['antes de lançar', 92], ['sua linha', 104, 'ouro'], ['de maquiagem', 92], ['', 40], ['Deslize para ver', 34, 'suave']], o: { y: 420 } },
+    { alt: 'Pergunta 1: quem é a sua cliente?', l: [['01', 120, 'ouro'], ['Quem é a', 76], ['sua cliente?', 76], ['', 30], ['Defina idade, estilo e', 38, 'suave'], ['onde ela compra hoje.', 38, 'suave']] },
+    { alt: 'Pergunta 2: qual produto abre a linha?', l: [['02', 120, 'ouro'], ['Qual produto', 76], ['abre a linha?', 76], ['', 30], ['Um carro-chefe bem', 38, 'suave'], ['escolhido vale mais.', 38, 'suave']] },
+    { alt: 'Pergunta 3: qual a sua identidade visual?', l: [['03', 120, 'ouro'], ['Como a marca', 76], ['vai parecer?', 76], ['', 30], ['Cores, embalagem e', 38, 'suave'], ['tom de voz combinados.', 38, 'suave']] },
+    { alt: 'Dado: pedido mínimo de 1.000 peças em compactos', l: [['1.000', 190, 'ouro'], ['peças de pedido', 54], ['mínimo em compactos', 54], ['', 30], ['3.000 em perfumaria,', 38, 'suave'], ['loções e demais.', 38, 'suave']], o: { y: 420 } },
+    { alt: 'Pergunta 5: em quanto tempo você quer lançar?', l: [['05', 120, 'ouro'], ['Em quanto tempo', 76], ['quer lançar?', 76], ['', 30], ['O prazo de referência', 38, 'suave'], ['é de cerca de 30 dias.', 38, 'suave']] },
+    { alt: 'Chamada final: fale com a gente', o: { escuro: true, y: 480 }, l: [['Pronta para', 84], ['começar?', 84, 'ouro'], ['', 40], ['Fale com a gente:', 40, 'suave'], ['link na bio.', 40, 'suave']] },
+  ]);
+  const midia2 = carrossel([
+    { alt: 'Capa: do briefing ao lançamento', l: [['Do briefing', 100], ['ao lançamento', 100, 'ouro'], ['', 40], ['As etapas da sua', 36, 'suave'], ['marca própria', 36, 'suave']], o: { y: 440 } },
+    { alt: 'Etapa 1: briefing', l: [['01', 120, 'ouro'], ['Briefing', 84], ['', 30], ['Você conta a ideia,', 38, 'suave'], ['o público e a categoria.', 38, 'suave']] },
+    { alt: 'Etapa 2: desenvolvimento e amostra', l: [['02', 120, 'ouro'], ['Amostra', 84], ['', 30], ['Ajustamos cor e textura', 38, 'suave'], ['até você aprovar.', 38, 'suave']] },
+    { alt: 'Etapa 3: produção', l: [['03', 120, 'ouro'], ['Produção', 84], ['', 30], ['Fabricação com a sua', 38, 'suave'], ['marca e embalagem.', 38, 'suave']] },
+    { alt: 'Etapa 4: entrega', l: [['04', 120, 'ouro'], ['Entrega', 84], ['', 30], ['Referência de cerca de', 38, 'suave'], ['30 dias no total.', 38, 'suave']] },
+    { alt: 'Chamada final', o: { escuro: true, y: 480 }, l: [['Vamos começar', 76], ['o seu briefing?', 76, 'ouro'], ['', 40], ['Link na bio.', 40, 'suave']] },
+  ]);
+  const midia3 = carrossel([
+    { alt: 'Capa: mitos sobre private label', l: [['3 mitos sobre', 90], ['private label', 100, 'ouro'], ['', 40], ['Deslize', 34, 'suave']], o: { y: 460 } },
+    { alt: 'Mito 1: precisa de fábrica própria', l: [['Mito 01', 80, 'ouro'], ['"Preciso ter', 70], ['fábrica própria"', 70], ['', 30], ['Não: nós produzimos,', 38, 'suave'], ['você assina.', 38, 'suave']] },
+    { alt: 'Mito 2: só grandes marcas', l: [['Mito 02', 80, 'ouro'], ['"É só para', 70], ['grandes marcas"', 70], ['', 30], ['Pedido mínimo a partir', 38, 'suave'], ['de 1.000 compactos.', 38, 'suave']] },
+    { alt: 'Mito 3: perco a identidade', l: [['Mito 03', 80, 'ouro'], ['"Vou perder', 70], ['a identidade"', 70], ['', 30], ['A marca, a cor e a', 38, 'suave'], ['embalagem são suas.', 38, 'suave']] },
+    { alt: 'Chamada final', o: { escuro: true, y: 480 }, l: [['Tem outra dúvida?', 70], ['Conversa com a gente.', 56, 'ouro'], ['', 40], ['Link na bio.', 40, 'suave']] },
+  ]);
+
   const conteudos = [
-    { id: 'demo-ct-1', tipo: 'reels', titulo: 'Bastidores: prensagem do pó compacto', roteiro: '1) Close na prensa. 2) Mão testando a textura. 3) Cartela de cores. (roteiro fictício)', legenda: 'Do pó à prensagem: o cuidado em cada compacto. (legenda fictícia)', publico: 'marca_indie', data_sugerida: dia(1), status: 'aguardando_aprovacao', auditoria: {}, agente_id: 'marketing', updated_at: ago(300) },
-    { id: 'demo-ct-2', tipo: 'carrossel', titulo: '5 perguntas antes de lançar sua linha', roteiro: 'Slide 1: capa. Slides 2–6: perguntas. Slide 7: convite. (fictício)', legenda: 'Pronta para ter a sua marca? Comece por aqui. (legenda fictícia)', publico: 'influenciadora', data_sugerida: dia(2), status: 'aguardando_aprovacao', auditoria: {}, agente_id: 'marketing', updated_at: ago(300) },
-    { id: 'demo-ct-3', tipo: 'post', titulo: 'O que é private label?', roteiro: 'Imagem com texto curto. (fictício)', legenda: 'Private label: nós produzimos, você assina. (legenda fictícia)', publico: 'marca_indie', data_sugerida: dia(3), status: 'aprovado', auditoria: {}, agente_id: 'marketing', updated_at: ago(200) },
-    { id: 'demo-ct-4', tipo: 'anuncio', titulo: 'Anúncio: compactos com a sua marca', roteiro: 'Vídeo de 15s. (fictício)', legenda: 'Sua marca, nosso know-how. Peça um orçamento. (legenda fictícia)', publico: 'influenciadora', data_sugerida: dia(5), status: 'reprovado_auditoria', auditoria: { aprovado: false, motivo: 'Promete resultado de vendas (demonstração).' }, agente_id: 'marketing', updated_at: ago(200) },
-    { id: 'demo-ct-5', tipo: 'story', titulo: 'Enquete: qual cor de blush?', roteiro: 'Enquete com 2 opções. (fictício)', legenda: 'Você escolhe! (legenda fictícia)', publico: 'influenciadora', data_sugerida: dia(-1), status: 'publicado', auditoria: {}, agente_id: 'marketing', updated_at: ago(1000) },
+    { id: 'demo-ct-1', tipo: 'reels', titulo: 'Bastidores: prensagem do pó compacto', roteiro: '1) Close na prensa. 2) Mão testando a textura. 3) Cartela de cores. (roteiro fictício)', legenda: 'Do pó à prensagem: o cuidado em cada compacto. (legenda fictícia)', publico: 'marca_indie', data_sugerida: dia(1), status: 'aguardando_aprovacao', auditoria: {}, agente_id: 'social', midia: [], canais: ['instagram', 'facebook'], hashtags: '#reels #maquiagem #privatelabel', publicado_em: null, updated_at: ago(300) },
+    { id: 'demo-ct-2', tipo: 'carrossel', titulo: '5 perguntas antes de lançar sua linha', roteiro: 'Capa, 4 perguntas, dado do pedido mínimo e convite final. (fictício)', legenda: 'Pensando em ter a sua própria linha de maquiagem?\n\nAntes de começar, responda estas perguntas: quem é a sua cliente, qual produto abre a linha, como a marca vai parecer, qual o volume e em quanto tempo você quer lançar.\n\nSalve este post e fale com a gente pelo link na bio. (legenda fictícia)', publico: 'influenciadora', data_sugerida: dia(2), status: 'aguardando_aprovacao', auditoria: {}, agente_id: 'social', midia: midia1, canais: ['instagram', 'facebook'], hashtags: '#maquiagem #marcapropria #privatelabel #empreendedorismobeleza #cosmeticos', publicado_em: null, updated_at: ago(120) },
+    { id: 'demo-ct-6', tipo: 'carrossel', titulo: 'Do briefing ao lançamento: as etapas', roteiro: 'Capa, 4 etapas e convite final. (fictício)', legenda: 'Como nasce uma marca de maquiagem com a Garnet: briefing, amostra, produção e entrega, com referência de cerca de 30 dias.\n\nQuer começar o seu briefing? Link na bio. (legenda fictícia)', publico: 'marca_indie', data_sugerida: dia(1), status: 'aprovado', auditoria: {}, agente_id: 'social', midia: midia2, canais: ['instagram', 'facebook'], hashtags: '#maquiagem #privatelabel #marcapropria #fabricantedemaquiagem', publicado_em: null, updated_at: ago(90) },
+    { id: 'demo-ct-7', tipo: 'carrossel', titulo: '3 mitos sobre private label', roteiro: 'Capa, 3 mitos e chamada final. (fictício)', legenda: 'Private label não é só para grandes marcas. Desmontamos 3 mitos comuns em poucos slides.\n\nTem outra dúvida? Chama a gente pelo link na bio. (legenda fictícia)', publico: 'marca_indie', data_sugerida: dia(4), status: 'aguardando_aprovacao', auditoria: {}, agente_id: 'social', midia: midia3, canais: ['instagram'], hashtags: '#privatelabel #maquiagem #empreendedora', publicado_em: null, updated_at: ago(45) },
+    { id: 'demo-ct-3', tipo: 'post', titulo: 'O que é private label?', roteiro: 'Imagem com texto curto. (fictício)', legenda: 'Private label: nós produzimos, você assina. (legenda fictícia)', publico: 'marca_indie', data_sugerida: dia(3), status: 'aprovado', auditoria: {}, agente_id: 'social', midia: [], canais: ['instagram', 'facebook'], hashtags: '#privatelabel', publicado_em: null, updated_at: ago(200) },
+    { id: 'demo-ct-4', tipo: 'anuncio', titulo: 'Anúncio: compactos com a sua marca', roteiro: 'Vídeo de 15s. (fictício)', legenda: 'Sua marca, nosso know-how. Peça um orçamento. (legenda fictícia)', publico: 'influenciadora', data_sugerida: dia(5), status: 'reprovado_auditoria', auditoria: { aprovado: false, motivo: 'Promete resultado de vendas (demonstração).' }, agente_id: 'marketing', midia: [], canais: [], hashtags: null, publicado_em: null, updated_at: ago(200) },
+    { id: 'demo-ct-5', tipo: 'story', titulo: 'Enquete: qual cor de blush?', roteiro: 'Enquete com 2 opções. (fictício)', legenda: 'Você escolhe! (legenda fictícia)', publico: 'influenciadora', data_sugerida: dia(-1), status: 'publicado', auditoria: {}, agente_id: 'social', midia: [], canais: ['instagram'], hashtags: null, publicado_em: ago(1000), updated_at: ago(1000) },
   ];
   const campanhas = [
     { id: 'demo-cp-1', nome: 'Demonstração: Compactos para criadoras', plataforma: 'meta', objetivo: 'Geração de contatos', publico: 'influenciadora', orcamento: 600, gasto: 215.4, status: 'ativa', criativos: [], resultados: {}, updated_at: ago(300) },
@@ -185,7 +240,8 @@
     sdr: [['Escrevendo follow-up para "Bia Exemplo Makeup"', 'Rascunho criado e enviado ao auditor.'], ['Escrevendo 1º contato para "Carla Teste Beauty"', 'Rascunho criado (WhatsApp).']],
     auditor: [['Auditando rascunho de "Marca Demo Pétala"', 'Aprovado com 1 ressalva.']],
     atendimento: [['Montando briefing de "Perfumaria Fictícia Névoa"', 'Briefing montado: perfumaria, 3.000 peças.']],
-    marketing: [['Escrevendo legenda do carrossel da semana', 'Legenda e roteiro enviados para aprovação.']],
+    social: [['Renderizando lâminas do próximo carrossel', 'Carrossel de 6 lâminas pronto e enviado ao Auditor.'], ['Escrevendo legenda e hashtags do post de amanhã', 'Legenda e hashtags prontas para auditoria.']],
+    marketing: [['Revisando o orçamento de anúncios do mês', 'Orçamento dentro do limite; sem ajustes.']],
     performance: [['Calculando KPIs do funil', 'KPIs atualizados: 14 alvos, 4 rascunhos aguardando.']],
   };
   DEMO.tick = function () {

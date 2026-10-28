@@ -1,0 +1,17 @@
+{"tema":"claro","lâminas":[
+ {"tipo":"capa","olho":"Private label de cosméticos","titulo":"Como criar sua marca de maquiagem em 8 etapas","destaque":"8 etapas","subtitulo":"Do briefing à entrega: o caminho que a Garnet percorre com você."},
+ {"tipo":"texto","numero":"01","titulo":"Você não precisa ter fábrica nem fórmula","destaque":"fábrica","texto":"No modelo Full Service, a Garnet coordena de ponta a ponta: fórmula, amostras, embalagem, produção, qualidade e entrega."},
+ {"tipo":"etapas","titulo":"As 4 primeiras etapas","destaque":"4","etapas":[
+   {"n":"01","nome":"Briefing","texto":"Você conta a ideia da marca."},
+   {"n":"02","nome":"Desenvolvimento","texto":"Conceito, textura e desempenho."},
+   {"n":"03","nome":"Amostras","texto":"Teste cor, textura e acabamento."},
+   {"n":"04","nome":"Personalização","texto":"Relevo, logo prensado e paleta."}]},
+ {"tipo":"etapas","titulo":"As 4 etapas finais","destaque":"finais","etapas":[
+   {"n":"05","nome":"Regulatório","texto":"Apoiamos a adequação técnica e regulatória."},
+   {"n":"06","nome":"Produção","texto":"Fabricação com Boas Práticas (BPF)."},
+   {"n":"07","nome":"Controle de qualidade","texto":"Revisão antes de sair da fábrica."},
+   {"n":"08","nome":"Entrega","texto":"Sua marca pronta para chegar ao público."}]},
+ {"tipo":"dado","valor":"1.000","rotulo":"peças de pedido mínimo em compactados","texto":"Prazo de referência: cerca de 30 dias. Perfumaria, loções e demais: 3.000 peças. O prazo final é confirmado na análise do briefing."},
+ {"tipo":"lista","titulo":"5 modelos de produção","destaque":"5","itens":["Full Service","Produção Mista","Mão de Obra","Private Label","Collabs"]},
+ {"tipo":"cta","titulo":"Pronta para tirar sua marca do papel?","destaque":"marca","texto":"Conte sua ideia no briefing de 4 passos. Respondemos em até 1 dia útil.","acao":"Fale com a gente: link na bio"}
+]}
