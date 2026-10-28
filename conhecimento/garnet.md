@@ -45,7 +45,7 @@ Ao falar de MOQ e prazo, use sempre a ressalva: "referência; o prazo final e as
 | Site | https://garnetcosmeticos.com.br | site |
 | Briefing em 4 passos | https://garnetcosmeticos.com.br/#contato | site (id `contato`) |
 | Simulador "Monte a sua make" | https://garnetcosmeticos.com.br/#personalize | site (âncora real é `#personalize`; no menu aparece como "Simulador") |
-| Instagram oficial | consta no site como `@garnetcosmeticos`, mas o dono pediu para **confirmar o perfil antes de usar**. Até confirmar, não cite o @ em mensagens | site; a confirmar com a Garnet |
+| Instagram oficial | `@garnetcosmeticos` (confirmado) | dono, 28/10/2026 |
 
 ## 4. Cases citáveis
 
@@ -90,7 +90,7 @@ Sugestão por público (orientação interna, não promessa): influenciadora e m
 - **Ajudam com embalagem?** Sim, orientamos formatos, materiais, acabamentos e compatibilidade com a fórmula. Trabalhamos com diversos fornecedores de embalagem.
 - **Apoio regulatório / ANVISA?** A equipe acompanha os requisitos regulatórios aplicáveis ao longo do desenvolvimento. Não prometer aprovação nem prazo de registro.
 - **Personalização de compactados?** Cores, relevos, logo prensado, desenhos, formatos e composições de paleta.
-- **Amostras?** O processo inclui amostras para avaliar textura, cor, fragrância, desempenho e acabamento. Condições e custo de amostra: a confirmar com a Garnet.
+- **Amostras?** O processo inclui amostras para avaliar textura, cor, fragrância, desempenho e acabamento. A Garnet envia amostras para **leads qualificados** (dono, 28/10/2026). O agente pode oferecer amostra a quem já demonstrou interesse real e se encaixa no ICP, mas **quem decide e combina o envio é o humano** — nunca prometer data, quantidade ou gratuidade.
 - **Como pedir orçamento?** Briefing em 4 passos no site ou WhatsApp; resposta em até 1 dia útil.
 
 ## 9. O que NÃO pode ser dito
@@ -106,8 +106,10 @@ Sugestão por público (orientação interna, não promessa): influenciadora e m
 9. **Promessa de resultado** comercial (vender mais, viralizar, lucro) e **promessa regulatória** (registro garantido).
 10. **Fotos reais da fábrica** não podem ser ampliadas nem receber legenda (pedido da Garnet); não reutilizar pessoas das fotos em anúncios sem autorização específica.
 11. **Dados de outras empresas** (concorrentes, fornecedores da base) em material para leads.
-12. **Pessoas**: nunca se passar por pessoa da equipe. O texto vai sempre assinado como "Equipe Garnet" ou pelo nome do operador humano que enviar (a confirmar com a Garnet quem assina).
+12. **Pessoas**: nunca se passar por pessoa da equipe. O texto vai sempre assinado como "Equipe Garnet" ou pelo nome do operador humano que enviar (o dono assina pessoalmente; ver seção 10).
 
-## 10. Assinatura padrão (a confirmar com a Garnet)
+## 10. Assinatura padrão
 
-Equipe Garnet Cosméticos · garnetcosmeticos.com.br · WhatsApp (11) 98153-1188 · contato@garnetcosmeticos.com.br
+As mensagens são assinadas **pelo dono** (confirmado em 28/10/2026). O nome vem de `ai_config.assinatura` (`DB config assinatura`); enquanto estiver vazio, use "Equipe Garnet Cosméticos". Formato:
+
+<nome do assinante> · Garnet Cosméticos · garnetcosmeticos.com.br · WhatsApp (11) 98153-1188 · contato@garnetcosmeticos.com.br

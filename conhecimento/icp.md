@@ -32,7 +32,7 @@ Fatos comerciais: ver `garnet.md`. Pedido mínimo (1.000 / 3.000 peças) é um *
 - "Não entendo de fórmula/ANVISA." A Garnet conduz o desenvolvimento e apoia a adequação regulatória (modelo Full Service).
 - "Já tenho fornecedor." Sem confronto: oferecer a Garnet como segunda opção para compactados/linha nova, e perguntar o que faltaria no fornecedor atual.
 - "Quanto custa?" O preço depende de embalagem e personalização; peça briefing para a equipe orçar. Nunca citar valor.
-- "Posso ver amostras?" Amostra faz parte do processo; condições: a confirmar com a equipe.
+- "Posso ver amostras?" Sim: enviamos amostras para projetos qualificados; a equipe combina o envio depois de entender o projeto.
 
 ## 2. Marca indie (inclui TikTok Shop e perfumaria)
 

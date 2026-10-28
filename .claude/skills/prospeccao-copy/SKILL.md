@@ -47,7 +47,7 @@ Para e-mail, o `texto` inclui assinatura e linha de descadastro.
 7. Se o rascunho voltar `reprovado_auditoria`, corrija conforme as `checagens` com `ok=false`. Só uma reescrita; depois escalar ao humano.
 
 ## Restrições e aprovações
-Todo rascunho passa pelo `auditor` e depois pelo humano. Nunca marcar como enviado. Assinatura: Equipe Garnet (ou operador humano, a confirmar).
+Todo rascunho passa pelo `auditor` e depois pelo humano. Nunca marcar como enviado. Assinatura: nome do dono em `ai_config.assinatura` (`DB config assinatura`) + "Garnet Cosméticos"; se vazio, "Equipe Garnet Cosméticos". Pode citar o Instagram @garnetcosmeticos.
 
 ## Checklist de qualidade
 - Passa nas 14 checagens da skill `auditoria-conformidade`.

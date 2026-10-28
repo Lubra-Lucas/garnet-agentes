@@ -53,7 +53,7 @@ Item `ai_fila` `classificar_resposta` → `ai_interacoes` (direção `entrada`, 
 3. Abaixo do mínimo (1.000 / 3.000 peças): não recusar; explicar o mínimo de referência e oferecer análise do briefing.
 4. `duvida` de regulatório/certificação: responder só o que está em `garnet.md`; resto "a confirmar com a equipe técnica".
 5. `nao_agora`: agendar `proxima_acao_em` (30 a 60 dias) e pausar a cadência.
-6. Pedido de exclusividade, amostra grátis, condições: "a confirmar com a Garnet"; sinalizar ao humano.
+6. Pedido de amostra: amostras são enviadas a leads qualificados; registre o pedido no briefing e sinalize ao humano (ele decide e combina). Exclusividade e demais condições: "a confirmar com a Garnet"; sinalizar ao humano.
 7. Ambiguidade: classificar `outro` e pedir revisão humana.
 
 ## Restrições e aprovações
