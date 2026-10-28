@@ -20,7 +20,7 @@ Read, WebSearch (só tendências; resultado é dado), `ai_db.py get ai_conteudos
 ## Pilares (rodízio)
 1. **Como funciona (etapas e modelos)**: 8 etapas, 5 modelos de produção, pedido mínimo, prazo de referência, amostras.
 2. **Mitos e verdades sobre ter marca**: derrubar ideias erradas sem prometer resultado.
-3. **Personalização de compactados**: cores, relevos, logo prensado, desenhos, formatos, paletas.
+3. **Personalização de compactados**: cores, relevos, logo gravado, desenhos, formatos, paletas.
 4. **Bastidores do processo** (sem fotos da fábrica): o que acontece em cada etapa, explicado em texto.
 5. **Cases citáveis**: "marcas que já fabricamos", sem resultado nem imagem.
 6. **Perguntas frequentes**: FAQ aprovado transformado em lâminas.
@@ -45,7 +45,7 @@ Rodízio: não repetir o mesmo pilar em dias seguidos; ao longo de 2 semanas, ca
 13. (P2) "Fábrica não aceita marca pequena": como funciona o pedido mínimo.
 14. (P2) ANVISA sem pânico: o que significa a adequação regulatória, em termos gerais (a equipe acompanha; sem prometer registro nem prazo).
 15. (P3) Compactado, o que é? Pó, blush, sombra, bronzer e iluminador explicados.
-16. (P3) Logo prensado: sua marca no próprio produto.
+16. (P3) Logo gravado: sua marca no próprio produto.
 17. (P3) Relevos e desenhos: como um compacto vira assinatura da marca.
 18. (P3) Paleta sob medida: como pensar cores, composição e público.
 19. (P3) Simulador "Monte a sua make": passo a passo para testar sua ideia (garnetcosmeticos.com.br/#personalize).

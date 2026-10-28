@@ -5,7 +5,7 @@
    {"n":"01","nome":"Briefing","texto":"Você conta a ideia da marca."},
    {"n":"02","nome":"Desenvolvimento","texto":"Conceito, textura e desempenho."},
    {"n":"03","nome":"Amostras","texto":"Teste cor, textura e acabamento."},
-   {"n":"04","nome":"Personalização","texto":"Relevo, logo prensado e paleta."}]},
+   {"n":"04","nome":"Personalização","texto":"Relevo, logo gravado e paleta."}]},
  {"tipo":"etapas","titulo":"As 4 etapas finais","destaque":"finais","etapas":[
    {"n":"05","nome":"Regulatório","texto":"Apoiamos a adequação técnica e regulatória."},
    {"n":"06","nome":"Produção","texto":"Fabricação com Boas Práticas (BPF)."},

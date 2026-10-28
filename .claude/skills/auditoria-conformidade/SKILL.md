@@ -76,3 +76,7 @@ O auditor nunca envia nada nem altera o texto do SDR. A aprovação final é do 
 - Carrossel cuja lâmina 4 traz "a partir de R$ 3" no `formato_dados` (mesmo com legenda limpa) → reprova na 4.
 - Carrossel com `imagem` de foto da fábrica ou sem `alt`/URL em alguma lâmina → reprova.
 - Carrossel de 7 lâminas, só fatos de `garnet.md`, legenda de 900 caracteres com 8 hashtags → aprova.
+
+
+## Terminologia obrigatória
+- Reprove qualquer texto ou lâmina que diga "logo prensado": o correto é **"logo gravado"** (decisão do dono, 28/10/2026). "Prensado" só descreve o pó compactado.

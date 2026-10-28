@@ -35,7 +35,7 @@ Item `ai_fila` `classificar_resposta` → `ai_interacoes` (direção `entrada`, 
     "modelo_producao": "full_service|producao_mista|mao_de_obra|private_label|collabs|indefinido",
     "produtos": ["blush", "iluminador"],
     "quantidade_estimada": 1000, "atende_minimo": true,
-    "embalagem": "tem|precisa|indefinido", "personalizacao": ["logo prensado", "cor exclusiva"],
+    "embalagem": "tem|precisa|indefinido", "personalizacao": ["logo gravado", "cor exclusiva"],
     "referencias": ["links ou descrições"],
     "prazo_desejado": "texto", "canal_preferido": "whatsapp",
     "objecoes": ["..."], "lacunas": ["perguntas ainda sem resposta"], "fontes": ["ai_interacoes:<id>"]

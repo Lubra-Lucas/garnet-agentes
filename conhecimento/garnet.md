@@ -60,7 +60,7 @@ Regras de uso:
 
 ## 5. Cinco categorias
 
-1. **Maquiagem** (especialidade desde 1992): pós, blushes, sombras, bronzer, iluminador, compactados com relevo, logo prensado, desenhos e paletas sob medida.
+1. **Maquiagem** (especialidade desde 1992): pós, blushes, sombras, bronzer, iluminador, compactados com relevo, logo gravado, desenhos e paletas sob medida.
 2. **Lábios**: batons, glosses e lip oils.
 3. **Perfumaria**: perfumes, body splashes, colônias e perfumes capilares.
 4. **Skincare**: séruns, hidratantes e máscaras.
@@ -89,9 +89,12 @@ Sugestão por público (orientação interna, não promessa): influenciadora e m
 - **Fórmula pronta?** Sim, é possível usar fórmulas disponíveis e personalizar, conforme a viabilidade.
 - **Ajudam com embalagem?** Sim, orientamos formatos, materiais, acabamentos e compatibilidade com a fórmula. Trabalhamos com diversos fornecedores de embalagem.
 - **Apoio regulatório / ANVISA?** A equipe acompanha os requisitos regulatórios aplicáveis ao longo do desenvolvimento. Não prometer aprovação nem prazo de registro.
-- **Personalização de compactados?** Cores, relevos, logo prensado, desenhos, formatos e composições de paleta.
+- **Personalização de compactados?** Cores, relevos, logo gravado, desenhos, formatos e composições de paleta.
 - **Amostras?** O processo inclui amostras para avaliar textura, cor, fragrância, desempenho e acabamento. A Garnet envia amostras para **leads qualificados** (dono, 28/10/2026). O agente pode oferecer amostra a quem já demonstrou interesse real e se encaixa no ICP, mas **quem decide e combina o envio é o humano** — nunca prometer data, quantidade ou gratuidade.
 - **Como pedir orçamento?** Briefing em 4 passos no site ou WhatsApp; resposta em até 1 dia útil.
+
+
+> **Terminologia (dono, 28/10/2026):** o logo é **gravado** no produto, não "prensado". Use sempre "logo gravado" (ou "sua marca gravada no produto"). "Prensado" vale só para o pó compactado em si (pó, blush, sombra prensados).
 
 ## 9. O que NÃO pode ser dito
 
