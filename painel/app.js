@@ -375,7 +375,7 @@
     const canais = Array.isArray(c.canais) ? c.canais : [];
     const thumb = capa ? html`<button type="button" class="thumb" data-act="cont-abrir" data-id="${c.id}" aria-label="Abrir ${c.titulo}"><img src="${imgUrl(capa.url)}" alt="${capa.alt || 'Capa: ' + c.titulo}" loading="lazy">${m.length > 1 ? html`<span class="thumb-n">${m.length}</span>` : ''}</button>`
       : html`<div class="thumb vazia" aria-hidden="true">${ic(c.tipo === 'reels' || c.tipo === 'story' ? 'film' : 'pen')}<span>${ROTULO_TIPO[c.tipo] || c.tipo}</span></div>`;
-    return html`<article class="card cont ${capa ? 'com-midia' : ''}">
+    return html`<article class="card ctd ${capa ? 'com-midia' : ''}">
       ${thumb}
       <div class="cont-corpo">
         <div class="cont-cab"><span class="rotulo">${dataCurta(c.data_sugerida)} · ${ROTULO_TIPO[c.tipo] || c.tipo}</span><span class="badge ${st[1]}">${st[0]}</span></div>
