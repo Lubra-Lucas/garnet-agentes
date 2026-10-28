@@ -76,7 +76,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .campo { display: grid; gap: 6px; margin-bottom: 14px; }
 .campo label, .rotulo { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 500; }
 input[type=text], input[type=email], input[type=password], input[type=search], select, textarea { width: 100%; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); min-height: 42px; }
-textarea { min-height: 120px; resize: vertical; line-height: 1.5; }
+textarea { min-height: 150px; resize: vertical; line-height: 1.5; }
 input:focus, select:focus, textarea:focus { border-color: var(--gold); outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--gold) 25%, transparent); }
 .linha { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
 .filtros { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
@@ -161,7 +161,7 @@ pre { white-space: pre-wrap; word-break: break-word; background: var(--bg-2); pa
 .sel-lead { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 10px 12px; border-radius: 10px; background: var(--gold-3); }
 
 /* Oportunidades */
-.kanban { display: grid; grid-template-columns: repeat(7, minmax(210px, 1fr)); gap: 12px; overflow-x: auto; padding-bottom: 8px; }
+.kanban { display: grid; grid-template-columns: repeat(7, minmax(158px, 1fr)); gap: 12px; overflow-x: auto; padding-bottom: 8px; }
 .col { background: var(--bg-2); border-radius: var(--r); padding: 10px; min-width: 0; display: flex; flex-direction: column; gap: 8px; align-content: start; }
 .col > h3 { display: flex; justify-content: space-between; font-size: 13px; text-transform: uppercase; letter-spacing: .06em; padding: 4px 6px; }
 .op { padding: 12px; display: grid; gap: 6px; font-size: 13px; }
@@ -191,7 +191,7 @@ details > summary { cursor: pointer; color: var(--gold-text); font-size: 13px; }
 .toasts { position: fixed; right: 16px; bottom: 16px; z-index: 60; display: grid; gap: 8px; max-width: calc(100vw - 32px); }
 .toast { background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 12px; font-size: 14px; box-shadow: var(--shadow); animation: entra .4s var(--ease); }
 .toast.erro { background: var(--err); color: #fff; }
-.selo-demo { position: fixed; top: 12px; right: 12px; z-index: 40; background: var(--gold); color: #fff; padding: 5px 14px; border-radius: 999px; font-size: 12px; font-weight: 600; letter-spacing: .04em; box-shadow: var(--shadow); }
+.selo-demo { pointer-events: none; position: fixed; top: 12px; right: 12px; z-index: 40; background: var(--gold); color: #fff; padding: 5px 14px; border-radius: 999px; font-size: 12px; font-weight: 600; letter-spacing: .04em; box-shadow: var(--shadow); }
 .usuario { overflow: hidden; text-overflow: ellipsis; }
 
 /* Mobile */
@@ -205,7 +205,8 @@ details > summary { cursor: pointer; color: var(--gold-text); font-size: 13px; }
   .lateral-rodape { margin: 0 0 0 auto; display: flex; align-items: center; }
   .lateral-rodape .usuario { display: none; }
   .main { padding-top: 20px; }
-  .selo-demo { top: auto; bottom: 12px; right: 12px; }
+  .selo-demo { top: auto; bottom: 10px; right: 10px; font-size: 11px; padding: 4px 10px; opacity: .92; }
+  .lead-row > span:nth-child(n+2) { text-align: right; } .lead-row > .c-extra { text-align: left !important; }
   .toasts { bottom: 56px; }
   .lead-row { grid-template-columns: minmax(0,1fr) auto; gap: 4px 10px; }
   .lead-head { display: none; }
