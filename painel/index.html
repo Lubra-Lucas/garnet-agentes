@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Garnet AI — Painel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app" class="app" hidden>
+  <aside class="lateral">
+    <div class="marca"><span class="marca-nome">Garnet</span> <em>AI</em></div>
+    <nav id="nav" class="nav" aria-label="Seções"></nav>
+    <div class="lateral-rodape">
+      <div id="indicador" class="indicador" role="status"></div>
+      <div id="usuario" class="usuario"></div>
+      <button class="btn mini" data-act="sair" id="btn-sair" hidden>Sair</button>
+    </div>
+  </aside>
+  <main id="main" class="main" tabindex="-1"></main>
+</div>
+
+<div id="selo-demo" class="selo-demo" hidden>Demonstração · dados fictícios</div>
+<div id="tela" class="tela"></div>
+<div id="modal" class="modal" hidden></div>
+<div id="toasts" class="toasts" aria-live="polite"></div>
+
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js" onerror="window.__sbFalhou=true"></script>
+<script src="demo-data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
