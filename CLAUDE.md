@@ -22,6 +22,7 @@ Equipe de agentes de IA (Claude Code, nuvem, plano Max) que apoia a prospecção
 - `.claude/skills/` skills: garnet-conhecimento, icp-e-scoring, pesquisa-b2b, prospeccao-copy, cadencias-crm, atendimento-briefing, regulatorio-cosmeticos, conteudo-b2b, social-media-carrosseis, anuncios-performance, lgpd-governanca, funil-analytics, custos-e-limites, auditoria-conformidade
 - `runbooks/` roteiros dos turnos seguidos pelo Orquestrador
 - `scripts/ai_db.py` CLI de acesso ao Supabase (stdlib, `python3 -I`); `scripts/carrossel/render.mjs` renderiza carrosséis em PNG
+- `scripts/zimbra.py` e-mail comercial (Zimbra, API HTTPS): lê respostas de leads e cria RASCUNHOS dos e-mails aprovados, nunca envia; variáveis `ZIMBRA_URL`, `ZIMBRA_USER`, `ZIMBRA_PASSWORD` (contrato em `docs/arquitetura.md`)
 - `supabase/` migrações e rollback
 - `painel/` painel web (HTML/CSS/JS puro)
 

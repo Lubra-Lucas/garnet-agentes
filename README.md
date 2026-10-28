@@ -9,6 +9,7 @@ Instagram e no Facebook, com **custo adicional zero** e **aprovação humana em 
   [`?demo=1`](https://lubra-lucas.github.io/garnet-agentes/?demo=1))
 - **Contrato técnico:** [`docs/arquitetura.md`](docs/arquitetura.md) — tabelas, status, CLI e fluxos. Mudanças começam por lá.
 - **Regras para IA e pessoas:** [`CLAUDE.md`](CLAUDE.md)
+- **E-mail (Zimbra):** `scripts/zimbra.py` lê respostas de leads e cria rascunhos dos e-mails aprovados (nunca envia); precisa das variáveis `ZIMBRA_URL`, `ZIMBRA_USER` e `ZIMBRA_PASSWORD` (contrato em `docs/arquitetura.md`)
 - **Histórico de decisões e próximos passos:** [`docs/historico.md`](docs/historico.md)
 
 ## Como funciona

@@ -177,3 +177,21 @@ Caminhos em uso: `materiais/` (apresentação, catálogo e proposta genérica, p
 Fluxo: `social` cria `ai_conteudos` (status `rascunho`, com `midia`, legenda, hashtags) → `auditor` →
 `aguardando_aprovacao` → dono aprova no painel, baixa as lâminas, copia a legenda e publica → marca **publicado**
 (`publicado_em`). Runbook: `runbooks/social-diario.md` (seg–sex).
+
+## Integração Zimbra (e-mail comercial)
+
+Ligado/desligado por `ai_config.zimbra_ativo` (começa `false`; ligar após o teste com credenciais reais).
+
+CLI `scripts/zimbra.py` (Python 3 stdlib, `python3 -I`), pela API HTTPS do Zimbra (SOAP em JSON em `{ZIMBRA_URL}/service/soap`, upload em `/service/upload?fmt=raw,extended`; IMAP/SMTP não são usados). Escreve no Supabase só em tabelas `ai_*`, chamando `scripts/ai_db.py`. Testes offline: `python3 -I scripts/tests/test_zimbra.py`.
+
+**Variáveis de ambiente** (nunca no repositório): `ZIMBRA_URL` (https, ex.: webmail da Garnet), `ZIMBRA_USER` (conta completa), `ZIMBRA_PASSWORD`. Sem elas o CLI sai com código 2; os runbooks só chamam o CLI se `ZIMBRA_URL` existir.
+
+```
+testar                                              # auth + GetInfoRequest -> {"ok":true,"conta":"..."}
+ler-respostas [--desde AAAA-MM-DD] [--limite 50] [--dry-run]
+criar-rascunhos [--dry-run]
+```
+
+- **Ler respostas**: busca `in:inbox after:<data>` (padrão últimos 3 dias). Remetente que não é lead (`leads.email` ou `extras.contatos[].email`) é **ignorado sem gravar nada**. Para mensagem de lead: `ai_fila` (`tipo=classificar_resposta`, agente `atendimento`, prioridade 1, `chave_idempotencia = zimbra-<id da msg>`; conflito = já processada) e `ai_interacoes` (`direcao=entrada`, `canal=email`, `registrado_por='zimbra'`, resumo ~200 caracteres, conteúdo sem citação/assinatura, máx. 4.000), com `payload` da fila `{"interacao_id":..., "rascunho_id":null}`. Saída: `{"lidas","de_leads","novas","ignoradas","repetidas"}`. As respostas coladas no painel continuam valendo.
+- **Criar rascunhos**: para cada `ai_rascunhos` com `status=aprovado` e `canal=email` sem `zdraft-<rascunho_id>` na fila: baixa o PDF do link da proposta presente no texto (`/ai-midia/propostas/` ou `/materiais/proposta-garnet.pdf`, só do domínio do Supabase), anexa e salva o **rascunho** no Zimbra (`SaveDraftRequest`; sem anexo se o download/upload falhar, com aviso). Registra `ai_fila` (`tipo=rascunho_zimbra`, `status=concluida`, `chave_idempotencia = zdraft-<rascunho_id>`, `resultado {zimbra_draft_id, anexo, aviso?}`) e evento do agente `atendimento`. Lead bloqueado ou sem e-mail: marcador `falhou` + evento `alerta`. **Não altera o status do rascunho**: o humano abre o rascunho no Zimbra, envia e marca "enviado" no painel.
+- **Regra absoluta**: a integração **nunca envia** e-mail (nenhuma chamada de envio existe no código); só lê a caixa de entrada e salva rascunhos.
