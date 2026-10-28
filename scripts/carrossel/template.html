@@ -53,6 +53,7 @@ body { -webkit-font-smoothing: antialiased; }
 .conteudo { position: absolute; left: 96px; right: 96px; top: 190px; bottom: 190px; display: flex; flex-direction: column; justify-content: center; z-index: 2; }
 .conteudo.topo-alinhado { justify-content: flex-start; padding-top: 24px; }
 
+em, .numero, .etapa .n, .lista li span { font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1; }
 em { font-family: var(--serif); font-style: italic; font-weight: 500; color: var(--ouro); letter-spacing: 0; }
 .slide.escuro em { background: linear-gradient(100deg, var(--gold-2), var(--gold-3) 50%, var(--gold-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
 h1, h2 { font-family: var(--sans); font-weight: 300; letter-spacing: -.01em; }
@@ -77,29 +78,29 @@ h1 em, h2 em { font-size: 1.14em; line-height: .9; }
 /* lista */
 .lista h2, .etapas h2 { font-size: calc(70px * var(--k)); line-height: 1.12; margin-bottom: calc(46px * var(--k)); }
 .lista ul { list-style: none; }
-.lista li { display: flex; gap: calc(30px * var(--k)); align-items: baseline; padding: calc(26px * var(--k)) 0; border-top: 1px solid var(--linha);
-  font-size: calc(40px * var(--k)); line-height: 1.35; color: var(--texto); font-weight: 400; }
+.lista li { display: flex; gap: calc(30px * var(--k)); align-items: baseline; padding: calc(36px * var(--k)) 0; border-top: 1px solid var(--linha);
+  font-size: calc(48px * var(--k)); line-height: 1.35; color: var(--texto); font-weight: 400; }
 .lista li:last-child { border-bottom: 1px solid var(--linha); }
 .lista li span { font-family: var(--serif); font-style: italic; font-weight: 500; color: var(--ouro); font-size: 1.15em; min-width: 1.6em; }
 
 /* etapas */
-.etapa { display: flex; gap: calc(34px * var(--k)); align-items: baseline; padding: calc(24px * var(--k)) 0; border-top: 1px solid var(--linha); }
+.etapa { display: flex; gap: calc(34px * var(--k)); align-items: baseline; padding: calc(28px * var(--k)) 0; border-top: 1px solid var(--linha); }
 .etapa:last-child { border-bottom: 1px solid var(--linha); }
 .etapa .n { font-family: var(--serif); font-style: italic; font-weight: 500; font-size: calc(76px * var(--k)); line-height: 1; color: var(--ouro); min-width: calc(110px * var(--k)); }
-.etapa .nome { font-size: calc(42px * var(--k)); font-weight: 500; line-height: 1.2; }
-.etapa .t { font-size: calc(32px * var(--k)); line-height: 1.45; color: var(--texto-2); margin-top: calc(6px * var(--k)); font-weight: 300; }
+.etapa .nome { font-size: calc(46px * var(--k)); font-weight: 500; line-height: 1.2; }
+.etapa .t { font-size: calc(35px * var(--k)); line-height: 1.45; color: var(--texto-2); margin-top: calc(6px * var(--k)); font-weight: 300; }
 
 /* dado */
-.dado .valor { font-family: var(--serif); font-weight: 500; font-size: calc(300px * var(--k)); line-height: .9; color: var(--ouro); letter-spacing: -.02em; white-space: nowrap; }
+.dado .valor { font-family: var(--sans); font-weight: 300; font-size: calc(250px * var(--k)); line-height: 1; color: var(--ouro); letter-spacing: -.02em; white-space: nowrap; }
 .dado .rotulo { font-size: calc(52px * var(--k)); font-weight: 300; line-height: 1.2; margin-top: calc(18px * var(--k)); }
 .dado p { font-size: calc(36px * var(--k)); }
 
 /* imagem */
 .imagem .foto { position: absolute; inset: 0; background-size: cover; background-position: center; z-index: 0; }
-.imagem .veu { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(18,16,14,.35) 0%, rgba(18,16,14,0) 30%, rgba(18,16,14,0) 55%, rgba(18,16,14,.85) 100%); }
+.imagem .veu { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(18,16,14,.35) 0%, rgba(18,16,14,0) 30%, rgba(18,16,14,0) 45%, rgba(18,16,14,.9) 88%); }
 .imagem .legenda { font-size: calc(46px * var(--k)); line-height: 1.35; color: var(--on-dark); font-weight: 300; }
 .imagem .conteudo { justify-content: flex-end; }
-.selo { position: absolute; z-index: 4; right: 96px; bottom: 190px; font-size: 18px; letter-spacing: .2em; text-transform: uppercase; color: var(--on-dark);
+.selo { position: absolute; z-index: 4; left: 96px; top: 150px; font-size: 18px; letter-spacing: .2em; text-transform: uppercase; color: var(--on-dark);
   border: 1px solid rgba(243,238,230,.5); padding: 10px 16px; background: rgba(18,16,14,.35); }
 .imagem.sem-imagem .foto, .imagem.sem-imagem .veu { display: none; }
 .imagem.sem-imagem .legenda { font-family: var(--serif); font-style: italic; font-size: calc(72px * var(--k)); color: var(--texto); }
