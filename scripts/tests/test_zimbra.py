@@ -22,9 +22,9 @@ class Montagem(unittest.TestCase):
         self.assertNotIn('authToken', e['Header']['context'])
 
     def test_search_e_query(self):
-        s = z.montar_search('in:inbox after:2026/10/24', 30)
+        s = z.montar_search('in:inbox after:1792800000000', 30)
         self.assertEqual((s['_jsns'], s['types'], s['limit']), ('urn:zimbraMail', 'message', 30))
-        self.assertEqual(z.montar_query_inbox(date(2026, 10, 25)), 'in:inbox after:2026/10/24')
+        self.assertEqual(z.montar_query_inbox(date(2026, 10, 25)), 'in:inbox after:1792800000000')
         env = z.montar_envelope('SearchRequest', s, 'tok')
         self.assertEqual(env['Header']['context']['authToken'], 'tok')
 

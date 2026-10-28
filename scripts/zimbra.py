@@ -32,7 +32,7 @@ import sys
 import urllib.error
 import urllib.parse
 import urllib.request
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
 
 AI_DB = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'ai_db.py')
 TIMEOUT = 60
@@ -123,8 +123,10 @@ def montar_savedraft(para, assunto, corpo, aid=None):
 
 
 def montar_query_inbox(desde):
-    """`after:` do Zimbra é exclusivo; recua 1 dia para incluir o dia pedido (idempotência cobre a sobreposição)."""
-    return 'in:inbox after:' + (desde - timedelta(days=1)).strftime('%Y/%m/%d')
+    """`after:` em milissegundos (formatos de data do Zimbra dependem do idioma da conta; AAAA/MM/DD dá
+    QUERY_PARSE_ERROR). Recua 1 dia (meia-noite UTC) para cobrir o fuso; a idempotência cobre a sobreposição."""
+    inicio = datetime(desde.year, desde.month, desde.day, tzinfo=timezone.utc) - timedelta(days=1)
+    return 'in:inbox after:' + str(int(inicio.timestamp()) * 1000)
 
 
 # ---------------------------------------------------------------- HTTP / SOAP
