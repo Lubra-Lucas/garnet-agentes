@@ -55,6 +55,7 @@ Todas: RLS ligado; leitura/escrita para `authenticated` somente se `public.ai_pe
 - **ai_config** (`chave` text pk, `valor` jsonb, `descricao` text, `updated_at`)
   Chaves iniciais: `kill_switch` (false), `limite_rascunhos_turno` (20), `limite_contatos_lead_dia` (1),
   `cadencia_dias` ([0,3,8,15]), `orcamento_ads_mes` (1000), `publicos` (["influenciadora","marca_indie","distribuidor"]).
+  Simulação comercial (dono, 28/10/2026; fonte única dos valores que os agentes podem citar): `preco_referencia_compacto` (15, R$ por compactado no pedido mínimo de 1.000 peças), `revenda_cenarios` ([25,30,35]), `custos_venda_pct` (percentual de custos de venda considerado na simulação da proposta). Chaves já criadas em 28/10/2026.
 - **ai_agentes** (`id` text pk, `nome`, `papel`, `descricao`, `cor` text hex, `icone` text, `ordem` smallint, `ativo` bool)
 - **ai_turnos** (`id` uuid pk, `tipo` text: manha|tarde|marketing|performance|manual,
   `status`: em_andamento|concluido|falhou|interrompido, `iniciado_em`, `finalizado_em`, `resumo` text, `metricas` jsonb)
@@ -171,6 +172,7 @@ imagens de conceito geradas por IA só com selo "imagem ilustrativa"; **fotos da
 
 CLI novo: `upload <arquivo_local> <caminho_no_bucket>` → envia ao bucket `ai-midia` e imprime `{"url": "<url pública>"}`
 (só aceita o bucket `ai-midia`).
+Caminhos em uso: `materiais/` (apresentação, catálogo e proposta genérica, publicados pelo orquestrador), `propostas/<uuid-aleatório>.pdf` (proposta personalizada por lead gerada pelo SDR com `node scripts/pdf/render.mjs scripts/pdf/proposta.html <saida.pdf> <dados.json>`; nunca nome do lead no caminho). O fluxo está em `.claude/agents/sdr.md`; os links oficiais, em `conhecimento/garnet.md` seção 9.1.
 
 Fluxo: `social` cria `ai_conteudos` (status `rascunho`, com `midia`, legenda, hashtags) → `auditor` →
 `aguardando_aprovacao` → dono aprova no painel, baixa as lâminas, copia a legenda e publica → marca **publicado**

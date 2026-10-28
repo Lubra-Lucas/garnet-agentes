@@ -31,7 +31,7 @@ Fatos comerciais: ver `garnet.md`. Pedido mínimo (1.000 / 3.000 peças) é um *
 - "Não tenho dinheiro para o mínimo." Resposta: o pedido mínimo de referência para compactados é de 1.000 peças; o orçamento depende da embalagem e da personalização, e a equipe ajuda a montar um primeiro lote que faça sentido. Não prometer lote menor.
 - "Não entendo de fórmula/ANVISA." A Garnet conduz o desenvolvimento e apoia a adequação regulatória (modelo Full Service).
 - "Já tenho fornecedor." Sem confronto: oferecer a Garnet como segunda opção para compactados/linha nova, e perguntar o que faltaria no fornecedor atual.
-- "Quanto custa?" O preço depende de embalagem e personalização; peça briefing para a equipe orçar. Nunca citar valor.
+- "Quanto custa?" Para compactados, cite só o preço de referência da simulação (lido de `ai_config`, com a ressalva de que o valor final depende de embalagem e personalização) e peça o briefing para a equipe orçar. Nenhum outro valor.
 - "Posso ver amostras?" Sim: enviamos amostras para projetos qualificados; a equipe combina o envio depois de entender o projeto.
 
 ## 2. Marca indie (inclui TikTok Shop e perfumaria)
@@ -74,7 +74,7 @@ Fatos comerciais: ver `garnet.md`. Pedido mínimo (1.000 / 3.000 peças) é um *
 **Objeções e respostas.**
 - "Meu volume por item é alto/baixo." Mínimos confirmados; capacidade de referência de 50 mil unidades por mês (não prometer além).
 - "Preciso de exclusividade." A confirmar com a Garnet; não prometer.
-- "Preciso de tabela de preços." Preço depende de embalagem e personalização; orçamento a partir do briefing.
+- "Preciso de tabela de preços." Compactados: a simulação de referência está na Proposta Comercial (com a ressalva); o preço final depende de embalagem e personalização e sai no orçamento a partir do briefing. Perfumaria/loções: só orçamento.
 - "Fazem registro na ANVISA?" A equipe apoia a adequação regulatória; detalhes são tratados com a equipe técnica.
 
 ## 4. Regra de score 0–100
@@ -144,7 +144,7 @@ O score é limitado a 0–100. Arredonde para inteiro.
 - **60–79**: qualificar mais (pesquisa complementar) e abordar quando houver vaga.
 - **40–59**: backlog.
 - **< 40**: não abordar nesta fase.
-Quem respondeu antes vai à frente da fila mesmo com score baixo, mas com roteiro de reativação (ver `tom-de-voz.md`).
+Quem respondeu antes vai à frente da fila mesmo com score baixo, mas com texto de **primeiro contato** (reativação só se houver interação nos últimos 30 dias; ver `tom-de-voz.md`).
 
 ### 4.6 Formato de `motivos`
 `[{"criterio": "nicho_maquiagem", "pontos": 15, "evidencia": "bio fala de make e tutoriais", "fonte": "https://..."}]`. Penalidades têm pontos negativos. A soma dos pontos deve bater com o score (antes do teto).

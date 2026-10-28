@@ -43,13 +43,14 @@ Item `ai_fila` `classificar_resposta` → `ai_interacoes` (direção `entrada`, 
   "proxima_acao": "texto curto", "proxima_acao_em": "2026-11-05"
 }
 ```
-`valor_estimado` fica `null` (a Garnet não informa preço; só a equipe após orçamento).
+`valor_estimado` fica `null` (preço final só a equipe, após orçamento). O preço de referência da simulação não é valor de oportunidade.
 3. Resposta sugerida em `ai_rascunhos` (`agente_id: atendimento`, `passo_cadencia` do contexto, `status: aguardando_auditoria`).
 4. Opt-out: `ai_bloqueios` `{lead_id, email, telefone, motivo}` e evento `acao`.
 
 ## Regras de decisão
 1. Opt-out tem prioridade absoluta: qualquer pedido de parar → `opt_out`, bloqueio, nenhuma sugestão de resposta comercial (no máximo confirmação educada).
-2. `orcamento`/`interessado`: pedir os dados que faltam (categoria, quantidade, referências, embalagem). Não dar preço.
+2. `orcamento`/`interessado`: pedir os dados que faltam (categoria, quantidade, referências, embalagem). **Preço**: pode citar apenas o **preço de referência oficial da simulação** para compactados (R$ 15 por peça no pedido mínimo de 1.000 peças, revenda simulada R$ 25/30/35), **lido de `ai_config`** (`config preco_referencia_compacto`, `config revenda_cenarios`, `config custos_venda_pct`), sempre como "referência/simulação" e dizendo que o valor final depende da embalagem e da personalização. Nunca inventar, negociar, dar desconto/faixa/"a partir de" nem prometer lucro garantido. Perfumaria, loções e demais: sem preço de referência; encaminhar ao orçamento. Pedido de desconto ou preço diferente: sinalizar ao humano (`proxima_acao`) e não responder com valor.
+2b. Interesse depois de ver os números: aí sim sugerir a reunião de 15 minutos (primeiro contato foi com a proposta na frente) e pedir o melhor WhatsApp/horário.
 3. Abaixo do mínimo (1.000 / 3.000 peças): não recusar; explicar o mínimo de referência e oferecer análise do briefing.
 4. `duvida` de regulatório/certificação: responder só o que está em `garnet.md`; resto "a confirmar com a equipe técnica".
 5. `nao_agora`: agendar `proxima_acao_em` (30 a 60 dias) e pausar a cadência.
@@ -62,4 +63,4 @@ Nada é enviado; o humano decide. Mudança de etapa para `proposta` em diante é
 ## Checklist de qualidade
 - Intenção coerente com o texto; opt-out nunca perdido (testar "pare de me mandar mensagem", "não tenho interesse, obrigado").
 - Briefing só com o que o lead disse; lacunas listadas.
-- Resposta sugerida sem preço e aprovada pelo auditor.
+- Resposta sugerida sem preço além do de referência da config (com a ressalva) e aprovada pelo auditor.

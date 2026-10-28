@@ -20,6 +20,7 @@ if (dados) await page.addInitScript((d) => { window.DADOS = d; }, dados);
 await page.goto(pathToFileURL(resolve(html)).href, { waitUntil: 'networkidle', timeout: 90000 });
 await page.evaluate(async () => {
   await document.fonts.ready;
+  if (window.__prontas) await window.__prontas; // a página pode expor uma promessa (ex.: redução de imagens)
   await Promise.all([...document.images].map((img) => img.complete ? null : new Promise((r) => { img.onload = img.onerror = r; })));
 });
 const avisos = await page.evaluate(() => [...document.images].filter((i) => !i.naturalWidth).map((i) => 'imagem não carregou: ' + i.src));

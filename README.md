@@ -33,7 +33,7 @@ Nada é enviado, publicado ou gasto automaticamente. Tudo roda na nuvem: não de
 |---|---|---|
 | Orquestrador | Abre cada turno, prioriza, distribui, aplica limites, resume | Opus |
 | Inteligência & Qualificação | Pesquisa sinais públicos e dá score 0–100 com motivos e fontes | Sonnet |
-| SDR (3 instâncias) | Escreve 1º contato, follow-ups e reativações (influenciadoras, marcas indie, distribuidores) | Sonnet |
+| SDR (3 instâncias) | Escreve 1º contato (com proposta e simulação), follow-ups (influenciadoras, marcas indie, distribuidores) | Sonnet |
 | Auditor de Conformidade | Revisa todo texto e imagem antes de chegar ao dono (14 checagens: preço, fatos, LGPD, ANVISA…) | Sonnet |
 | Atendimento & Pré-vendas | Classifica respostas, monta briefing, cria oportunidades, trata opt-out | Sonnet |
 | Gestor de Mídia Social (3 instâncias) | 3 peças orgânicas por dia útil (carrosséis e posts renderizados em PNG + legenda) | Sonnet |

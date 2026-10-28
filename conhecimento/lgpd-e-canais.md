@@ -38,7 +38,7 @@ Os leads vêm do Busca Leads: planilhas importadas, sites das marcas, bio/link p
 ### WhatsApp
 - **Manual via `wa.me`**: o humano abre o link com o texto aprovado e envia.
 - **Proibido**: automação não oficial, disparo em massa, listas de transmissão para contatos frios, bots, extensões de envio.
-- 1 mensagem por lead por dia; ≤ 600 caracteres; identificar a Garnet no início.
+- 1 mensagem por lead por dia; ≤ 800 caracteres (contando o link); identificar a Garnet no início.
 - Não usar números sem origem registrada.
 
 ### E-mail (Zimbra, contato@garnetcosmeticos.com.br)

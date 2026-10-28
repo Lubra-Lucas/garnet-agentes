@@ -13,7 +13,7 @@ Ordenar o trabalho do dia e garantir que nenhum lead receba mais de um contato p
 
 ## Referências
 - `docs/arquitetura.md`: tabelas, prioridade da fila, fluxo do rascunho.
-- `conhecimento/tom-de-voz.md`: passos 0–3 e reativação.
+- `conhecimento/tom-de-voz.md`: passos 0–3 (materiais por passo) e regra de primeiro contato.
 - `conhecimento/lgpd-e-canais.md`: opt-out e limites.
 - Skill `custos-e-limites`.
 
@@ -28,13 +28,16 @@ Itens em `ai_fila`:
 ```json
 {"tipo": "gerar_rascunho", "agente_id": "sdr", "lead_id": "uuid", "prioridade": 1,
  "chave_idempotencia": "rascunho:<lead_id>:<passo>:<YYYY-MM-DD>",
- "payload": {"canal": "whatsapp", "passo_cadencia": 1, "reativacao": false},
+ "payload": {"canal": "whatsapp", "passo_cadencia": 1, "reativacao": false, "material": "catalogo"},
  "agendada_para": "2026-11-03T12:00:00Z"}
 ```
-Tipos de fila usados: `qualificar_lead`, `gerar_rascunho`, `classificar_resposta` (este existe no contrato), `reativar_lead` (nomes dos demais: sugestão, validar com o contrato).
+Tipos de fila usados: `qualificar_lead`, `gerar_rascunho`, `classificar_resposta` (este existe no contrato), `reativar_lead` (somente com interação registrada nos últimos 30 dias; ver regra 1b) (nomes dos demais: sugestão, validar com o contrato).
 
 ## Regras de decisão
 1. Ordem: (1) `status_busca = respondeu`, (2) `contatado` (follow-up), (3) demais por `score_ai`, senão `score_base`.
+1b. **Todo lead é primeiro contato (decisão do dono, 28/10/2026)**: quem respondeu há muito tempo à abordagem antiga entra no **passo 0** com o modelo oficial (`reativacao: false`). `reativacao: true` / `reativar_lead` só se houver interação registrada nos últimos 30 dias. Mantém a prioridade 1 na fila (vai à frente), mas com texto de primeiro contato.
+1c. **Materiais por passo** (1 por mensagem; `payload.material`): passo 0 `proposta` (no e-mail, também apresentação e catálogo); passo 1 (dia 3) `catalogo` com 1 produto; passo 2 (dia 8) `galeria_marcas`; passo 3 (dia 15) `ponto_equilibrio`. Não repetir a apresentação. Reunião de 15 minutos só para quem demonstrar interesse após ver os números.
+1d. **Proposta personalizada**: o `sdr` a gera para influenciadoras com seguidores conhecidos no passo 0 (`.claude/agents/sdr.md`); os passos seguintes reutilizam a mesma URL (buscar no texto do rascunho do passo 0 em `ai_rascunhos`) em vez de gerar outra.
 2. Excluir: `bloqueado = true`, `rascunhos_abertos > 0` sem decisão, lead com contato hoje.
 3. Passo seguinte = último passo enviado + 1, só quando passaram `cadencia_dias[passo]` dias desde o envio anterior (contados a partir de `ai_rascunhos.enviado_em`).
 4. Sem enviar não há avanço: rascunho não enviado não conta como passo.
@@ -49,4 +52,4 @@ Respeitar `kill_switch` (sai com código 3 em `turno-iniciar`). Sem aprovação 
 ## Checklist de qualidade
 - Nenhum lead com mais de 1 contato/dia.
 - Quem respondeu está sempre na frente.
-- Testes: (a) rodar duas vezes o mesmo turno não duplica fila; (b) lead bloqueado nunca entra; (c) passo 1 só aparece após 3 dias do envio do passo 0.
+- Testes: (a) rodar duas vezes o mesmo turno não duplica fila; (b) lead bloqueado nunca entra; (c) passo 1 só aparece após 3 dias do envio do passo 0; (d) lead que respondeu há mais de 30 dias entra no passo 0 com `reativacao: false`.

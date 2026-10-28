@@ -26,7 +26,7 @@ Read, Grep (somente nos arquivos de `conhecimento/`). Nenhuma escrita.
 ## Regras de decisão
 1. Se o fato está em `garnet.md`, pode usar exatamente como está.
 2. Se não está, não afirme: escreva "a confirmar com a Garnet" e sugira que o humano confirme.
-3. Preço: nunca; encaminhar ao orçamento.
+3. Preço: nunca inventar nem negociar; só o preço de referência oficial da simulação (compactados, 1.000 peças), lido de `ai_config`, sempre com a ressalva de referência (ver `garnet.md` 2.1); o resto vai ao orçamento.
 4. MOQ e prazo: só 1.000 peças (compactados), 3.000 peças (perfumaria, loções e demais), prazo de referência ~30 dias, com a ressalva de que a confirmação ocorre na análise do briefing.
 5. Clientes citáveis só os 8 listados, apenas como "marcas que já fabricamos". Faixa Vogue/Elle/Forbes/Marie Claire/Sephora/Riachuelo = produtos fabricados para clientes.
 6. Instagram oficial confirmado: @garnetcosmeticos.

@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Garnet Cosméticos — Apresentação Comercial</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap');
+:root{--azul:#1E2F4D;--ouro:#C5A46D;--ouro-esc:#A8864C;--fundo:#FBFAF7;--texto:#222B3A;--suave:#6B7385;--linha:#E4DFD3;--card:#F6F4EE}
+*{box-sizing:border-box;margin:0;padding:0}
+@page{size:1333px 750px;margin:0}
+html,body{background:#fff;font-family:'Montserrat',sans-serif;color:var(--texto);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+a{color:inherit;text-decoration:none}
+.pagina{position:relative;width:1333px;height:750px;overflow:hidden;page-break-after:always;break-after:page;
+  background-color:var(--fundo);
+  background-image:radial-gradient(circle at 1px 1px,rgba(197,164,109,.22) 1.1px,transparent 1.4px);background-size:34px 34px}
+.pagina:last-child{page-break-after:auto;break-after:auto}
+.pagina::before{content:"";position:absolute;left:40px;top:40px;width:70px;height:70px;border-left:1px solid rgba(30,47,77,.25);border-top:1px solid rgba(30,47,77,.25)}
+.marca{position:absolute;right:56px;bottom:30px;font-size:13px;letter-spacing:.5em;color:rgba(30,47,77,.35);font-weight:400}
+.num{position:absolute;left:67px;bottom:30px;font-size:11px;letter-spacing:.25em;color:var(--suave)}
+.rotulo{font-size:11px;letter-spacing:.28em;text-transform:uppercase;font-weight:500;color:var(--azul);display:flex;align-items:center;gap:14px}
+.rotulo::before{content:"";width:40px;height:1px;background:var(--ouro)}
+h1,h2,h3,.serif{font-family:'Playfair Display',serif;font-weight:400;color:var(--azul)}
+h2{font-size:44px;line-height:1.12;letter-spacing:-.005em}
+h2 em,h1 em,.serif em{font-style:italic;color:var(--ouro)}
+.topo{position:absolute;left:67px;right:67px;top:58px}
+.topo h2{margin-top:16px}
+.corpo{position:absolute;left:67px;right:67px}
+p{font-size:14px;line-height:1.65;font-weight:400;color:var(--texto)}
+.fio{width:56px;height:1px;background:var(--ouro);margin:18px 0}
+.selo{position:absolute;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;background:rgba(251,250,247,.92);color:var(--azul);padding:3px 7px;border:1px solid var(--linha);z-index:3}
+.foto{position:relative;background:#F3EEE5;border:1px solid var(--linha);overflow:hidden}
+.foto img{display:block;width:100%;height:100%;object-fit:cover}
+.rodape-nota{position:absolute;left:67px;bottom:30px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--azul);font-weight:500}
+
+/* capa */
+.capa{background-image:radial-gradient(circle at 1px 1px,rgba(197,164,109,.25) 1.1px,transparent 1.4px)}
+.capa .logo{position:absolute;left:0;right:0;top:215px;text-align:center;font-size:62px;letter-spacing:.42em;padding-left:.42em;font-weight:300;color:var(--azul)}
+.capa .sub{position:absolute;left:0;right:0;top:330px;text-align:center;font-size:12px;letter-spacing:.36em;text-transform:uppercase;color:var(--ouro-esc)}
+.capa .lema{position:absolute;left:0;right:0;top:420px;text-align:center}
+.capa .lema h1{font-size:36px;line-height:1.3}
+.capa .rod{position:absolute;left:0;right:0;bottom:70px;text-align:center;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--suave)}
+.capa .cant{position:absolute;right:40px;bottom:40px;width:70px;height:70px;border-right:1px solid rgba(197,164,109,.7);border-bottom:1px solid rgba(197,164,109,.7)}
+.capa .marca{display:none}
+
+/* quem somos */
+.qs-esq{position:absolute;left:67px;top:170px;width:520px}
+.qs-esq h2{font-size:48px}
+.qs-esq p{margin-top:6px;font-size:15px;line-height:1.7}
+.qs-nums{position:absolute;left:660px;right:67px;top:170px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.n{background:var(--card);border:1px solid var(--linha);border-top:2px solid var(--ouro);padding:34px 26px 30px}
+.n b{display:block;font-family:'Playfair Display',serif;font-weight:400;font-size:44px;color:var(--ouro);line-height:1}
+.n span{display:block;margin-top:10px;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:var(--azul)}
+.n i{display:block;margin-top:6px;font-style:normal;font-size:12px;line-height:1.5;color:var(--suave)}
+.qs-cit{position:absolute;left:660px;right:67px;bottom:92px;border-left:2px solid var(--ouro);padding:6px 0 6px 22px}
+.qs-cit .serif{font-size:20px;font-style:italic;line-height:1.45}
+
+/* marcas */
+.linhas{position:absolute;left:67px;right:67px;top:150px;display:flex;flex-direction:column;gap:14px}
+.linha{display:flex;align-items:center;gap:22px;height:172px}
+.linha .nome{width:250px;flex:none;border-right:1px solid var(--linha);height:100%;display:flex;flex-direction:column;justify-content:center;padding-right:18px}
+.linha .nome h3{font-size:27px;line-height:1.15}
+.linha .nome small{margin-top:10px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ouro-esc);font-weight:500}
+.linha .fotos{display:flex;gap:10px;height:100%}
+.linha .foto{width:138px;height:172px}
+.linha .extra{width:100%;max-width:520px;margin-left:8px;align-self:center}
+.extra p{font-size:13px;color:var(--suave)}
+.extra .serif{font-size:22px;color:var(--azul);line-height:1.35;margin-bottom:8px}
+
+/* compactados */
+.cards{position:absolute;left:67px;top:155px;width:790px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.card{background:var(--card);border:1px solid var(--linha);border-top:2px solid var(--azul);padding:18px 18px 16px;height:152px;position:relative}
+.card:nth-child(even){border-top-color:var(--ouro)}
+.card h4{font-size:12px;letter-spacing:.22em;font-weight:600;text-transform:uppercase;color:var(--azul);margin-bottom:10px}
+.card p{font-size:12px;line-height:1.55;color:#394254}
+.card .o{position:absolute;right:14px;top:8px;font-family:'Playfair Display',serif;font-style:italic;font-size:30px;color:rgba(197,164,109,.3)}
+.card.mais{border:1px dashed var(--ouro);background:transparent;display:flex;align-items:center;justify-content:center;text-align:center}
+.card.mais p{font-size:13px;font-weight:500;color:var(--azul);line-height:1.6}
+.fotosd{position:absolute;right:67px;top:155px;display:grid;grid-template-columns:150px 150px;gap:12px}
+.fotosd .foto{width:150px;height:188px}
+.fotosd .foto:nth-child(even){margin-top:34px}
+
+/* personalização */
+.pers-lista{position:absolute;left:67px;top:160px;width:640px;display:grid;grid-template-columns:1fr 1fr;gap:12px 28px}
+.it{border-left:2px solid var(--ouro);padding:4px 0 4px 16px}
+.it h4{font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--azul)}
+.it p{margin-top:6px;font-size:12.5px;line-height:1.55;color:#394254}
+.it.dest{border-left-color:var(--azul);background:var(--card)}
+.pers-fotos{position:absolute;right:67px;top:150px;display:grid;grid-template-columns:200px 200px;gap:14px}
+.pers-fotos .foto{width:200px;height:250px}
+.pers-nota{position:absolute;left:67px;top:560px;width:640px;border:1px solid var(--linha);background:rgba(246,244,238,.8);padding:16px 20px}
+.pers-nota p{font-size:13px}
+
+/* categorias */
+.cats{position:absolute;left:67px;right:67px;top:165px;display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.cat{background:var(--card);border:1px solid var(--linha);height:440px;padding:30px 22px;position:relative}
+.cat .big{font-family:'Playfair Display',serif;font-size:56px;font-style:italic;color:rgba(197,164,109,.4);line-height:1}
+.cat h3{font-size:25px;margin-top:20px}
+.cat .fio{margin:14px 0}
+.cat p{font-size:13.5px;line-height:1.65;color:#394254}
+.cat .tag{position:absolute;left:20px;right:20px;bottom:20px;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:var(--ouro-esc)}
+.cat.esp{background:var(--azul);border-color:var(--azul)}
+.cat.esp h3{color:#fff}.cat.esp p{color:#D8DCE6}.cat.esp .big{color:rgba(197,164,109,.55)}.cat.esp .tag{color:var(--ouro)}
+.cat.esp .fio{background:var(--ouro)}
+
+/* oferecemos */
+.ofe{position:absolute;left:67px;right:67px;top:190px;display:grid;grid-template-columns:1fr 1fr;gap:56px 60px}
+.of{display:flex;gap:22px}
+.of .k{flex:none;width:58px;height:58px;border:1px solid var(--azul);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:21px;color:var(--ouro-esc);background:#fff;box-shadow:5px 5px 0 var(--linha)}
+.of h4{font-size:19px;font-weight:500;color:var(--azul);margin-bottom:8px}
+.of p{font-size:14.5px;line-height:1.65;color:#394254;border-left:1px solid var(--linha);padding-left:14px}
+
+/* modelos */
+.mods{position:absolute;left:67px;right:67px;top:165px;display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.mod{background:var(--card);border:1px solid var(--linha);border-top:2px solid var(--ouro);padding:28px 20px;height:400px}
+.mod .big{font-family:'Playfair Display',serif;font-size:34px;color:var(--ouro)}
+.mod h3{font-size:21px;margin:14px 0 4px;line-height:1.2}
+.mod p{font-size:13.5px;line-height:1.65;color:#394254}
+.mod:nth-child(odd){border-top-color:var(--azul)}
+.faixa{position:absolute;left:67px;right:67px;bottom:80px;text-align:center;font-size:12px;color:var(--suave);letter-spacing:.04em}
+
+/* etapas */
+.etapas{position:absolute;left:67px;right:67px;top:200px;display:grid;grid-template-columns:repeat(4,1fr);gap:26px 22px}
+.et{background:var(--card);border:1px solid var(--linha);padding:20px 20px 18px;height:156px;position:relative}
+.et .c{position:absolute;top:-17px;left:18px;width:34px;height:34px;border-radius:50%;border:1px solid var(--ouro);background:var(--fundo);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:14px;color:var(--ouro-esc)}
+.et h4{font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--azul);margin-top:8px}
+.et p{margin-top:8px;font-size:12px;line-height:1.55;color:#394254}
+.cond{position:absolute;left:67px;right:67px;top:560px;display:flex;gap:14px}
+.cond div{flex:1;border-left:2px solid var(--ouro);padding:6px 0 6px 18px}
+.cond b{display:block;font-family:'Playfair Display',serif;font-weight:400;font-size:26px;color:var(--azul)}
+.cond span{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--suave);font-weight:500}
+
+/* por que */
+.pq{position:absolute;left:67px;right:67px;top:170px;display:grid;grid-template-columns:1fr 1fr;gap:0 70px}
+.pq .d{display:flex;gap:18px;padding:26px 0;border-bottom:1px solid var(--linha)}
+.pq .d .k{flex:none;width:34px;height:34px;border:1px solid var(--linha);background:#fff;font-family:'Playfair Display',serif;color:var(--ouro-esc);display:flex;align-items:center;justify-content:center;font-size:15px}
+.pq h4{font-size:18px;font-weight:500;color:var(--azul)}
+.pq p{font-size:14px;line-height:1.6;margin-top:6px;color:#394254}
+.sel{position:absolute;left:67px;right:67px;bottom:78px;background:var(--azul);color:#fff;padding:18px 30px;display:flex;justify-content:space-between;align-items:center}
+.sel span{font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:500}
+.sel b{color:var(--ouro);font-weight:500}
+
+/* qualidade */
+.q-esq{position:absolute;left:67px;top:240px;width:330px;height:330px;display:flex;align-items:center;justify-content:center}
+.q-esq .c1,.q-esq .c2{position:absolute;border-radius:50%}
+.q-esq .c1{inset:0;border:1px solid var(--linha)}
+.q-esq .c2{inset:20px;border:1px solid var(--ouro)}
+.q-esq .t{text-align:center;position:relative}
+.q-esq .t b{display:block;font-family:'Playfair Display',serif;font-weight:400;font-size:52px;color:var(--azul);line-height:1}
+.q-esq .t span{display:block;margin-top:10px;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--azul)}
+.q-esq .t i{display:block;margin-top:6px;font-style:normal;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ouro-esc)}
+.q-dir{position:absolute;left:470px;right:67px;top:165px;display:grid;grid-template-columns:1fr 1fr;gap:0 40px}
+.q-dir .b{padding:32px 0;border-bottom:1px solid var(--linha)}
+.q-dir h4{font-family:'Playfair Display',serif;font-weight:400;font-size:23px;color:var(--azul)}
+.q-dir p{margin-top:8px;font-size:14px;line-height:1.55;color:#394254}
+
+/* contato */
+.ct-esq{position:absolute;left:83px;top:150px;width:520px}
+.ct-esq h2{font-size:58px;line-height:1.1;margin-top:20px}
+.ct-esq p{margin-top:22px;font-size:15px;line-height:1.7}
+.ct-dir{position:absolute;left:700px;right:83px;top:112px;display:flex;flex-direction:column;gap:16px}
+.ct{display:flex;align-items:center;gap:22px;background:rgba(246,244,238,.85);border:1px solid var(--linha);padding:24px 28px}
+.ct .k{flex:none;width:44px;height:44px;border-radius:50%;border:1px solid var(--ouro);display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:.1em;color:var(--azul);font-weight:600;background:#fff}
+.ct small{display:block;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--suave);font-weight:500}
+.ct b{display:block;margin-top:5px;font-size:18px;font-weight:500;color:var(--azul)}
+.ct-rod{position:absolute;left:0;right:0;bottom:0;height:62px;border-top:1px solid var(--linha);display:flex;justify-content:space-between;align-items:center;padding:0 83px;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--azul);background:var(--fundo)}
+.ct-rod .g{letter-spacing:.5em;color:rgba(30,47,77,.45)}
+.fim .marca{display:none}
+</style>
+</head>
+<body>
+
+<!-- 1 CAPA -->
+<section class="pagina capa">
+  <div class="logo">GARNET</div>
+  <div class="sub">Cosméticos · desde 1992</div>
+  <div class="lema"><h1>Transformando ideias em produtos de beleza<br>com <em>excelência</em>, <em>inovação</em> e <em>qualidade</em></h1></div>
+  <div class="rod">Apresentação comercial · Fabricação private label</div>
+  <div class="cant"></div>
+</section>
+
+<!-- 2 QUEM SOMOS -->
+<section class="pagina">
+  <div class="topo"><div class="rotulo">Quem somos</div></div>
+  <div class="qs-esq">
+    <div class="fio"></div>
+    <h2>A arte de criar<br><em>marcas desejáveis.</em></h2>
+    <p style="margin-top:26px">Desde 1992, a Garnet é uma fabricante de cosméticos especialista em <b>maquiagem compactada</b>: pós, blushes, sombras, bronzers e iluminadores de alta performance, com muitas possibilidades de personalização.</p>
+    <p style="margin-top:12px">Atuamos em <b>private label e full service</b>, desenvolvendo e fabricando linhas para marcas, influenciadoras e empreendedores que querem lançar ou expandir a marca própria.</p>
+  </div>
+  <div class="qs-nums">
+    <div class="n"><b>1992</b><span>+30 anos de experiência</span><i>Tradição em maquiagem compactada.</i></div>
+    <div class="n"><b>+150</b><span>Marcas atendidas</span><i>De influenciadoras a marcas consolidadas.</i></div>
+    <div class="n"><b>50 mil</b><span>Unidades por mês</span><i>Capacidade de produção.</i></div>
+    <div class="n"><b>1.000 m²</b><span>De área fabril</span><i>Fabricação seguindo as BPF (Boas Práticas de Fabricação).</i></div>
+  </div>
+  <div class="qs-cit"><div class="serif">“Mais do que fabricar cosméticos, ajudamos a construir marcas que contam histórias.”</div></div>
+  <div class="marca">GARNET</div><div class="num">02</div>
+</section>
+
+<!-- 3 MARCAS I -->
+<section class="pagina">
+  <div class="topo"><div class="rotulo">Marcas que já fabricamos</div><h2>Produtos reais, <em>marcas reais</em></h2></div>
+  <div class="linhas" style="top:158px">
+    <div class="linha"><div class="nome"><h3>Boca Rosa</h3><small>Fabricado pela Garnet</small></div>
+      <div class="fotos">
+        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/bocarosa-01.webp" alt=""></div>
+        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/bocarosa-02.webp" alt=""></div>
+        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/bocarosa-04.webp" alt=""></div>
+        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/bocarosa-05.webp" alt=""></div>
+        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/bocarosa-09.webp" alt=""></div>
+        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/bocarosa-14.webp" alt=""></div>
+      </div></div>
+    <div class="linha"><div class="nome"><h3>Karen Bachini</h3><small>Fabricado pela Garnet</small></div>
+      <div class="fotos">
+        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/karen-01.webp" alt=""></div>
+        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/karen-02.webp" alt=""></div>
+        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/karen-04.webp" alt=""></div>
+        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/karen-06.webp" alt=""></div>
+        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/karen-quarteto-blush.webp" alt=""></div>
+        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/karen-quarteto-nude.webp" alt=""></div>
+      </div></div>
+    <div class="linha"><div class="nome"><h3>Fran<br><span style="font-size:15px;font-style:italic;color:var(--suave)">Franciny Ehlke</span></h3><small>Fabricado pela Garnet</small></div>
+      <div class="fotos">
+        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/fran-03.webp" alt=""></div>
+        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/fran-04.webp" alt=""></div>
+        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/fran-05.webp" alt=""></div>
+        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/fran-beach-face.webp" alt=""></div>
+        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/fran-franciny-2.webp" alt=""></div>
+        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/fran-your-browns.webp" alt=""></div>
+      </div></div>
+  </div>
+  <div class="marca">GARNET</div><div class="num">03</div>
+</section>
+
+<!-- 4 MARCAS II -->
+<section class="pagina">
+  <div class="topo"><div class="rotulo">Marcas que já fabricamos</div><h2>E muitas outras, <em>+150 marcas</em></h2></div>
+  <div class="linhas" style="top:158px">
+    <div class="linha"><div class="nome"><h3>John John</h3><small>Fabricado pela Garnet</small></div>
+      <div class="fotos">
+        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/johnjohn-05.webp" alt=""></div>
+        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/johnjohn-07.webp" alt=""></div>
+        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/johnjohn-neon.webp" alt=""></div>
+        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/johnjohn-po.webp" alt=""></div>
+        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/johnjohn-purple.webp" alt=""></div>
+        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/johnjohn-red.webp" alt=""></div>
+      </div></div>
+    <div class="linha"><div class="nome"><h3>Estrela Beauty</h3><small>Fabricado pela Garnet</small></div>
+      <div class="fotos">
+        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/estrela-bronzer.webp" alt=""></div>
+        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/estrela-gloss.webp" alt=""></div>
+        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/estrela-kit.webp" alt=""></div>
+        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/estrela-mar-de-cores.webp" alt=""></div>
+        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/estrela-paleta.webp" alt=""></div>
+        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/estrela-sombra.webp" alt=""></div>
+      </div></div>
+    <div class="linha"><div class="nome"><h3>Alê de Souza<br><span style="font-size:15px;font-style:italic;color:var(--suave)">× Payot</span></h3><small>Fabricado pela Garnet</small></div>
+      <div class="fotos">
+        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/ale-01.webp" alt=""></div>
+        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/ale-02.webp" alt=""></div>
+        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/ale-brown.webp" alt=""></div>
+        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/ale-roses.webp" alt=""></div>
+      </div>
+      <div class="extra"><div class="serif">Há mais de 30 anos<br>dando forma a <em>marcas de beleza</em>.</div><p>Também fabricamos para Alice Salazar e Max Weber, entre mais de 150 marcas atendidas.</p></div></div>
+  </div>
+  <div class="marca">GARNET</div><div class="num">04</div>
+</section>
+
+<!-- 5 COMPACTADOS -->
+<section class="pagina">
+  <div class="topo"><div class="rotulo">Nossa especialidade</div><h2>Mestres em <em>compactados</em></h2></div>
+  <div class="cards">
+    <div class="card"><span class="o">01</span><h4>Iluminador</h4><p>Fórmulas de alta refração para um glow perfeito, com texturas de acabamento natural e sofisticado.</p></div>
+    <div class="card"><span class="o">02</span><h4>Contorno</h4><p>Tonalidades equilibradas para dar profundidade, com pigmentação que garante um esfumado profissional.</p></div>
+    <div class="card"><span class="o">03</span><h4>Blush</h4><p>Cores vibrantes e refinadas, com acabamentos versáteis para diferentes tons de pele.</p></div>
+    <div class="card"><span class="o">04</span><h4>Sombra</h4><p>Paletas personalizadas, com pigmentação e maciez e desenvolvimento de cores e texturas.</p></div>
+    <div class="card"><span class="o">05</span><h4>Pó compacto</h4><p>Texturas micronizadas para selamento, controle de oleosidade e acabamento aveludado.</p></div>
+    <div class="card"><span class="o">06</span><h4>Bronzer</h4><p>Efeito bronzeado natural e sofisticado, com fácil aderência e aquecimento ideal para o rosto.</p></div>
+    <div class="card"><span class="o">07</span><h4>Base compacta</h4><p>Cobertura customizável e toque agradável, reunindo praticidade e performance em um único produto.</p></div>
+    <div class="card mais" style="grid-column:span 2"><p>Podemos desenvolver outras ideias e formatos de produtos compactados personalizados.</p></div>
+  </div>
+  <div class="fotosd">
+    <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/bocarosa-01.webp" alt=""></div>
+    <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/estrela-bronzer.webp" alt=""></div>
+    <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/johnjohn-po.webp" alt=""></div>
+    <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/karen-quarteto-blush.webp" alt=""></div>
+  </div>
+  <div class="rodape-nota" style="left:67px">Domínio técnico e excelência em produtos compactados</div>
+  <div class="marca">GARNET</div>
+</section>
+
+<!-- 6 PERSONALIZAÇÃO -->
+<section class="pagina">
+  <div class="topo"><div class="rotulo">Personalização</div><h2>A sua marca, <em>em cada detalhe</em></h2></div>
+  <div class="pers-lista">
+    <div class="it"><h4>Cores</h4><p>Desenvolvimento de tons e pigmentações sob medida para a sua marca.</p></div>
+    <div class="it"><h4>Relevo</h4><p>Texturas e relevos na superfície do produto, para um visual único.</p></div>
+    <div class="it dest"><h4>Logo gravado</h4><p>Sua marca gravada no próprio produto, com acabamento sofisticado.</p></div>
+    <div class="it"><h4>Desenhos</h4><p>Ilustrações e estampas criadas para dar identidade à linha.</p></div>
+    <div class="it"><h4>Paletas</h4><p>Composições de cores e formatos pensadas para o conceito da coleção.</p></div>
+    <div class="it"><h4>Formatos</h4><p>Redondo, quadrado ou formas especiais, conforme a viabilidade.</p></div>
+    <div class="it"><h4>Embalagens</h4><p>Orientamos formatos, materiais e acabamentos, com diversos fornecedores de embalagem.</p></div>
+  </div>
+  <div class="pers-nota" style="top:540px"><p>O que torna um produto inconfundível está nos detalhes. Cada projeto nasce de um briefing e é desenvolvido para refletir a identidade da sua marca.</p></div>
+  <div class="pers-fotos">
+    <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/johnjohn-purple.webp" alt=""></div>
+    <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/garnet-ondas.webp" alt=""><span class="selo" style="left:8px;bottom:8px">imagem ilustrativa</span></div>
+    <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/garnet-g.webp" alt=""><span class="selo" style="left:8px;bottom:8px">imagem ilustrativa</span></div>
+    <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/ale-brown.webp" alt=""></div>
+  </div>
+  <div class="marca">GARNET</div><div class="num">06</div>
+</section>
+
+<!-- 7 CATEGORIAS -->
+<section class="pagina">
+  <div class="topo"><div class="rotulo">Catálogo Garnet</div><h2>Cinco categorias que <em>desenvolvemos</em></h2></div>
+  <div class="cats">
+    <div class="cat esp"><div class="big">01</div><h3>Maquiagem</h3><div class="fio"></div><p>Nossa especialidade desde 1992: pós, blushes, sombras, bronzer e iluminador, compactados com relevo, logo gravado, desenhos e paletas sob medida.</p><div class="tag">Especialidade</div></div>
+    <div class="cat"><div class="big">02</div><h3>Lábios</h3><div class="fio"></div><p>Batons, glosses e lip oils com a identidade da sua marca.</p></div>
+    <div class="cat"><div class="big">03</div><h3>Perfumaria</h3><div class="fio"></div><p>Perfumes, body splashes, colônias e perfumes capilares.</p><div class="tag">Pedido mín. 3.000 peças</div></div>
+    <div class="cat"><div class="big">04</div><h3>Skincare</h3><div class="fio"></div><p>Séruns, hidratantes e máscaras para completar o portfólio.</p></div>
+    <div class="cat"><div class="big">05</div><h3>Corpo</h3><div class="fio"></div><p>Loções, óleos e esfoliantes para linhas de cuidado corporal.</p><div class="tag">Pedido mín. 3.000 peças</div></div>
+  </div>
+  <div class="rodape-nota" style="left:67px;bottom:30px">Todas as fórmulas são cruelty-free e dermatologicamente testadas</div>
+  <div class="marca">GARNET</div>
+</section>
+
+<!-- 8 O QUE OFERECEMOS -->
+<section class="pagina">
+  <div class="topo"><div class="rotulo">Solução completa 360°</div><h2>O que <em>oferecemos</em></h2></div>
+  <div class="ofe">
+    <div class="of"><div class="k">01</div><div><h4>Desenvolvimento de Linha Própria</h4><p>Acompanhamos a criação de coleções de maquiagem do zero, transformando sua visão em um portfólio completo e estruturado para o mercado.</p></div></div>
+    <div class="of"><div class="k">02</div><div><h4>Personalização de Produto</h4><p>Ajuste refinado de fórmulas, texturas, pigmentação e embalagens para que cada item reflita a essência da sua marca.</p></div></div>
+    <div class="of"><div class="k">03</div><div><h4>Apoio na Construção da Marca</h4><p>Suporte para o posicionamento da sua linha de beleza, conectando desenvolvimento técnico com inteligência comercial.</p></div></div>
+    <div class="of"><div class="k">04</div><div><h4>Fabricação Terceirizada</h4><p>Infraestrutura industrial para produção em escala, com padrão de qualidade e consistência lote a lote.</p></div></div>
+    <div class="of"><div class="k">05</div><div><h4>Orientação Técnica e Produtiva</h4><p>Consultoria durante todas as etapas, da seleção de matérias-primas ao processo final de produção.</p></div></div>
+    <div class="of"><div class="k">06</div><div><h4>Exclusividade Visual e Conceitual</h4><p>Cuidamos para que a sua linha tenha design diferenciado e um conceito forte, destacando-se visualmente no mercado.</p></div></div>
+  </div>
+  <div class="rodape-nota" style="left:67px">Da ideia ao produto final</div>
+  <div class="marca">GARNET</div>
+</section>
+
+<!-- 9 MODELOS -->
+<section class="pagina">
+  <div class="topo"><div class="rotulo">Modelos de produção</div><h2>Cinco formas de <em>produzir com a Garnet</em></h2></div>
+  <div class="mods">
+    <div class="mod"><div class="big">01</div><h3>Full Service</h3><div class="fio"></div><p>A Garnet coordena tudo de ponta a ponta: fórmula, amostras, embalagem, produção, qualidade e entrega. Ideal para criar a marca sem ter fórmula própria.</p></div>
+    <div class="mod"><div class="big">02</div><h3>Produção Mista</h3><div class="fio"></div><p>Etapas divididas entre a Garnet e a sua marca, que pode fornecer componentes, embalagens ou parceiros homologados.</p></div>
+    <div class="mod"><div class="big">03</div><h3>Mão de Obra</h3><div class="fio"></div><p>A marca fornece insumos ou fórmula, e a Garnet executa as etapas produtivas com rastreabilidade.</p></div>
+    <div class="mod"><div class="big">04</div><h3>Private Label</h3><div class="fio"></div><p>Linha personalizada que combina formulação, identidade e acabamento, para lançar sua marca com mais rapidez.</p></div>
+    <div class="mod"><div class="big">05</div><h3>Collabs</h3><div class="fio"></div><p>Projetos com marcas e influenciadores, traduzindo conceito e audiência em produto com identidade própria.</p></div>
+  </div>
+  <div class="faixa">Não sabe qual modelo escolher? A equipe Garnet indica o melhor caminho a partir do seu briefing.</div>
+  <div class="marca">GARNET</div><div class="num">09</div>
+</section>
+
+<!-- 10 COMO FUNCIONA -->
+<section class="pagina">
+  <div class="topo"><div class="rotulo">Nosso processo</div><h2>Como tiramos sua <em>marca do papel</em></h2></div>
+  <div class="etapas">
+    <div class="et"><div class="c">01</div><h4>Briefing</h4><p>Entendemos sua ideia, público, conceito e objetivos para o projeto.</p></div>
+    <div class="et"><div class="c">02</div><h4>Desenvolvimento</h4><p>Criamos fórmulas e produtos a partir do conceito, ou personalizamos fórmulas disponíveis.</p></div>
+    <div class="et"><div class="c">03</div><h4>Amostras</h4><p>Avaliação de textura, cor, fragrância, desempenho e acabamento antes de produzir.</p></div>
+    <div class="et"><div class="c">04</div><h4>Personalização</h4><p>Cores, relevos, logo gravado, desenhos, formatos e embalagens da sua marca.</p></div>
+    <div class="et"><div class="c">05</div><h4>Regulatório ANVISA</h4><p>Apoiamos a adequação técnica e regulatória do produto.</p></div>
+    <div class="et"><div class="c">06</div><h4>Produção</h4><p>Fabricação em escala na nossa fábrica, seguindo as BPF.</p></div>
+    <div class="et"><div class="c">07</div><h4>Controle de qualidade</h4><p>Conferência para garantir padrão e consistência do lote.</p></div>
+    <div class="et"><div class="c">08</div><h4>Entrega</h4><p>Seu produto pronto para chegar ao mercado com a sua marca.</p></div>
+  </div>
+  <div class="cond">
+    <div><b>1.000 peças</b><span>Pedido mínimo · compactados</span></div>
+    <div><b>3.000 peças</b><span>Pedido mínimo · perfumaria, loções e demais</span></div>
+    <div><b>~30 dias</b><span>Prazo de referência*</span></div>
+  </div>
+  <div class="faixa" style="bottom:68px;font-size:11px">* Pedido mínimo e prazo são referências; o prazo final e as condições são confirmados na análise do briefing.</div>
+  <div class="marca">GARNET</div><div class="num">10</div>
+</section>
+
+<!-- 11 POR QUE GARNET -->
+<section class="pagina">
+  <div class="topo"><div class="rotulo">Diferenciais competitivos</div><h2>Por que produzir com a <em>Garnet</em></h2></div>
+  <div class="pq">
+    <div>
+      <div class="d"><div class="k">1</div><div><h4>Desde 1992, mais de 30 anos</h4><p>Tradição e conhecimento acumulado em maquiagem compactada.</p></div></div>
+      <div class="d"><div class="k">2</div><div><h4>Especialização em personalização</h4><p>Foco em criar identidades únicas, com relevo, logo gravado, desenhos e paletas sob medida.</p></div></div>
+      <div class="d"><div class="k">3</div><div><h4>Expertise técnica focada</h4><p>Domínio no desenvolvimento de produtos compactados de alta performance e acabamento superior.</p></div></div>
+    </div>
+    <div>
+      <div class="d"><div class="k">4</div><div><h4>Processo consultivo</h4><p>Acompanhamento próximo, da concepção do produto ao posicionamento no mercado.</p></div></div>
+      <div class="d"><div class="k">5</div><div><h4>Projetos com identidade própria</h4><p>Cada projeto é desenvolvido para refletir o DNA da sua marca, sem fórmulas genéricas.</p></div></div>
+      <div class="d"><div class="k">6</div><div><h4>Equilíbrio estratégico</h4><p>Conectamos o sonho da marca própria com a viabilidade comercial do negócio.</p></div></div>
+    </div>
+  </div>
+  <div class="sel"><span><b>Cruelty-free</b> e dermatologicamente testadas · todas as fórmulas</span><span>Fabricação em <b>BPF</b></span><span><b>+150</b> marcas atendidas</span></div>
+  <div class="marca">GARNET</div>
+</section>
+
+<!-- 12 QUALIDADE -->
+<section class="pagina">
+  <div class="topo"><div class="rotulo">Padrão Garnet de excelência</div><h2>Compromisso com <em>qualidade</em> e consistência</h2></div>
+  <div class="q-esq"><div class="c1"></div><div class="c2"></div><div class="t"><b>BPF</b><span>Boas Práticas<br>de Fabricação</span><i>1.000 m² de fábrica</i></div></div>
+  <div class="q-dir">
+    <div class="b"><h4>Fórmulas seguras</h4><p>Todas as fórmulas são cruelty-free e dermatologicamente testadas.</p></div>
+    <div class="b"><h4>Amostras antes da produção</h4><p>Textura, cor, fragrância, desempenho e acabamento avaliados e aprovados com você.</p></div>
+    <div class="b"><h4>Apoio regulatório</h4><p>Acompanhamos os requisitos técnicos e regulatórios aplicáveis ao longo do desenvolvimento.</p></div>
+    <div class="b"><h4>Controle de qualidade</h4><p>Etapa dedicada do processo, para garantir o padrão do produto que chega à sua marca.</p></div>
+    <div class="b"><h4>Atenção aos detalhes</h4><p>Cuidado com textura, pigmentação, compactação e acabamento de cada peça.</p></div>
+    <div class="b"><h4>Apresentação final</h4><p>Atenção à embalagem e ao aspecto visual do produto que chega ao consumidor.</p></div>
+  </div>
+  <div class="marca">GARNET</div><div class="num">12</div>
+</section>
+
+<!-- 13 CONTATO -->
+<section class="pagina fim">
+  <div class="ct-esq">
+    <div class="rotulo" style="color:var(--ouro-esc)">Próximo passo</div>
+    <h2>Vamos desenvolver<br>sua <em>marca?</em></h2>
+    <p>Tire sua ideia do papel com a Garnet. Envie seu briefing e nossa equipe responde em até 1 dia útil, com orçamento personalizado para o seu projeto.</p>
+    <p style="margin-top:14px;font-size:12px;color:var(--suave)">Pedido mínimo: 1.000 peças (compactados) e 3.000 peças (perfumaria, loções e demais). Prazo de referência: cerca de 30 dias.</p>
+  </div>
+  <div class="ct-dir">
+    <div class="ct"><div class="k">WA</div><div><small>WhatsApp comercial</small><b>(11) 98153-1188</b></div></div>
+    <div class="ct"><div class="k">@</div><div><small>E-mail para projetos</small><b>contato@garnetcosmeticos.com.br</b></div></div>
+    <div class="ct"><div class="k">WWW</div><div><small>Website oficial</small><b>garnetcosmeticos.com.br</b></div></div>
+    <div class="ct"><div class="k">IG</div><div><small>Instagram</small><b>@garnetcosmeticos</b></div></div>
+    <div class="ct"><div class="k">SP</div><div><small>Sede administrativa</small><b>São Paulo, SP</b></div></div>
+  </div>
+  <div class="ct-rod"><span class="g">GARNET</span><span>Cosméticos personalizados · desde 1992</span><span>© 2026 Garnet Cosméticos</span></div>
+</section>
+
+<script>
+/* Reduz as fotos (720x900) para ~300x375 antes de imprimir, para o PDF ficar leve. Se falhar, mantém a original. */
+window.__prontas = Promise.all([...document.images].map(function(img){
+  var src = img.getAttribute('src');
+  return new Promise(function(ok){
+    var o = new Image(); o.crossOrigin = 'anonymous';
+    o.onload = function(){
+      try{
+        var c = document.createElement('canvas'); c.width = 300; c.height = 375;
+        c.getContext('2d').drawImage(o,0,0,300,375);
+        var d = c.toDataURL('image/jpeg',0.86);
+        img.onload = function(){ ok(); }; img.src = d;
+      }catch(e){ ok(); }
+    };
+    o.onerror = function(){ ok(); };
+    o.src = src;
+  });
+}));
+</script>
+</body>
+</html>
