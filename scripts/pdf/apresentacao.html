@@ -67,7 +67,7 @@ p{font-size:14px;line-height:1.65;font-weight:400;color:var(--texto)}
 .extra .serif{font-size:22px;color:var(--azul);line-height:1.35;margin-bottom:8px}
 
 /* compactados */
-.cards{position:absolute;left:67px;top:155px;width:790px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.cards{position:absolute;left:67px;top:155px;width:700px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .card{background:var(--card);border:1px solid var(--linha);border-top:2px solid var(--azul);padding:18px 18px 16px;height:152px;position:relative}
 .card:nth-child(even){border-top-color:var(--ouro)}
 .card h4{font-size:12px;letter-spacing:.22em;font-weight:600;text-transform:uppercase;color:var(--azul);margin-bottom:10px}
@@ -75,9 +75,7 @@ p{font-size:14px;line-height:1.65;font-weight:400;color:var(--texto)}
 .card .o{position:absolute;right:14px;top:8px;font-family:'Playfair Display',serif;font-style:italic;font-size:30px;color:rgba(197,164,109,.3)}
 .card.mais{border:1px dashed var(--ouro);background:transparent;display:flex;align-items:center;justify-content:center;text-align:center}
 .card.mais p{font-size:13px;font-weight:500;color:var(--azul);line-height:1.6}
-.fotosd{position:absolute;right:67px;top:155px;display:grid;grid-template-columns:150px 150px;gap:12px}
-.fotosd .foto{width:150px;height:188px}
-.fotosd .foto:nth-child(even){margin-top:34px}
+.fotosd{position:absolute;right:67px;top:155px;width:470px;height:484px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:170px 1fr;gap:14px}
 
 /* personalização */
 .pers-lista{position:absolute;left:67px;top:160px;width:640px;display:grid;grid-template-columns:1fr 1fr;gap:12px 28px}
@@ -85,8 +83,7 @@ p{font-size:14px;line-height:1.65;font-weight:400;color:var(--texto)}
 .it h4{font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--azul)}
 .it p{margin-top:6px;font-size:12.5px;line-height:1.55;color:#394254}
 .it.dest{border-left-color:var(--azul);background:var(--card)}
-.pers-fotos{position:absolute;right:67px;top:150px;display:grid;grid-template-columns:200px 200px;gap:14px}
-.pers-fotos .foto{width:200px;height:250px}
+.pers-fotos{position:absolute;right:67px;top:150px;width:454px;height:520px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:14px}
 .pers-nota{position:absolute;left:67px;top:560px;width:640px;border:1px solid var(--linha);background:rgba(246,244,238,.8);padding:16px 20px}
 .pers-nota p{font-size:13px}
 
@@ -165,6 +162,30 @@ p{font-size:14px;line-height:1.65;font-weight:400;color:var(--texto)}
 .ct-rod{position:absolute;left:0;right:0;bottom:0;height:62px;border-top:1px solid var(--linha);display:flex;justify-content:space-between;align-items:center;padding:0 83px;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--azul);background:var(--fundo)}
 .ct-rod .g{letter-spacing:.5em;color:rgba(30,47,77,.45)}
 .fim .marca{display:none}
+
+/* cartões de estúdio */
+.gr{position:absolute;left:67px;right:67px;top:150px;height:520px;display:grid;gap:12px 14px}
+.cel{background:#fff;box-shadow:0 3px 16px rgba(30,47,77,.09),0 0 0 1px #efebe0;display:flex;flex-direction:column;padding:10px 10px 8px;min-height:0;min-width:0;position:relative}
+.cel .ph{flex:1;min-height:0;position:relative;display:flex}
+.cel .ph img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply}
+.cel.g{padding:0}
+.cel.g .ph img{object-fit:cover;mix-blend-mode:normal}
+.cel figcaption{padding-top:7px;border-top:1px solid #f0ede4;margin-top:6px}
+.cel.g figcaption{padding:8px 10px 9px;margin-top:0}
+.cel figcaption b{display:block;font-family:'Playfair Display',serif;font-weight:500;font-size:14.5px;color:var(--azul);line-height:1.2}
+.cel figcaption span{display:block;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--suave);font-weight:500;margin-top:3px;line-height:1.4}
+.cel .selo{left:6px;bottom:6px;top:auto;background:rgba(30,47,77,.88);color:#fff;border:0;font-size:7px;padding:4px 7px}
+.gl{white-space:nowrap;align-self:end;display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--linha);padding-bottom:6px}
+.gl b{font-family:'Playfair Display',serif;font-weight:400;font-size:23px;color:var(--azul)}
+.gl b i{font-size:15px;color:var(--suave)}
+.gl small{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ouro-esc);font-weight:500}
+.tile{background:var(--azul);color:#fff;padding:20px 20px;display:flex;flex-direction:column;justify-content:center;min-height:0}
+.tile .rot{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--ouro);margin-bottom:10px;font-weight:600}
+.tile p{font-family:'Playfair Display',serif;font-size:22px;line-height:1.28;color:#fff;margin-bottom:12px}
+.tile span{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#cfd6e4;line-height:1.6}
+.tile.dois{grid-column:span 2}
+.tile.fim p{font-size:16px}
+.lg-nota{position:absolute;right:67px;top:84px;text-align:right;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--suave);line-height:1.8}
 </style>
 </head>
 <body>
@@ -200,73 +221,25 @@ p{font-size:14px;line-height:1.65;font-weight:400;color:var(--texto)}
 <!-- 3 MARCAS I -->
 <section class="pagina">
   <div class="topo"><div class="rotulo">Marcas que já fabricamos</div><h2>Produtos reais, <em>marcas reais</em></h2></div>
-  <div class="linhas" style="top:158px">
-    <div class="linha"><div class="nome"><h3>Boca Rosa</h3><small>Fabricado pela Garnet</small></div>
-      <div class="fotos">
-        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/bocarosa-01.webp" alt=""></div>
-        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/bocarosa-02.webp" alt=""></div>
-        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/bocarosa-04.webp" alt=""></div>
-        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/bocarosa-05.webp" alt=""></div>
-        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/bocarosa-09.webp" alt=""></div>
-        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/bocarosa-14.webp" alt=""></div>
-      </div></div>
-    <div class="linha"><div class="nome"><h3>Karen Bachini</h3><small>Fabricado pela Garnet</small></div>
-      <div class="fotos">
-        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/karen-01.webp" alt=""></div>
-        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/karen-02.webp" alt=""></div>
-        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/karen-04.webp" alt=""></div>
-        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/karen-06.webp" alt=""></div>
-        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/karen-quarteto-blush.webp" alt=""></div>
-        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/karen-quarteto-nude.webp" alt=""></div>
-      </div></div>
-    <div class="linha"><div class="nome"><h3>Fran<br><span style="font-size:15px;font-style:italic;color:var(--suave)">Franciny Ehlke</span></h3><small>Fabricado pela Garnet</small></div>
-      <div class="fotos">
-        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/fran-03.webp" alt=""></div>
-        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/fran-04.webp" alt=""></div>
-        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/fran-05.webp" alt=""></div>
-        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/fran-beach-face.webp" alt=""></div>
-        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/fran-franciny-2.webp" alt=""></div>
-        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/fran-your-browns.webp" alt=""></div>
-      </div></div>
-  </div>
+  <div class="gr" style="grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:auto minmax(0,1fr) minmax(0,1fr)"><div class="gl" style="grid-column:1/-1;grid-row:1"><b>Boca Rosa</b><small>Fabricado pela Garnet · 7 produtos</small></div><figure class="cel" style="grid-row:2"><div class="ph"><img src="img/catalogo/bocarosa-copacabana.jpg" alt=""></div><figcaption><b>#Copacabana</b><span>Trio de iluminador e contorno</span></figcaption></figure><figure class="cel" style="grid-row:2"><div class="ph"><img src="img/catalogo/bocarosa-omg.jpg" alt=""></div><figcaption><b>#OMG!</b><span>Trio de iluminadores</span></figcaption></figure><figure class="cel" style="grid-row:2"><div class="ph"><img src="img/catalogo/bocarosa-carinha.jpg" alt=""></div><figcaption><b>#Carinha de Metida</b><span>Trio de blush</span></figcaption></figure><figure class="cel" style="grid-row:2"><div class="ph"><img src="img/catalogo/bocarosa-bembasiquinha.jpg" alt=""></div><figcaption><b>#BemBasiquinha</b><span>Paleta de sombras · 6 cores</span></figcaption></figure><figure class="cel" style="grid-row:3"><div class="ph"><img src="img/catalogo/bocarosa-pride.jpg" alt=""></div><figcaption><b>Pride</b><span>Paleta de sombras</span></figcaption></figure><figure class="cel" style="grid-row:3"><div class="ph"><img src="img/catalogo/bocarosa-choco.jpg" alt=""></div><figcaption><b>Choco</b><span>Trio · tons de chocolate</span></figcaption></figure><figure class="cel" style="grid-row:3"><div class="ph"><img src="img/catalogo/bocarosa-niver.jpg" alt=""></div><figcaption><b>Niver</b><span>Trio · tons rosados</span></figcaption></figure><div class="tile "><div class="rot">Fabricado pela Garnet</div><p>A sua marca também pode ter uma linha assim.</p><span>garnetcosmeticos.com.br/#personalize</span></div></div>
   <div class="marca">GARNET</div><div class="num">03</div>
 </section>
 
 <!-- 4 MARCAS II -->
 <section class="pagina">
-  <div class="topo"><div class="rotulo">Marcas que já fabricamos</div><h2>E muitas outras, <em>+150 marcas</em></h2></div>
-  <div class="linhas" style="top:158px">
-    <div class="linha"><div class="nome"><h3>John John</h3><small>Fabricado pela Garnet</small></div>
-      <div class="fotos">
-        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/johnjohn-05.webp" alt=""></div>
-        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/johnjohn-07.webp" alt=""></div>
-        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/johnjohn-neon.webp" alt=""></div>
-        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/johnjohn-po.webp" alt=""></div>
-        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/johnjohn-purple.webp" alt=""></div>
-        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/johnjohn-red.webp" alt=""></div>
-      </div></div>
-    <div class="linha"><div class="nome"><h3>Estrela Beauty</h3><small>Fabricado pela Garnet</small></div>
-      <div class="fotos">
-        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/estrela-bronzer.webp" alt=""></div>
-        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/estrela-gloss.webp" alt=""></div>
-        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/estrela-kit.webp" alt=""></div>
-        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/estrela-mar-de-cores.webp" alt=""></div>
-        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/estrela-paleta.webp" alt=""></div>
-        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/estrela-sombra.webp" alt=""></div>
-      </div></div>
-    <div class="linha"><div class="nome"><h3>Alê de Souza<br><span style="font-size:15px;font-style:italic;color:var(--suave)">× Payot</span></h3><small>Fabricado pela Garnet</small></div>
-      <div class="fotos">
-        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/ale-01.webp" alt=""></div>
-        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/ale-02.webp" alt=""></div>
-        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/ale-brown.webp" alt=""></div>
-        <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/ale-roses.webp" alt=""></div>
-      </div>
-      <div class="extra"><div class="serif">Há mais de 30 anos<br>dando forma a <em>marcas de beleza</em>.</div><p>Também fabricamos para Alice Salazar e Max Weber, entre mais de 150 marcas atendidas.</p></div></div>
-  </div>
+  <div class="topo"><div class="rotulo">Marcas que já fabricamos</div><h2>Paletas que <em>viraram marca</em></h2></div>
+  <div class="gr" style="grid-template-columns:repeat(5,minmax(0,1fr));grid-template-rows:auto minmax(0,1fr) auto minmax(0,1fr)"><div class="gl" style="grid-column:1/-1;grid-row:1"><b>Fran <i>· Franciny Ehlke</i></b><small>Fabricado pela Garnet · 5 produtos</small></div><figure class="cel "><div class="ph"><img src="img/catalogo/fran-copa.jpg" alt=""></div><figcaption><b>Copa</b><span>Paleta Franciny Ehlke · 9 cores</span></figcaption></figure><figure class="cel "><div class="ph"><img src="img/catalogo/fran-noneto.jpg" alt=""></div><figcaption><b>Noneto</b><span>Paleta · 9 cores</span></figcaption></figure><figure class="cel "><div class="ph"><img src="img/catalogo/fran-beachface.jpg" alt=""></div><figcaption><b>Beach Face</b><span>Paleta quarteto</span></figcaption></figure><figure class="cel "><div class="ph"><img src="img/catalogo/fran-gritani.jpg" alt=""></div><figcaption><b>Gritani</b><span>Paleta quarteto</span></figcaption></figure><figure class="cel "><div class="ph"><img src="img/catalogo/fran-yourbrowns.jpg" alt=""></div><figcaption><b>Your Browns</b><span>Paleta quarteto</span></figcaption></figure><div class="gl" style="grid-column:1/-1;grid-row:3"><b>Karen Bachini</b><small>Fabricado pela Garnet · 3 produtos</small></div><figure class="cel "><div class="ph"><img src="img/catalogo/karen-paleta12.jpg" alt=""></div><figcaption><b>Paleta Karen Bachini</b><span>Paleta · 12 cores</span></figcaption></figure><figure class="cel "><div class="ph"><img src="img/catalogo/karen-blush.jpg" alt=""></div><figcaption><b>Quarteto de blush</b><span>Paleta de blush</span></figcaption></figure><figure class="cel "><div class="ph"><img src="img/catalogo/karen-rosa.jpg" alt=""></div><figcaption><b>Quarteto rosa</b><span>Paleta Karen Bachini</span></figcaption></figure><div class="tile dois"><div class="rot">Fabricado pela Garnet</div><p>A sua marca também pode ter uma linha assim.</p><span>garnetcosmeticos.com.br/#personalize</span></div></div>
   <div class="marca">GARNET</div><div class="num">04</div>
 </section>
 
-<!-- 5 COMPACTADOS -->
+<!-- 5 MARCAS III -->
+<section class="pagina">
+  <div class="topo"><div class="rotulo">Marcas que já fabricamos</div><h2>E muitas outras, <em>+150 marcas</em></h2></div>
+  <div class="gr" style="grid-template-columns:repeat(6,minmax(0,1fr));grid-template-rows:auto minmax(0,1fr) auto minmax(0,1fr)"><div class="gl" style="grid-column:1/-1;grid-row:1"><b>Estrela Beauty</b><small>Fabricado pela Garnet · 6 produtos</small></div><figure class="cel" style="grid-row:2"><div class="ph"><img src="img/catalogo/estrela-paleta.jpg" alt=""></div><figcaption><b>Paleta</b><span>Paleta de sombras</span></figcaption></figure><figure class="cel" style="grid-row:2"><div class="ph"><img src="img/catalogo/estrela-trio.jpg" alt=""></div><figcaption><b>Trio</b><span>Kit com gloss</span></figcaption></figure><figure class="cel" style="grid-row:2"><div class="ph"><img src="img/catalogo/estrela-gloss.jpg" alt=""></div><figcaption><b>Gloss</b><span>Brilho labial</span></figcaption></figure><figure class="cel" style="grid-row:2"><div class="ph"><img src="img/catalogo/estrela-azul.jpg" alt=""></div><figcaption><b>Estrela Azul</b><span>Sombra</span></figcaption></figure><figure class="cel" style="grid-row:2"><div class="ph"><img src="img/catalogo/estrela-duo.jpg" alt=""></div><figcaption><b>Estrela Duo</b><span>Duo de sombras · neon</span></figcaption></figure><figure class="cel" style="grid-row:2"><div class="ph"><img src="img/catalogo/estrela-bronzer.jpg" alt=""></div><figcaption><b>Estrela</b><span>Bronzer e contorno</span></figcaption></figure><div class="gl" style="grid-column:1/2;grid-row:3"><b>Alice Salazar</b></div><div class="gl" style="grid-column:2/4;grid-row:3"><b>John John</b></div><div class="gl" style="grid-column:4/6;grid-row:3"><b>Alê de Souza <i>× Payot</i></b></div><figure class="cel" style="grid-row:4"><div class="ph"><img src="img/catalogo/alice-quarteto.jpg" alt=""></div><figcaption><b>Paleta Alice Salazar</b><span>Paleta quarteto</span></figcaption></figure><figure class="cel" style="grid-row:4"><div class="ph"><img src="img/catalogo/johnjohn-amarela.jpg" alt=""></div><figcaption><b>Sombra Amarela</b><span>Compacto com relevo</span></figcaption></figure><figure class="cel" style="grid-row:4"><div class="ph"><img src="img/catalogo/johnjohn-vermelha.jpg" alt=""></div><figcaption><b>Sombra Vermelha</b><span>Compacto com relevo</span></figcaption></figure><figure class="cel" style="grid-row:4"><div class="ph"><img src="img/catalogo/ale-brown.jpg" alt=""></div><figcaption><b>It’s Brown!</b><span>Paleta de sombras</span></figcaption></figure><figure class="cel" style="grid-row:4"><div class="ph"><img src="img/catalogo/ale-roses.jpg" alt=""></div><figcaption><b>Roses for Us!</b><span>Paleta de sombras</span></figcaption></figure><div class="tile fim" style="grid-row:4"><p>Há mais de 30 anos dando forma a marcas de beleza.</p><span>Entre elas, Max Weber</span></div></div>
+  <div class="marca">GARNET</div><div class="num">05</div>
+</section>
+
+<!-- 6 COMPACTADOS -->
 <section class="pagina">
   <div class="topo"><div class="rotulo">Nossa especialidade</div><h2>Mestres em <em>compactados</em></h2></div>
   <div class="cards">
@@ -280,16 +253,13 @@ p{font-size:14px;line-height:1.65;font-weight:400;color:var(--texto)}
     <div class="card mais" style="grid-column:span 2"><p>Podemos desenvolver outras ideias e formatos de produtos compactados personalizados.</p></div>
   </div>
   <div class="fotosd">
-    <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/bocarosa-01.webp" alt=""></div>
-    <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/estrela-bronzer.webp" alt=""></div>
-    <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/johnjohn-po.webp" alt=""></div>
-    <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/karen-quarteto-blush.webp" alt=""></div>
+    <figure class="cel "><div class="ph"><img src="img/catalogo/bocarosa-omg.jpg" alt=""></div><figcaption><b>Iluminador</b><span>Boca Rosa #OMG!</span></figcaption></figure><figure class="cel "><div class="ph"><img src="img/catalogo/bocarosa-carinha.jpg" alt=""></div><figcaption><b>Blush</b><span>Boca Rosa #Carinha de Metida</span></figcaption></figure><figure class="cel "><div class="ph"><img src="img/catalogo/fran-noneto.jpg" alt=""></div><figcaption><b>Paleta de sombras</b><span>Fran Noneto</span></figcaption></figure><figure class="cel "><div class="ph"><img src="img/catalogo/johnjohn-amarela.jpg" alt=""></div><figcaption><b>Compacto com relevo</b><span>John John Amarela</span></figcaption></figure>
   </div>
   <div class="rodape-nota" style="left:67px">Domínio técnico e excelência em produtos compactados</div>
   <div class="marca">GARNET</div>
 </section>
 
-<!-- 6 PERSONALIZAÇÃO -->
+<!-- 7 PERSONALIZAÇÃO -->
 <section class="pagina">
   <div class="topo"><div class="rotulo">Personalização</div><h2>A sua marca, <em>em cada detalhe</em></h2></div>
   <div class="pers-lista">
@@ -303,15 +273,20 @@ p{font-size:14px;line-height:1.65;font-weight:400;color:var(--texto)}
   </div>
   <div class="pers-nota" style="top:540px"><p>O que torna um produto inconfundível está nos detalhes. Cada projeto nasce de um briefing e é desenvolvido para refletir a identidade da sua marca.</p></div>
   <div class="pers-fotos">
-    <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/johnjohn-purple.webp" alt=""></div>
-    <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/garnet-ondas.webp" alt=""><span class="selo" style="left:8px;bottom:8px">imagem ilustrativa</span></div>
-    <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/garnet-g.webp" alt=""><span class="selo" style="left:8px;bottom:8px">imagem ilustrativa</span></div>
-    <div class="foto"><img src="https://garnetcosmeticos.com.br/assets/img/vitrine/ale-brown.webp" alt=""></div>
+    <figure class="cel "><div class="ph"><img src="img/catalogo/johnjohn-vermelha.jpg" alt=""></div><figcaption><b>Relevo exclusivo</b><span>John John</span></figcaption></figure><figure class="cel g"><div class="ph"><img src="img/catalogo/garnet-g.jpg" alt=""></div><figcaption><b>Logo gravado</b><span>Linha Garnet · monograma G</span></figcaption></figure><figure class="cel g"><div class="ph"><img src="img/catalogo/garnet-ondas.jpg" alt=""></div><figcaption><b>Relevo de ondas</b><span>Linha Garnet</span></figcaption></figure><figure class="cel "><div class="ph"><img src="img/catalogo/fran-noneto.jpg" alt=""></div><figcaption><b>Paleta sob medida</b><span>Fran Noneto</span></figcaption></figure>
   </div>
-  <div class="marca">GARNET</div><div class="num">06</div>
+  <div class="marca">GARNET</div><div class="num">07</div>
 </section>
 
-<!-- 7 CATEGORIAS -->
+<!-- 8 LINHA GARNET -->
+<section class="pagina">
+  <div class="topo"><div class="rotulo">Nossa linha própria</div><h2>Linha <em>Garnet</em></h2></div>
+  <div class="lg-nota">Conceitos de relevo, desenho e logo gravado<br>para inspirar a sua coleção</div>
+  <div class="gr" style="top:150px;grid-template-columns:repeat(5,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr))"><figure class="cel g"><div class="ph"><img src="img/catalogo/garnet-g.jpg" alt=""></div><figcaption><b>Blush monograma G</b><span>Blush · logo gravado</span></figcaption></figure><figure class="cel g"><div class="ph"><img src="img/catalogo/garnet-espiral.jpg" alt=""></div><figcaption><b>Blush espiral</b><span>Blush compacto</span></figcaption></figure><figure class="cel g"><div class="ph"><img src="img/catalogo/garnet-iluminador.jpg" alt=""></div><figcaption><b>Iluminador em relevo</b><span>Iluminador compacto</span></figcaption></figure><figure class="cel g"><div class="ph"><img src="img/catalogo/garnet-bronzer.jpg" alt=""></div><figcaption><b>Bronzer com relevo</b><span>Bronzer compacto</span></figcaption></figure><figure class="cel g"><div class="ph"><img src="img/catalogo/garnet-ondas.jpg" alt=""></div><figcaption><b>Pó com relevo de ondas</b><span>Pó compacto</span></figcaption></figure><figure class="cel g"><div class="ph"><img src="img/catalogo/garnet-fundo-do-mar.jpg" alt=""></div><figcaption><b>Pó fundo do mar</b><span>Pó compacto com relevo</span></figcaption></figure><figure class="cel g"><div class="ph"><img src="img/catalogo/garnet-paris.jpg" alt=""></div><figcaption><b>Pó Paris</b><span>Pó compacto com relevo</span></figcaption></figure><figure class="cel g"><div class="ph"><img src="img/catalogo/garnet-coracoes.jpg" alt=""></div><figcaption><b>Pó corações</b><span>Pó compacto com relevo</span></figcaption></figure><figure class="cel g"><div class="ph"><img src="img/catalogo/garnet-por-do-sol.jpg" alt=""><span class="selo">imagem ilustrativa</span></div><figcaption><b>Pó pôr do sol</b><span>Pó compacto com relevo</span></figcaption></figure><figure class="cel g"><div class="ph"><img src="img/catalogo/garnet-lua-estrelas.jpg" alt=""><span class="selo">imagem ilustrativa</span></div><figcaption><b>Sombra lua e estrelas</b><span>Sombra compacta</span></figcaption></figure></div>
+  <div class="marca">GARNET</div><div class="num">08</div>
+</section>
+
+<!-- 9 CATEGORIAS -->
 <section class="pagina">
   <div class="topo"><div class="rotulo">Catálogo Garnet</div><h2>Cinco categorias que <em>desenvolvemos</em></h2></div>
   <div class="cats">
@@ -325,7 +300,7 @@ p{font-size:14px;line-height:1.65;font-weight:400;color:var(--texto)}
   <div class="marca">GARNET</div>
 </section>
 
-<!-- 8 O QUE OFERECEMOS -->
+<!-- 10 O QUE OFERECEMOS -->
 <section class="pagina">
   <div class="topo"><div class="rotulo">Solução completa 360°</div><h2>O que <em>oferecemos</em></h2></div>
   <div class="ofe">
@@ -340,7 +315,7 @@ p{font-size:14px;line-height:1.65;font-weight:400;color:var(--texto)}
   <div class="marca">GARNET</div>
 </section>
 
-<!-- 9 MODELOS -->
+<!-- 11 MODELOS -->
 <section class="pagina">
   <div class="topo"><div class="rotulo">Modelos de produção</div><h2>Cinco formas de <em>produzir com a Garnet</em></h2></div>
   <div class="mods">
@@ -351,10 +326,10 @@ p{font-size:14px;line-height:1.65;font-weight:400;color:var(--texto)}
     <div class="mod"><div class="big">05</div><h3>Collabs</h3><div class="fio"></div><p>Projetos com marcas e influenciadores, traduzindo conceito e audiência em produto com identidade própria.</p></div>
   </div>
   <div class="faixa">Não sabe qual modelo escolher? A equipe Garnet indica o melhor caminho a partir do seu briefing.</div>
-  <div class="marca">GARNET</div><div class="num">09</div>
+  <div class="marca">GARNET</div><div class="num">11</div>
 </section>
 
-<!-- 10 COMO FUNCIONA -->
+<!-- 12 COMO FUNCIONA -->
 <section class="pagina">
   <div class="topo"><div class="rotulo">Nosso processo</div><h2>Como tiramos sua <em>marca do papel</em></h2></div>
   <div class="etapas">
@@ -373,10 +348,10 @@ p{font-size:14px;line-height:1.65;font-weight:400;color:var(--texto)}
     <div><b>~30 dias</b><span>Prazo de referência*</span></div>
   </div>
   <div class="faixa" style="bottom:68px;font-size:11px">* Pedido mínimo e prazo são referências; o prazo final e as condições são confirmados na análise do briefing.</div>
-  <div class="marca">GARNET</div><div class="num">10</div>
+  <div class="marca">GARNET</div><div class="num">12</div>
 </section>
 
-<!-- 11 POR QUE GARNET -->
+<!-- 13 POR QUE GARNET -->
 <section class="pagina">
   <div class="topo"><div class="rotulo">Diferenciais competitivos</div><h2>Por que produzir com a <em>Garnet</em></h2></div>
   <div class="pq">
@@ -395,7 +370,7 @@ p{font-size:14px;line-height:1.65;font-weight:400;color:var(--texto)}
   <div class="marca">GARNET</div>
 </section>
 
-<!-- 12 QUALIDADE -->
+<!-- 14 QUALIDADE -->
 <section class="pagina">
   <div class="topo"><div class="rotulo">Padrão Garnet de excelência</div><h2>Compromisso com <em>qualidade</em> e consistência</h2></div>
   <div class="q-esq"><div class="c1"></div><div class="c2"></div><div class="t"><b>BPF</b><span>Boas Práticas<br>de Fabricação</span><i>1.000 m² de fábrica</i></div></div>
@@ -407,10 +382,10 @@ p{font-size:14px;line-height:1.65;font-weight:400;color:var(--texto)}
     <div class="b"><h4>Atenção aos detalhes</h4><p>Cuidado com textura, pigmentação, compactação e acabamento de cada peça.</p></div>
     <div class="b"><h4>Apresentação final</h4><p>Atenção à embalagem e ao aspecto visual do produto que chega ao consumidor.</p></div>
   </div>
-  <div class="marca">GARNET</div><div class="num">12</div>
+  <div class="marca">GARNET</div><div class="num">14</div>
 </section>
 
-<!-- 13 CONTATO -->
+<!-- 15 CONTATO -->
 <section class="pagina fim">
   <div class="ct-esq">
     <div class="rotulo" style="color:var(--ouro-esc)">Próximo passo</div>
