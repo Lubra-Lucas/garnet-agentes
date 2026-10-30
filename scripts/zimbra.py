@@ -19,9 +19,14 @@ Uso (python3 -I scripts/zimbra.py ...):
         leads são gravadas (ai_fila `zimbra-<id da msg>` + ai_interacoes entrada/email/zimbra);
         as demais são ignoradas sem gravar nada. Saída: {"lidas","de_leads","novas","ignoradas","repetidas"}.
   criar-rascunhos [--dry-run]
-        Para cada ai_rascunhos aprovado, canal email e ainda sem `zdraft-<id>` na fila: baixa a proposta
-        citada no texto (se houver), anexa e salva o RASCUNHO no Zimbra. Não muda o status do
-        rascunho (o humano envia e marca "enviado" no painel).
+        Para cada ai_rascunhos aprovado, canal email e ainda sem `zdraft-<id>` na fila: converte o texto em
+        HTML (multipart text/plain + text/html) com a assinatura de `ai_config.assinatura` e salva o RASCUNHO
+        no Zimbra. Anexo: a proposta, se o texto trouxer o link dela (2º contato); senão a apresentação
+        (`ai_config.anexo_primeiro_contato`) quando passo_cadencia for 0 ou 1. Não muda o status do rascunho.
+  marcar-enviados [--dry-run]
+        Para cada rascunho aprovado de e-mail com `zdraft-<id>` concluído, procura em `in:sent to:<lead>` uma
+        mensagem de mesmo assunto; se achar: rascunho `enviado` (+ enviado_em), ai_interacoes saída/email,
+        ai_fila `zsent-<id>` e evento. Saída: contadores JSON.
 """
 import html as html_mod
 import json
@@ -29,6 +34,7 @@ import os
 import re
 import subprocess
 import sys
+import unicodedata
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -39,6 +45,10 @@ TIMEOUT = 60
 LIMITE_PDF = 15 * 1024 * 1024
 RE_EMAIL = re.compile(r'^[^@\s<>,;]+@[^@\s<>,;]+\.[^@\s<>,;]+$')
 MARCADORES_PROPOSTA = ('/ai-midia/propostas/', '/materiais/proposta-garnet.pdf')
+LOGO_URL = 'https://papaicnydbcajkfghwem.supabase.co/storage/v1/object/public/ai-midia/materiais/assinatura-garnet.png'
+AVISO_SAIR = 'Caso não queira receber novos contatos, é só nos avisar.'
+NOME_APRESENTACAO = 'Apresentacao Comercial Garnet.pdf'
+NOME_PROPOSTA = 'Proposta Garnet.pdf'
 
 _cache = {'token': None}
 
@@ -115,11 +125,21 @@ def montar_getmsg(msg_id):
     return {'_jsns': 'urn:zimbraMail', 'm': {'id': str(msg_id), 'html': 0, 'neuter': 1, 'max': 50000}}
 
 
-def montar_savedraft(para, assunto, corpo, aid=None):
-    m = {'e': [{'t': 't', 'a': para}], 'su': assunto, 'mp': {'ct': 'text/plain', 'content': corpo}}
+def montar_savedraft(para, assunto, corpo, aid=None, html=None):
+    """Com `html`: multipart/alternative (text/plain + text/html); sem: só texto simples."""
+    if html:
+        mp = {'ct': 'multipart/alternative', 'mp': [{'ct': 'text/plain', 'content': corpo},
+                                                    {'ct': 'text/html', 'content': html}]}
+    else:
+        mp = {'ct': 'text/plain', 'content': corpo}
+    m = {'e': [{'t': 't', 'a': para}], 'su': assunto, 'mp': mp}
     if aid:
         m['attach'] = {'aid': aid}
     return {'_jsns': 'urn:zimbraMail', 'm': m}
+
+
+def montar_query_enviados(email, desde_ms):
+    return f'in:sent to:{email} after:{int(desde_ms)}'
 
 
 def montar_query_inbox(desde):
@@ -197,7 +217,7 @@ def upload_zimbra(nome_arquivo, conteudo, tipo='application/pdf'):
     """Upload `/service/upload?fmt=raw,extended`; devolve o aid do anexo."""
     url, _, _ = config()
     token = auth()
-    nome_seguro = re.sub(r'[^A-Za-z0-9._-]', '_', nome_arquivo) or 'anexo.pdf'
+    nome_seguro = re.sub(r'[^A-Za-z0-9._ -]', '_', nome_arquivo) or 'anexo.pdf'
     req = urllib.request.Request(
         url + '/service/upload?fmt=raw,extended', data=conteudo, method='POST',
         headers={'Content-Type': tipo, 'Cookie': 'ZM_AUTH_TOKEN=' + token,
@@ -291,6 +311,122 @@ def remetente(msg):
         if e.get('t') == 'f' and e.get('a'):
             return e['a'].strip().lower()
     return None
+
+
+# ---------------------------------------------------------------- rascunho em HTML
+
+RE_TELEFONE = re.compile(r'\(?\d{2}\)?[\s.-]*9?\d{4}[\s.-]?\d{4}')
+RE_ASSINATURA_ANTIGA = re.compile(
+    r'garnet\s+cosm[eé]ticos|equipe\s+garnet|@garnetcosmeticos|@\S+\.\S+|www\.|https?://'
+    r'|n[aã]o\s+receber|responda\s+com|\bsair\b', re.IGNORECASE)
+
+
+def remover_assinatura_antiga(texto):
+    """Corta, depois de 'Atenciosamente,', as linhas de assinatura antiga (Garnet Cosméticos, Equipe Garnet,
+    telefone, e-mail, @garnetcosmeticos, aviso de opt-out). O texto deve terminar em 'Atenciosamente,'."""
+    linhas = (texto or '').replace('\r\n', '\n').replace('\r', '\n').split('\n')
+    idx = None
+    for i, ln in enumerate(linhas):
+        if re.match(r'^\s*Atenciosamente,?\s*$', ln, re.IGNORECASE):
+            idx = i
+    if idx is None:
+        return '\n'.join(linhas).strip()
+    resto = [ln for ln in linhas[idx + 1:]
+             if ln.strip() and not (RE_ASSINATURA_ANTIGA.search(ln) or RE_TELEFONE.search(ln))]
+    return '\n'.join(linhas[:idx + 1] + resto).strip()
+
+
+ESTILO_P = 'margin:0 0 12px 0'
+
+
+def texto_para_html(texto):
+    """Parágrafos separados por linha em branco; linhas '- ' viram <ul><li>; tudo escapado."""
+    saida = []
+    for bloco in re.split(r'\n\s*\n', (texto or '').replace('\r\n', '\n').strip()):
+        par, itens = [], []
+
+        def fecha_par():
+            if par:
+                saida.append(f'<p style="{ESTILO_P}">' + '<br>'.join(par) + '</p>')
+                par.clear()
+
+        def fecha_lista():
+            if itens:
+                saida.append('<ul style="margin:0 0 12px 0;padding-left:30px">'
+                             + ''.join(f'<li style="margin:0">{i}</li>' for i in itens) + '</ul>')
+                itens.clear()
+
+        for ln in bloco.split('\n'):
+            if not ln.strip():
+                continue
+            if ln.lstrip().startswith('- '):
+                fecha_par()
+                itens.append(html_mod.escape(ln.lstrip()[2:].strip()))
+            else:
+                fecha_lista()
+                par.append(html_mod.escape(ln.strip()))
+        fecha_par()
+        fecha_lista()
+    return '\n'.join(saida)
+
+
+def assinatura_valida(a):
+    return a if isinstance(a, dict) and a.get('nome') else None
+
+
+def assinatura_html(a, logo_url=LOGO_URL):
+    e = lambda k: html_mod.escape(str(a.get(k) or ''))
+    fone = e('telefone')
+    tel = re.sub(r'[^\d+]', '', a.get('telefone') or '')
+    linhas = [f'<div style="font-weight:bold;font-size:12px;color:#000">{e("nome")}</div>']
+    if a.get('cargo'):
+        linhas.append(f'<div style="font-size:11px;color:#444;margin-top:2px">{e("cargo")}</div>')
+    if fone:
+        linhas.append(f'<div style="font-size:11px;margin-top:12px"><a href="tel:{tel}" '
+                      f'style="color:#0072c6;text-decoration:none">{fone}</a></div>')
+    if a.get('site'):
+        linhas.append(f'<div style="font-size:11px;color:#444;margin-top:4px">{e("site")}</div>')
+    return ('<table cellpadding="0" cellspacing="0" border="0" style="margin-top:28px"><tr>'
+            f'<td style="vertical-align:top;padding-right:24px"><img src="{html_mod.escape(logo_url)}" '
+            'width="80" height="80" alt="Garnet" style="border-radius:50%;display:block"></td>'
+            '<td style="vertical-align:top;padding-top:2px;font-family:Arial,Helvetica,sans-serif">'
+            + ''.join(linhas) + '</td></tr></table>')
+
+
+def montar_html(texto, assinatura):
+    corpo = texto_para_html(remover_assinatura_antiga(texto))
+    partes = ['<div style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#000;line-height:1.3">',
+              corpo]
+    a = assinatura_valida(assinatura)
+    if a:
+        partes.append(assinatura_html(a))
+    partes.append(f'<p style="margin:20px 0 0 0;font-size:11px;color:#888">{html_mod.escape(AVISO_SAIR)}</p></div>')
+    return '\n'.join(partes)
+
+
+def montar_texto_plano(texto, assinatura):
+    t = remover_assinatura_antiga(texto)
+    a = assinatura_valida(assinatura)
+    if a:
+        t += '\n\n' + '\n'.join(str(a[k]) for k in ('nome', 'cargo', 'telefone', 'site') if a.get(k))
+    return t + '\n\n' + AVISO_SAIR
+
+
+def escolher_anexo(texto, passo, url_apresentacao):
+    """(tipo, link, nome_do_arquivo) ou None. Proposta no texto = 2º contato; senão apresentação nos passos 0/1."""
+    link = extrair_link_proposta(texto)
+    if link:
+        return 'proposta', link, NOME_PROPOSTA
+    if passo in (0, 1) and url_apresentacao:
+        return 'apresentacao', url_apresentacao, NOME_APRESENTACAO
+    return None
+
+
+def normalizar_assunto(s):
+    s = unicodedata.normalize('NFKD', s or '')
+    s = ''.join(c for c in s if not unicodedata.combining(c)).casefold()
+    s = re.sub(r'^\s*((re|res|enc|fwd?|fw)\s*:\s*)+', '', s)
+    return re.sub(r'\s+', ' ', s).strip()
 
 
 # ---------------------------------------------------------------- banco (via ai_db, subprocess)
@@ -446,7 +582,7 @@ def email_do_lead(lead_id):
 
 def cmd_criar_rascunhos(dry):
     rascunhos = db('get', 'ai_rascunhos',
-                   'status=eq.aprovado&canal=eq.email&select=id,lead_id,assunto,texto,texto_final'
+                   'status=eq.aprovado&canal=eq.email&select=id,lead_id,assunto,texto,texto_final,passo_cadencia'
                    '&order=aprovado_em.asc&limit=50') or []
     cont = {'aprovados_email': len(rascunhos), 'criados': 0, 'sem_anexo': 0, 'ja_criados': 0, 'ignorados': 0}
     if rascunhos:
@@ -455,6 +591,7 @@ def cmd_criar_rascunhos(dry):
                   db('get', 'ai_fila', f'chave_idempotencia=in.({q(chaves)})&select=chave_idempotencia') or []}
     else:
         feitos = set()
+    cfg = {}
     for r in rascunhos:
         chave = f'zdraft-{r["id"]}'
         if chave in feitos:
@@ -473,24 +610,36 @@ def cmd_criar_rascunhos(dry):
                 db('evento', 'atendimento', 'alerta',
                    f'Rascunho de e-mail não enviado ao Zimbra ({motivo}); abra no painel.', '--lead', r['lead_id'])
             continue
-        link = extrair_link_proposta(corpo)
+        if not cfg:
+            ap = db('config', 'anexo_primeiro_contato')
+            cfg['apresentacao'] = ap if isinstance(ap, str) else None
+            cfg['assinatura'] = db('config', 'assinatura')
+        anexo = escolher_anexo(corpo, r.get('passo_cadencia'), cfg['apresentacao'])
         if dry:
             cont['criados'] += 1
-            cont['sem_anexo'] += 0 if link else 1
+            cont['sem_anexo'] += 0 if anexo else 1
+            cont.setdefault('anexo_proposta', 0)
+            cont.setdefault('anexo_apresentacao', 0)
+            if anexo:
+                cont['anexo_' + anexo[0]] += 1
             continue
         aid, aviso = None, None
-        if link:
+        if anexo:
             try:
-                aid = upload_zimbra('proposta-garnet.pdf', baixar_pdf(link))
+                aid = upload_zimbra(anexo[2], baixar_pdf(anexo[1]))
             except (ZimbraErro, urllib.error.URLError, OSError) as e:
                 aviso = censurar(f'anexo não criado: {e}')
         if not aid:
             cont['sem_anexo'] += 1
-        res = soap('SaveDraftRequest', montar_savedraft(email, r.get('assunto') or 'Garnet Cosméticos', corpo, aid))
+        res = soap('SaveDraftRequest', montar_savedraft(
+            email, r.get('assunto') or 'Garnet Cosméticos', montar_texto_plano(corpo, cfg['assinatura']), aid,
+            montar_html(corpo, cfg['assinatura'])))
         draft_id = ((res.get('m') or [{}])[0]).get('id')
         if not draft_id:
             raise ZimbraErro('SaveDraftResponse sem id do rascunho.')
         resultado = {'zimbra_draft_id': draft_id, 'anexo': bool(aid)}
+        if aid:
+            resultado['anexo_tipo'] = anexo[0]
         if aviso:
             resultado['aviso'] = aviso
         db_post_unico('ai_fila', {
@@ -500,9 +649,63 @@ def cmd_criar_rascunhos(dry):
         db('evento', 'atendimento', 'acao', f'Rascunho criado no Zimbra para {nome}; é só abrir e enviar',
            '--lead', r['lead_id'], '--dados', json.dumps({'rascunho_id': r['id'], **resultado}))
         if aviso:
-            db('evento', 'atendimento', 'alerta', f'Rascunho criado sem anexo da proposta: {aviso}',
+            db('evento', 'atendimento', 'alerta', f'Rascunho criado sem o anexo: {aviso}',
                '--lead', r['lead_id'])
         cont['criados'] += 1
+    if dry:
+        cont['dry_run'] = True
+    return cont
+
+
+def cmd_marcar_enviados(dry):
+    rascunhos = db('get', 'ai_rascunhos', 'status=eq.aprovado&canal=eq.email&select=id,lead_id,assunto'
+                   '&order=aprovado_em.asc&limit=100') or []
+    cont = {'aprovados_email': len(rascunhos), 'marcados': 0, 'sem_zdraft': 0, 'nao_encontrados': 0,
+            'ja_marcados': 0}
+    if not rascunhos:
+        return {**cont, **({'dry_run': True} if dry else {})}
+    zd = {x['chave_idempotencia']: x for x in db(
+        'get', 'ai_fila', 'chave_idempotencia=in.(' + q(','.join(f'zdraft-{r["id"]}' for r in rascunhos))
+        + ')&status=eq.concluida&select=chave_idempotencia,created_at') or []}
+    zs = {x['chave_idempotencia'] for x in db(
+        'get', 'ai_fila', 'chave_idempotencia=in.(' + q(','.join(f'zsent-{r["id"]}' for r in rascunhos))
+        + ')&select=chave_idempotencia') or []}
+    for r in rascunhos:
+        marca = zd.get(f'zdraft-{r["id"]}')
+        if not marca:
+            cont['sem_zdraft'] += 1
+            continue
+        if f'zsent-{r["id"]}' in zs:
+            cont['ja_marcados'] += 1
+            continue
+        nome, email = email_do_lead(r['lead_id'])
+        if not email:
+            cont['nao_encontrados'] += 1
+            continue
+        criado = datetime.fromisoformat(marca['created_at'].replace('Z', '+00:00'))
+        res = soap('SearchRequest', montar_search(montar_query_enviados(email, criado.timestamp() * 1000 - 60000), 20))
+        alvo = normalizar_assunto(r.get('assunto'))
+        achada = next((m for m in res.get('m') or [] if normalizar_assunto(m.get('su')) == alvo), None)
+        if not achada:
+            cont['nao_encontrados'] += 1
+            continue
+        if dry:
+            cont['marcados'] += 1
+            continue
+        enviado_em = datetime.fromtimestamp(int(achada['d']) / 1000, tz=timezone.utc).isoformat()
+        assunto = r.get('assunto') or achada.get('su') or ''
+        db('patch', 'ai_rascunhos', f'id=eq.{q(r["id"])}', json.dumps({'status': 'enviado', 'enviado_em': enviado_em}))
+        db('post', 'ai_interacoes', json.dumps({
+            'lead_id': r['lead_id'], 'rascunho_id': r['id'], 'canal': 'email', 'direcao': 'saida',
+            'registrado_por': 'zimbra',
+            'resumo': f'E-mail enviado pelo Zimbra: {assunto}'}, ensure_ascii=False))
+        db_post_unico('ai_fila', {
+            'tipo': 'rascunho_zimbra', 'agente_id': 'atendimento', 'lead_id': r['lead_id'], 'prioridade': 3,
+            'status': 'concluida', 'chave_idempotencia': f'zsent-{r["id"]}', 'payload': {'rascunho_id': r['id']},
+            'resultado': {'enviado_em': enviado_em, 'zimbra_msg_id': achada.get('id')}})
+        db('evento', 'atendimento', 'acao', f'E-mail enviado pelo Zimbra para {nome}; rascunho marcado como enviado',
+           '--lead', r['lead_id'], '--dados', json.dumps({'rascunho_id': r['id'], 'enviado_em': enviado_em}))
+        cont['marcados'] += 1
     if dry:
         cont['dry_run'] = True
     return cont
@@ -537,6 +740,10 @@ def principal(argv):
             if a:
                 uso(f'Argumento inválido: {a[0]}')
             r = cmd_criar_rascunhos(dry)
+        elif acao == 'marcar-enviados':
+            if a:
+                uso(f'Argumento inválido: {a[0]}')
+            r = cmd_marcar_enviados(dry)
         else:
             uso(f'Ação desconhecida: {acao}')
     except ZimbraErro as e:
