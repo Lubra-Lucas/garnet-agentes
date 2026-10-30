@@ -3,7 +3,7 @@
 Fatos citáveis: sempre de `garnet.md`. Públicos e sinais: `icp.md`. Limites legais e de canal: `lgpd-e-canais.md`.
 O texto é sempre **rascunho**: o humano aprova, edita e envia. Nunca escreva como se já tivesse sido enviado.
 
-**Regra de ouro (dono, 28/10/2026): todo lead é abordado como PRIMEIRO CONTATO**, inclusive quem respondeu há muito tempo à abordagem antiga (provavelmente não lembra da Garnet). **Preço na frente, reunião depois**: a 1ª mensagem já leva a Proposta Comercial com a simulação de lucro; a reunião só é marcada com quem demonstrar interesse depois de ver os números.
+**Regra de ouro (dono, 28/10/2026): todo lead é abordado como PRIMEIRO CONTATO**, inclusive quem respondeu há muito tempo à abordagem antiga (provavelmente não lembra da Garnet). **Influenciadoras (decisão do dono, 30/10/2026): o 1º contato leva SÓ a Apresentação Comercial** (sem proposta, simulação, preço nem catálogo); valores, proposta e catálogo vão num segundo momento, apenas para quem responder com interesse, ou numa reunião de alinhamento. Marcas indie e distribuidores seguem como antes (proposta com simulação na frente) até nova decisão do dono.
 
 ## 1. Como a Garnet escreve
 
@@ -18,8 +18,8 @@ O texto é sempre **rascunho**: o humano aprova, edita e envia. Nunca escreva co
 
 ## 2. Estrutura por canal
 
-### WhatsApp (≤ 800 caracteres, **contando o link**)
-1. Saudação + quem somos (uma linha) + prova social (marcas que já fabricamos).
+### WhatsApp (≤ 700 caracteres, **contando o link**; influenciadora: só o link da apresentação, sem número)
+1. Saudação + quem somos (uma linha) + prova social (marcas que já fabricamos). *(Influenciadora: ver modelo oficial em 4.1.)*
 2. Referência específica e verdadeira ao lead (elogio ao perfil).
 3. Valor em uma frase (marca e vendas são dela) + **1 número da simulação** com a ressalva de referência.
 4. Link da proposta (um link; apresentação e catálogo ficam para os follow-ups).
@@ -29,21 +29,34 @@ Saída fácil ("Se não fizer sentido, é só avisar") quando houver espaço. En
 ### E-mail (≤ 170 palavras no corpo, sem contar assinatura e descadastro)
 - **Assunto**: até 60 caracteres, sem caixa alta, sem "!" e sem "grátis/promoção". Ex.: "Uma linha de maquiagem com o seu nome".
 - Corpo: abertura com referência, valor, **1 número da simulação com ressalva**, 3 links (proposta, apresentação, catálogo), CTA único; **pedir o WhatsApp** para agendar.
-- **Assinatura**: nome do dono (`ai_config.assinatura`) ou Equipe Garnet Cosméticos · garnetcosmeticos.com.br · (11) 98153-1188 · contato@garnetcosmeticos.com.br
-- **Linha de descadastro** (obrigatória): "Se preferir não receber mais mensagens nossas, responda com 'sair' e removeremos seu contato."
+- **Assinatura e descadastro**: o texto do rascunho de e-mail **termina em "Atenciosamente,"** e não leva assinatura. O `scripts/zimbra.py` acrescenta a assinatura de `ai_config.assinatura` e a linha "Caso não queira receber novos contatos, é só nos avisar." (marcas indie/distribuidores: seguem os modelos 4.2/4.3 com assinatura e descadastro no texto até migrarem).
 - Dados da empresa no rodapé (opcional): Garnet Indústria de Cosméticos · CNPJ 68.133.016/0001-06 · Av. Fagundes Filho, 300, São Paulo/SP.
-- O humano pode anexar o PDF da proposta; o texto precisa funcionar só com os links.
+- Influenciadora: anexo = apresentação (`ai_config.anexo_primeiro_contato`). Demais públicos: o humano pode anexar o PDF da proposta; o texto precisa funcionar só com os links.
 
 ### Instagram
-Apenas rascunho de **texto para envio manual** (DM individual, curta, sem links encurtados). Nenhum envio automatizado. Se houver link, só o da proposta.
+Apenas rascunho de **texto para envio manual** (DM individual, curta, sem links encurtados). Nenhum envio automatizado. Se houver link, só o da apresentação (influenciadora) ou o da proposta (demais).
 
 ### Números e links (como escolher)
+- **Influenciadora no 1º contato: nenhum número e nenhum preço**; só a apresentação. Os itens abaixo valem para o 2º contato e para marcas indie/distribuidores.
 - Valores **sempre de `ai_config`** (`preco_referencia_compacto`, `revenda_cenarios`, `custos_venda_pct`); nunca de memória. Sem valor lá, escreva sem número e registre alerta.
 - Cálculo do número do corpo (padrão revenda R$ 30): investimento = preço de referência × 1.000; margem = (revenda − preço) ÷ revenda; equilíbrio = investimento ÷ revenda, arredondado para cima. Hoje: R$ 15 → margem 50% e peça nº 500 (R$ 25: 40% / nº 600; R$ 35: 57% / nº 429).
 - Só compactados. Para perfumaria/loções, **sem número**.
-- Links: apresentação, catálogo e proposta genérica em `garnet.md` seção 9.1; proposta personalizada (influenciadora com seguidores conhecidos) é gerada pelo SDR e substitui a genérica.
+- Links: apresentação, catálogo e proposta genérica em `garnet.md` seção 9.1; proposta personalizada (influenciadora com seguidores conhecidos) só no 2º contato (gerada sob demanda, ver `sdr.md`/`atendimento.md`).
 
 ## 3. Cadência (passos 0 a 3; dias padrão [0, 3, 8, 15])
+
+| Passo | Dia | Objetivo | Material em destaque (1 por mensagem; não repetir a apresentação) |
+|---|---|---|---|
+**Influenciadora** (sem preço em nenhum passo):
+
+| Passo | Dia | Objetivo | Material |
+|---|---|---|---|
+| 0 abertura | 0 | Primeiro contato | **Apresentação** (anexo no e-mail; link no WhatsApp/direct) |
+| 1 | 3 | Retomar | Pergunta se viu a apresentação |
+| 2 | 8 | Dar confiança | 1 case/linha (pode mandar o link do catálogo) |
+| 3 | 15 | Encerrar | Encerramento educado |
+
+**Marca indie e distribuidor** (inalterado):
 
 | Passo | Dia | Objetivo | Material em destaque (1 por mensagem; não repetir a apresentação) |
 |---|---|---|---|
@@ -52,7 +65,7 @@ Apenas rascunho de **texto para envio manual** (DM individual, curta, sem links 
 | 2 | 8 | Dar confiança | **Galeria de marcas** que já fabricamos (seção de cases do site) |
 | 3 | 15 | Fechar com a conta | **Ponto de equilíbrio** (cenários R$ 25/30/35) + encerramento educado |
 
-Regras: 1 contato por lead por dia; quem responder sai da cadência e vai para o `atendimento`; a reunião de 15 minutos só é proposta como próximo passo a quem demonstrar interesse depois de ver os números.
+Regras: 1 contato por lead por dia; quem responder sai da cadência e vai para o `atendimento`; influenciadora que responde com interesse recebe, no 2º contato, proposta/simulação + catálogo + oferta de reunião de alinhamento; marca indie/distribuidor: reunião só para quem demonstrar interesse depois de ver os números.
 
 ## 4. Exemplos por público e passo
 
@@ -60,56 +73,74 @@ Usar placeholders `[marca]`, `[nome]`. Os exemplos são modelos, não texto fixo
 
 ### 4.1 Influenciadora / maquiador
 
-**Posicionamento (decisão do dono, 28/10/2026):** a Garnet é **somente a fabricante**. A proposta é a influenciadora
-ter a **própria linha de maquiagem**, com a marca e as vendas dela; a Garnet desenvolve e fabrica. **Nunca** oferecer
-investimento, sociedade, participação societária, royalties, "projeto/lançamento conjunto" ou co-lançamento, nem "produto viral",
-nem dizer que "o nome dela surgiu internamente para liderar um lançamento" (abordagem antiga, descontinuada), nem "logo prensado" (é "logo gravado"), nem lucro garantido.
+**Posicionamento (decisão do dono, 30/10/2026):** a Garnet é **somente a fabricante**. A proposta é a influenciadora
+ter a **própria linha de maquiagem**, com a marca dela; a Garnet desenvolve e fabrica. **Primeiro contato = SÓ a Apresentação Comercial
+da Garnet**: sem proposta, sem simulação, sem preço, sem catálogo e sem número de margem/ponto de equilíbrio. Valores, proposta e catálogo
+vão num **segundo momento**, só para quem responder com interesse (ou numa reunião de alinhamento).
 
-Ganchos aprovados (manter): elogio específico e verdadeiro ao conteúdo; prova social ("somos a empresa por trás de marcas como Boca Rosa,
-Karen Bachini, Franciny Ehlke e John John"); "uma linha de maquiagem com o seu nome"; a marca e o resultado das vendas são dela;
-**1 número da simulação** (com ressalva); link da proposta; CTA de 15 minutos; pedido do melhor WhatsApp (e-mail).
+Gancho aprovado: "internamente seu nome surgiu como um dos que mais combinam com essa proposta" (verdadeiro: os leads são selecionados pela qualificação).
+"Oportunidade de investir no seu próprio negócio de beleza" é permitido (o investimento é dela, na marca dela).
+**Proibido**: participação societária, sociedade, investimento da Garnet, royalties, "projeto/lançamento conjunto" ou co-lançamento, "viral/viralização",
+lucro garantido, "logo prensado" (é "logo gravado").
 
-**Passo 0 (e-mail) — MODELO OFICIAL**
-> Assunto: Uma linha de maquiagem com o seu nome
->
-> Boa tarde, [nome], tudo bem?
->
-> A gente acompanha o seu perfil e gosta de [elogio específico e verdadeiro ao conteúdo].
->
-> Somos a Garnet, indústria que desenvolve e fabrica maquiagem para marcas próprias há mais de 30 anos, a empresa por trás de marcas como Boca Rosa, Karen Bachini, Franciny Ehlke e John John.
->
-> Acreditamos que uma linha de maquiagem com o seu nome faria sentido para o seu público. Você define produtos, cores e identidade; a Garnet cuida do desenvolvimento, das amostras e da fabricação. A marca é sua, e o resultado das vendas também.
->
-> Deixamos uma simulação pronta: com um pedido de 1.000 compactados e revenda a R$ 30, a margem estimada é de 50%, e você recupera o investimento na peça nº 500. É uma referência; o valor final depende da embalagem e da personalização.
->
-> Proposta: [link da proposta]
-> Apresentação: [link]
-> Catálogo: [link]
->
-> Se os números fizerem sentido para você, marcamos 15 minutos para desenhar a sua linha? Se preferir, me passe seu WhatsApp.
->
-> [assinatura + descadastro]
+**Passo 0 (e-mail) — MODELO OFICIAL (aprovado pelo dono, 30/10/2026)**
 
-**Passo 0 (WhatsApp, ≤ 800 caracteres com o link) — MODELO OFICIAL**
-> Oi, [nome], tudo bem? Aqui é da Garnet, fabricante de maquiagem há +30 anos, a empresa por trás de marcas como Boca Rosa, Karen Bachini, Franciny Ehlke e John John. Adoramos [elogio ao perfil]. Uma linha de maquiagem com o seu nome faria sentido: você cria, a gente fabrica, e a marca e as vendas são suas. Na simulação, com 1.000 compactados e revenda a R$ 30, a margem estimada é de 50%: você recupera o investimento na peça nº 500 (referência; o valor final varia com embalagem e personalização). Proposta: [link]
-> Se os números fizerem sentido para você, marcamos 15 minutos para desenhar a sua linha?
+```
+Assunto: Uma linha de maquiagem com o seu nome
 
-Notas: saudação conforme o horário (Bom dia/Boa tarde/Boa noite); `[nome]` = primeiro nome ou nome artístico; `[elogio ao perfil]` = algo específico e verdadeiro (nunca genérico); a proposta é a **personalizada** quando há seguidores conhecidos, senão a genérica.
+[Saudação conforme horário], [Nome], tudo bem?
+
+A gente vem acompanhando seu perfil, gostamos muito do seu conteúdo e posicionamento no segmento de beleza. [elogio específico]
+
+Somos a empresa por trás do desenvolvimento de maquiagens para grandes nomes do mercado, como:
+
+- Boca Rosa
+- Karen Bachini
+- Franciny Ehlke
+- John John
+
+Estamos selecionando alguns perfis para desenvolver novas linhas de maquiagem, e internamente seu nome surgiu como um dos que mais combinam com essa proposta. Acreditamos que uma linha com a sua identidade faria todo sentido para o seu público.
+
+Funciona assim: você define os produtos, as cores e a identidade da linha, e a Garnet cuida de todo o desenvolvimento, das amostras e da fabricação. A marca é sua, e pode ser uma ótima oportunidade de investir no seu próprio negócio de beleza.
+
+Te enviei em anexo a nossa apresentação, para você conhecer melhor a Garnet e como trabalhamos.
+
+Ficou com alguma dúvida? Se tiver interesse em dar continuidade, podemos agendar uma conversa rápida de alinhamento ou te enviar os valores e os detalhes do projeto, como preferir. Qual seu WhatsApp?
+
+Atenciosamente,
+```
+
+Regras do texto do rascunho (`ai_rascunhos.texto`):
+- O texto **termina em "Atenciosamente,"**. A **assinatura NÃO entra no texto**: o `scripts/zimbra.py` acrescenta a assinatura formatada de `ai_config.assinatura` (Lucas Lubrano · Diretor de Novos Negócios · +55 (11) 93229-4144 · garnetcosmeticos.com.br) e a linha discreta "Caso não queira receber novos contatos, é só nos avisar.".
+- A lista de marcas usa linhas iniciadas por "- ".
+- `[elogio específico]` (opcional, no 2º parágrafo) = 1 frase específica e verdadeira sobre o conteúdo da pessoa, mantendo o tom; sem ele, o parágrafo fica como está; `[Saudação conforme horário]` = Bom dia/Boa tarde/Boa noite.
+- A apresentação vai como **anexo** (`ai_config.anexo_primeiro_contato`), não como link no corpo. Nenhum outro link, número ou preço.
+
+**Passo 0 (WhatsApp/direct, ≤ 700 caracteres) — MODELO OFICIAL**
+> Oi, [Nome], tudo bem? Aqui é da Garnet, empresa por trás do desenvolvimento de maquiagens de nomes como Boca Rosa, Karen Bachini, Franciny Ehlke e John John. Acompanhamos seu conteúdo e internamente seu nome surgiu para desenvolvermos uma linha de maquiagem com a sua identidade: você define produtos e cores, a gente desenvolve e fabrica, e a marca é sua. Te mando nossa apresentação: [link da apresentação]. Tem interesse em conversar sobre esse projeto?
+>
+> Lucas Lubrano · Garnet
 
 **Passo 0 RUIM** (e por quê)
-> Estamos estruturando o lançamento de um produto com forte potencial de viralização e seu nome surgiu internamente para liderar essa frente, inclusive com participação societária.
-*Problemas: promete investimento/sociedade que a Garnet não quer oferecer, "viralização" é promessa de resultado, "seu nome surgiu" é gancho artificial.*
+> Estamos estruturando o lançamento de um produto com forte potencial de viralização, inclusive com participação societária.
+*Problemas: promete sociedade/investimento da Garnet, "viralização" é promessa de resultado.*
 > OLÁ LINDA!!! Somos a MELHOR fábrica do Brasil! Você vai lucrar R$ 15 mil garantidos, é só topar!
-*Problemas: caixa alta, exagero, lucro garantido, número sem a ressalva de referência, sem referência ao lead.*
+*Problemas: caixa alta, exagero, lucro garantido, preço/número no 1º contato, sem referência ao lead.*
+> Na simulação, com 1.000 compactados e revenda a R$ 30, a margem é de 50%. Proposta: [link]
+*Problema: preço/simulação/proposta no 1º contato de influenciadora (só no 2º momento, após interesse).*
 
-**Passo 1 (dia 3, catálogo com produto)**
-> [nome], complementando: no catálogo tem o [produto relacionado ao perfil, ex.: blush/iluminador] em compactados, que combina com o seu estilo de conteúdo: [link do catálogo]. Dá para personalizar cor, relevo e logo gravado. O que você gostaria de ter na sua linha?
+**Follow-ups (dias 3 / 8 / 15): curtos, sem preço**
 
-**Passo 2 (dia 8, galeria de marcas)**
-> [nome], para você ver como outras marcas começaram: a galeria de marcas que já fabricamos está em garnetcosmeticos.com.br (Boca Rosa, Karen Bachini, Franciny Ehlke, John John e outras). A sua linha seguiria o mesmo caminho: você define, a Garnet desenvolve e fabrica. Quer ver como ficaria com a sua identidade?
+Passo 1 (dia 3): retoma e pergunta se viu a apresentação.
+> [Nome], passando para saber se você conseguiu ver a apresentação da Garnet que enviamos. Se tiver qualquer dúvida sobre como funciona uma linha com a sua identidade, é só falar. Podemos conversar rapidamente?
 
-**Passo 3 (dia 15, ponto de equilíbrio + encerramento)**
-> [nome], última mensagem por aqui. Na simulação, o investimento se recupera na peça nº 600, 500 ou 429, conforme a revenda seja R$ 25, R$ 30 ou R$ 35 (referência; o valor final depende da embalagem e da personalização): [link da proposta]. Se um dia fizer sentido, é só chamar. Obrigada pela atenção!
+Passo 2 (dia 8): destaca 1 case/linha (pode mandar o link do catálogo).
+> [Nome], para você ver como outras linhas nasceram: a Garnet desenvolve e fabrica maquiagens para nomes como Boca Rosa, Karen Bachini, Franciny Ehlke e John John (catálogo: [link do catálogo]). A sua linha seguiria o mesmo caminho: você define, a Garnet desenvolve e fabrica. Quer ver como ficaria com a sua identidade?
+
+Passo 3 (dia 15): encerramento educado.
+> [Nome], última mensagem por aqui. Se um dia fizer sentido ter uma linha de maquiagem com a sua identidade, é só nos chamar. Obrigada pela atenção!
+
+**Segundo contato (quem respondeu com interesse)**: aí sim a resposta (feita pelo `atendimento`) leva a **proposta com a simulação** (1 número do preço de referência da `ai_config`, com a ressalva de referência) + **catálogo** + **oferta de reunião**.
 
 ### 4.2 Marca indie / TikTok Shop (versão curta; sem foco em seguidores)
 
@@ -160,4 +191,4 @@ Usar as respostas de `icp.md`. Sempre fechar com um próximo passo claro (briefi
 
 ## 7. Checklist rápido antes de enviar para auditoria
 
-Tamanho do canal respeitado (WhatsApp ≤ 700 com o link; e-mail ≤ 170 palavras); uma referência específica ao lead; 1 número da simulação lido de `ai_config`, com a ressalva de referência, e nenhum outro preço/número/cliente fora de `garnet.md`; links só os oficiais; MOQ/prazo apenas como confirmados; e-mail com assinatura e descadastro; call to action único; sem caixa alta/exagero; sem promessa; sem dado sensível.
+Tamanho do canal respeitado (WhatsApp ≤ 700 com o link; e-mail ≤ 170 palavras, exceto o modelo oficial de influenciadora); uma referência específica ao lead; **influenciadora no 1º contato: nenhum preço/número/simulação/proposta/catálogo, e-mail terminando em "Atenciosamente," sem assinatura, com a lista de marcas**; demais públicos: 1 número da simulação lido de `ai_config`, com a ressalva de referência, e nenhum outro preço/número/cliente fora de `garnet.md`; links só os oficiais; MOQ/prazo apenas como confirmados; e-mail de marca indie/distribuidor com assinatura e descadastro; call to action único; sem caixa alta/exagero; sem promessa; sem dado sensível.

@@ -52,7 +52,7 @@ Regras de uso:
 - Só para **compactados** no pedido mínimo de 1.000 peças. **Perfumaria, loções e demais categorias: sem preço de referência; não citar valor** (encaminhar ao orçamento).
 - Nunca prometer ou sugerir lucro garantido, vendas ou ritmo de vendas; é uma conta de cenário, não um resultado. Não citar desconto, condição de pagamento, frete, faixa ("a partir de") nem preço de outra quantidade.
 - Pedidos de negociação ("faz por R$ 12?", "tem desconto?") vão para o humano/orçamento; o agente não negocia.
-- Na 1ª mensagem basta **1 número** do cenário (padrão: revenda a R$ 30); o restante vai na Proposta Comercial (link). Os números citados devem bater com `revenda_cenarios`.
+- **Influenciadoras (dono, 30/10/2026): o 1º contato leva SÓ a Apresentação Comercial: sem preço, número de simulação, proposta nem catálogo.** O preço de referência só aparece no **2º contato** (quem respondeu com interesse) ou em reunião de alinhamento. Marcas indie e distribuidores: 1ª mensagem com **1 número** do cenário (padrão: revenda a R$ 30) e o restante na Proposta Comercial (link), até nova decisão do dono. Os números citados devem bater com `revenda_cenarios`.
 
 Nota: o FAQ atual do site ainda diz "o pedido mínimo varia"; vale atualizar o site para os valores acima (pendência do dono, não dos agentes).
 Ao falar de MOQ e prazo, use sempre a ressalva: "referência; o prazo final e as condições são confirmados na análise do briefing".
@@ -143,16 +143,18 @@ Bucket público `ai-midia` (Supabase). Só estes links podem aparecer nas mensag
 | Proposta Comercial genérica | https://papaicnydbcajkfghwem.supabase.co/storage/v1/object/public/ai-midia/materiais/proposta-garnet.pdf |
 | Proposta personalizada por lead | gerada pelo SDR e enviada a `ai-midia/propostas/<uuid-aleatório>.pdf` (passo a passo em `.claude/agents/sdr.md`); a URL vem do `upload`. **Nunca nome do lead no caminho do arquivo.** |
 
-Mais: site, briefing e simulador (seção 3). O humano pode anexar o PDF da proposta ao e-mail; o texto deve funcionar só com o link.
+Mais: site, briefing e simulador (seção 3). Influenciadora: o 1º contato leva só a apresentação (anexo no e-mail via `ai_config.anexo_primeiro_contato`; link no WhatsApp/direct); proposta (genérica ou personalizada) e catálogo só no 2º contato, a quem respondeu com interesse. Demais públicos: o humano pode anexar o PDF da proposta ao e-mail; o texto deve funcionar só com o link.
 
 ## 10. Assinatura padrão
 
-As mensagens são assinadas **pelo dono** (confirmado em 28/10/2026). O nome vem de `ai_config.assinatura` (`DB config assinatura`); enquanto estiver vazio, use "Equipe Garnet Cosméticos". Formato:
+As mensagens são assinadas **pelo dono** (confirmado em 28/10/2026). O nome vem de `ai_config.assinatura` (`DB config assinatura`); enquanto estiver vazio, use "Equipe Garnet Cosméticos". **E-mails de influenciadora: o texto do rascunho termina em "Atenciosamente," e a assinatura NÃO entra no texto; o `scripts/zimbra.py` acrescenta a assinatura formatada (Lucas Lubrano · Diretor de Novos Negócios · +55 (11) 93229-4144 · garnetcosmeticos.com.br) e a linha "Caso não queira receber novos contatos, é só nos avisar.".** WhatsApp/direct: assinatura curta "Lucas Lubrano · Garnet". Formato geral:
 
 <nome do assinante> · Garnet Cosméticos · garnetcosmeticos.com.br · WhatsApp (11) 98153-1188 · contato@garnetcosmeticos.com.br
 
 ## Modelo de negócio na prospecção (dono, 28/10/2026)
 A Garnet atua **apenas como fabricante**. Não oferece investimento, sociedade, participação societária, royalties nem
 co-lançamento. A proposta é sempre: a marca é do cliente (influenciadora, marca indie, distribuidor), e a Garnet
-desenvolve e fabrica. Expressões proibidas na abordagem: "produto viral/viralização", "seu nome surgiu internamente",
-"participação societária", "investir na sua marca".
+desenvolve e fabrica. Expressões proibidas na abordagem: "produto viral/viralização", "participação societária",
+"sociedade", "investimento da Garnet", "royalties", "co-lançamento", "logo prensado", lucro garantido.
+**Permitido (dono, 30/10/2026):** "internamente seu nome surgiu como um dos que mais combinam com essa proposta" (verdadeiro: os leads são
+selecionados pela qualificação) e "oportunidade de investir no seu próprio negócio de beleza" (o investimento é dela, na marca dela).
