@@ -107,21 +107,27 @@ p{font-size:14px;line-height:1.65;font-weight:400;color:var(--texto)}
 .of p{font-size:14.5px;line-height:1.65;color:#394254;border-left:1px solid var(--linha);padding-left:14px}
 
 /* modelos */
-.mods{position:absolute;left:67px;right:67px;top:165px;display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
-.mod{background:var(--card);border:1px solid var(--linha);border-top:2px solid var(--ouro);padding:28px 20px;height:400px}
-.mod .big{font-family:'Playfair Display',serif;font-size:34px;color:var(--ouro)}
-.mod h3{font-size:21px;margin:14px 0 4px;line-height:1.2}
-.mod p{font-size:13.5px;line-height:1.65;color:#394254}
+.mods{position:absolute;left:67px;right:67px;top:165px;display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
+.mod{background:var(--card);border:1px solid var(--linha);border-top:2px solid var(--ouro);padding:40px 44px;height:400px}
 .mod:nth-child(odd){border-top-color:var(--azul)}
+.mod .big{font-family:'Playfair Display',serif;font-size:44px;color:var(--ouro)}
+.mod .para{margin-top:26px;border-left:2px solid var(--ouro);padding:6px 0 6px 18px;font-size:15px;line-height:1.6;font-weight:500;color:var(--azul)}
+.mod h3{font-size:32px;margin:14px 0 4px;line-height:1.2}
+.mod p{font-size:16px;line-height:1.7;color:#394254}
+.mod:nth-child(odd){border-top-color:var(--azul)}
+.req{position:absolute;left:67px;right:67px;top:630px;display:flex;align-items:center;gap:22px;background:var(--azul);padding:12px 26px}
+.req span{font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--ouro);flex:none}
+.req p{font-size:13.5px;color:#fff;line-height:1.4}
+.req p b{color:var(--ouro);font-weight:500}
 .faixa{position:absolute;left:67px;right:67px;bottom:80px;text-align:center;font-size:12px;color:var(--suave);letter-spacing:.04em}
 
 /* etapas */
 .etapas{position:absolute;left:67px;right:67px;top:200px;display:grid;grid-template-columns:repeat(4,1fr);gap:26px 22px}
-.et{background:var(--card);border:1px solid var(--linha);padding:20px 20px 18px;height:156px;position:relative}
+.et{background:var(--card);border:1px solid var(--linha);padding:20px 20px 18px;height:146px;position:relative}
 .et .c{position:absolute;top:-17px;left:18px;width:34px;height:34px;border-radius:50%;border:1px solid var(--ouro);background:var(--fundo);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:14px;color:var(--ouro-esc)}
 .et h4{font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--azul);margin-top:8px}
 .et p{margin-top:8px;font-size:12px;line-height:1.55;color:#394254}
-.cond{position:absolute;left:67px;right:67px;top:560px;display:flex;gap:14px}
+.cond{position:absolute;left:67px;right:67px;top:545px;display:flex;gap:14px}
 .cond div{flex:1;border-left:2px solid var(--ouro);padding:6px 0 6px 18px}
 .cond b{display:block;font-family:'Playfair Display',serif;font-weight:400;font-size:26px;color:var(--azul)}
 .cond span{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--suave);font-weight:500}
@@ -154,6 +160,9 @@ p{font-size:14px;line-height:1.65;font-weight:400;color:var(--texto)}
 .ct-esq{position:absolute;left:83px;top:150px;width:520px}
 .ct-esq h2{font-size:58px;line-height:1.1;margin-top:20px}
 .ct-esq p{margin-top:22px;font-size:15px;line-height:1.7}
+.req2{margin-top:26px;border-left:2px solid var(--ouro);padding:4px 0 4px 18px}
+.req2 span{display:block;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--ouro-esc);margin-bottom:6px}
+.req2 p{font-size:14px;margin:0}
 .ct-dir{position:absolute;left:700px;right:83px;top:112px;display:flex;flex-direction:column;gap:16px}
 .ct{display:flex;align-items:center;gap:22px;background:rgba(246,244,238,.85);border:1px solid var(--linha);padding:24px 28px}
 .ct .k{flex:none;width:44px;height:44px;border-radius:50%;border:1px solid var(--ouro);display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:.1em;color:var(--azul);font-weight:600;background:#fff}
@@ -195,7 +204,7 @@ p{font-size:14px;line-height:1.65;font-weight:400;color:var(--texto)}
   <div class="logo">GARNET</div>
   <div class="sub">Cosméticos · desde 1992</div>
   <div class="lema"><h1>Transformando ideias em produtos de beleza<br>com <em>excelência</em>, <em>inovação</em> e <em>qualidade</em></h1></div>
-  <div class="rod">Apresentação comercial · Fabricação private label</div>
+  <div class="rod">Apresentação comercial · Fabricação de cosméticos para a sua marca</div>
   <div class="cant"></div>
 </section>
 
@@ -206,13 +215,13 @@ p{font-size:14px;line-height:1.65;font-weight:400;color:var(--texto)}
     <div class="fio"></div>
     <h2>A arte de criar<br><em>marcas desejáveis.</em></h2>
     <p style="margin-top:26px">Desde 1992, a Garnet é uma fabricante de cosméticos especialista em <b>maquiagem compactada</b>: pós, blushes, sombras, bronzers e iluminadores de alta performance, com muitas possibilidades de personalização.</p>
-    <p style="margin-top:12px">Atuamos em <b>private label e full service</b>, desenvolvendo e fabricando linhas para marcas, influenciadoras e empreendedores que querem lançar ou expandir a marca própria.</p>
+    <p style="margin-top:12px">Com estrutura própria em São Paulo, cuidamos de desenvolvimento, pesquisa, produção, envase, embalagem e armazenagem, em dois modelos de produção: <b>Full Service</b> e <b>Terceirização por Encomenda</b>.</p>
   </div>
   <div class="qs-nums">
     <div class="n"><b>1992</b><span>+30 anos de experiência</span><i>Tradição em maquiagem compactada.</i></div>
     <div class="n"><b>+150</b><span>Marcas atendidas</span><i>De influenciadoras a marcas consolidadas.</i></div>
-    <div class="n"><b>50 mil</b><span>Unidades por mês</span><i>Capacidade de produção.</i></div>
-    <div class="n"><b>1.000 m²</b><span>De área fabril</span><i>Fabricação seguindo as BPF (Boas Práticas de Fabricação).</i></div>
+    <div class="n"><b>50 mil</b><span>Unidades por mês</span><i>Capacidade para acompanhar o crescimento da sua marca.</i></div>
+    <div class="n"><b>1.000 m²</b><span>De área fabril</span><i>Estrutura própria em São Paulo, seguindo as BPF (Boas Práticas de Fabricação).</i></div>
   </div>
   <div class="qs-cit"><div class="serif">“Mais do que fabricar cosméticos, ajudamos a construir marcas que contam histórias.”</div></div>
   <div class="marca">GARNET</div><div class="num">02</div>
@@ -269,7 +278,7 @@ p{font-size:14px;line-height:1.65;font-weight:400;color:var(--texto)}
     <div class="it"><h4>Desenhos</h4><p>Ilustrações e estampas criadas para dar identidade à linha.</p></div>
     <div class="it"><h4>Paletas</h4><p>Composições de cores e formatos pensadas para o conceito da coleção.</p></div>
     <div class="it"><h4>Formatos</h4><p>Redondo, quadrado ou formas especiais, conforme a viabilidade.</p></div>
-    <div class="it"><h4>Embalagens</h4><p>Orientamos formatos, materiais e acabamentos, com diversos fornecedores de embalagem.</p></div>
+    <div class="it"><h4>Embalagens</h4><p>Apoiamos na escolha com parceiros que têm embalagens em catálogo (enviamos o catálogo e você escolhe). Também aceitamos a sua: fazemos o envase nela.</p></div>
   </div>
   <div class="pers-nota" style="top:540px"><p>O que torna um produto inconfundível está nos detalhes. Cada projeto nasce de um briefing e é desenvolvido para refletir a identidade da sua marca.</p></div>
   <div class="pers-fotos">
@@ -288,13 +297,13 @@ p{font-size:14px;line-height:1.65;font-weight:400;color:var(--texto)}
 
 <!-- 9 CATEGORIAS -->
 <section class="pagina">
-  <div class="topo"><div class="rotulo">Catálogo Garnet</div><h2>Cinco categorias que <em>desenvolvemos</em></h2></div>
+  <div class="topo"><div class="rotulo">Catálogo Garnet</div><h2>5 categorias que <em>desenvolvemos</em></h2></div>
   <div class="cats">
-    <div class="cat esp"><div class="big">01</div><h3>Maquiagem</h3><div class="fio"></div><p>Nossa especialidade desde 1992: pós, blushes, sombras, bronzer e iluminador, compactados com relevo, logo gravado, desenhos e paletas sob medida.</p><div class="tag">Especialidade</div></div>
+    <div class="cat esp"><div class="big">01</div><h3>Maquiagem</h3><div class="fio"></div><p>Nossa especialidade desde 1992: pós, blushes, sombras, bronzer e iluminador, compactados com relevo, logo gravado, desenhos e paletas sob medida.</p><div class="tag">Mín. 1.000 un. por cor</div></div>
     <div class="cat"><div class="big">02</div><h3>Lábios</h3><div class="fio"></div><p>Batons, glosses e lip oils com a identidade da sua marca.</p></div>
-    <div class="cat"><div class="big">03</div><h3>Perfumaria</h3><div class="fio"></div><p>Perfumes, body splashes, colônias e perfumes capilares.</p><div class="tag">Pedido mín. 3.000 peças</div></div>
+    <div class="cat"><div class="big">03</div><h3>Perfumaria</h3><div class="fio"></div><p>Perfumes, body splashes, colônias e perfumes capilares.</p><div class="tag">Pedido mín. 3.000 un.</div></div>
     <div class="cat"><div class="big">04</div><h3>Skincare</h3><div class="fio"></div><p>Séruns, hidratantes e máscaras para completar o portfólio.</p></div>
-    <div class="cat"><div class="big">05</div><h3>Corpo</h3><div class="fio"></div><p>Loções, óleos e esfoliantes para linhas de cuidado corporal.</p><div class="tag">Pedido mín. 3.000 peças</div></div>
+    <div class="cat"><div class="big">05</div><h3>Corpo</h3><div class="fio"></div><p>Loções, óleos e esfoliantes para linhas de cuidado corporal.</p><div class="tag">Pedido mín. 3.000 un.</div></div>
   </div>
   <div class="rodape-nota" style="left:67px;bottom:30px">Todas as fórmulas são cruelty-free e dermatologicamente testadas</div>
   <div class="marca">GARNET</div>
@@ -305,9 +314,9 @@ p{font-size:14px;line-height:1.65;font-weight:400;color:var(--texto)}
   <div class="topo"><div class="rotulo">Solução completa 360°</div><h2>O que <em>oferecemos</em></h2></div>
   <div class="ofe">
     <div class="of"><div class="k">01</div><div><h4>Desenvolvimento de Linha Própria</h4><p>Acompanhamos a criação de coleções de maquiagem do zero, transformando sua visão em um portfólio completo e estruturado para o mercado.</p></div></div>
-    <div class="of"><div class="k">02</div><div><h4>Personalização de Produto</h4><p>Ajuste refinado de fórmulas, texturas, pigmentação e embalagens para que cada item reflita a essência da sua marca.</p></div></div>
+    <div class="of"><div class="k">02</div><div><h4>Personalização de Produto</h4><p>Ajuste refinado de fórmulas, texturas, pigmentação e embalagem, com apoio de parceiros de catálogo ou a sua própria, para que cada item reflita a essência da sua marca.</p></div></div>
     <div class="of"><div class="k">03</div><div><h4>Apoio na Construção da Marca</h4><p>Suporte para o posicionamento da sua linha de beleza, conectando desenvolvimento técnico com inteligência comercial.</p></div></div>
-    <div class="of"><div class="k">04</div><div><h4>Fabricação Terceirizada</h4><p>Infraestrutura industrial para produção em escala, com padrão de qualidade e consistência lote a lote.</p></div></div>
+    <div class="of"><div class="k">04</div><div><h4>Terceirização por Encomenda</h4><p>Você fornece a embalagem e os demais insumos; a Garnet fabrica o cosmético e faz o envase, com padrão e consistência lote a lote.</p></div></div>
     <div class="of"><div class="k">05</div><div><h4>Orientação Técnica e Produtiva</h4><p>Consultoria durante todas as etapas, da seleção de matérias-primas ao processo final de produção.</p></div></div>
     <div class="of"><div class="k">06</div><div><h4>Exclusividade Visual e Conceitual</h4><p>Cuidamos para que a sua linha tenha design diferenciado e um conceito forte, destacando-se visualmente no mercado.</p></div></div>
   </div>
@@ -317,15 +326,12 @@ p{font-size:14px;line-height:1.65;font-weight:400;color:var(--texto)}
 
 <!-- 11 MODELOS -->
 <section class="pagina">
-  <div class="topo"><div class="rotulo">Modelos de produção</div><h2>Cinco formas de <em>produzir com a Garnet</em></h2></div>
+  <div class="topo"><div class="rotulo">Modelos de produção</div><h2>Dois modelos de <em>produção</em></h2></div>
   <div class="mods">
-    <div class="mod"><div class="big">01</div><h3>Full Service</h3><div class="fio"></div><p>A Garnet coordena tudo de ponta a ponta: fórmula, amostras, embalagem, produção, qualidade e entrega. Ideal para criar a marca sem ter fórmula própria.</p></div>
-    <div class="mod"><div class="big">02</div><h3>Produção Mista</h3><div class="fio"></div><p>Etapas divididas entre a Garnet e a sua marca, que pode fornecer componentes, embalagens ou parceiros homologados.</p></div>
-    <div class="mod"><div class="big">03</div><h3>Mão de Obra</h3><div class="fio"></div><p>A marca fornece insumos ou fórmula, e a Garnet executa as etapas produtivas com rastreabilidade.</p></div>
-    <div class="mod"><div class="big">04</div><h3>Private Label</h3><div class="fio"></div><p>Linha personalizada que combina formulação, identidade e acabamento, para lançar sua marca com mais rapidez.</p></div>
-    <div class="mod"><div class="big">05</div><h3>Collabs</h3><div class="fio"></div><p>Projetos com marcas e influenciadores, traduzindo conceito e audiência em produto com identidade própria.</p></div>
+    <div class="mod"><div class="big">01</div><h3>Full Service</h3><div class="fio"></div><p>A Garnet coordena o projeto de ponta a ponta: fórmula, amostras, embalagem, produção, qualidade e entrega.</p><p class="para">Para quem quer criar a marca sem ter fórmula: a Garnet cuida de tudo.</p></div>
+    <div class="mod"><div class="big">02</div><h3>Terceirização por Encomenda</h3><div class="fio"></div><p>Sua marca fornece os demais insumos, como a embalagem, e a Garnet fabrica o cosmético e faz o envase.</p><p class="para">Para quem já tem embalagem e componentes e precisa só da produção.</p></div>
   </div>
-  <div class="faixa">Não sabe qual modelo escolher? A equipe Garnet indica o melhor caminho a partir do seu briefing.</div>
+  <div class="faixa">Não sabe qual escolher? Conte sua ideia e a equipe Garnet indica o formato a partir do seu briefing.</div>
   <div class="marca">GARNET</div><div class="num">11</div>
 </section>
 
@@ -336,18 +342,19 @@ p{font-size:14px;line-height:1.65;font-weight:400;color:var(--texto)}
     <div class="et"><div class="c">01</div><h4>Briefing</h4><p>Entendemos sua ideia, público, conceito e objetivos para o projeto.</p></div>
     <div class="et"><div class="c">02</div><h4>Desenvolvimento</h4><p>Criamos fórmulas e produtos a partir do conceito, ou personalizamos fórmulas disponíveis.</p></div>
     <div class="et"><div class="c">03</div><h4>Amostras</h4><p>Avaliação de textura, cor, fragrância, desempenho e acabamento antes de produzir.</p></div>
-    <div class="et"><div class="c">04</div><h4>Personalização</h4><p>Cores, relevos, logo gravado, desenhos, formatos e embalagens da sua marca.</p></div>
+    <div class="et"><div class="c">04</div><h4>Personalização</h4><p>Cores, relevos, logo gravado, desenhos, formatos e embalagem (de parceiros em catálogo ou a sua).</p></div>
     <div class="et"><div class="c">05</div><h4>Regulatório ANVISA</h4><p>Apoiamos a adequação técnica e regulatória do produto.</p></div>
-    <div class="et"><div class="c">06</div><h4>Produção</h4><p>Fabricação em escala na nossa fábrica, seguindo as BPF.</p></div>
+    <div class="et"><div class="c">06</div><h4>Produção</h4><p>Fabricação, envase e embalagem na nossa estrutura própria em São Paulo, seguindo as BPF.</p></div>
     <div class="et"><div class="c">07</div><h4>Controle de qualidade</h4><p>Conferência para garantir padrão e consistência do lote.</p></div>
     <div class="et"><div class="c">08</div><h4>Entrega</h4><p>Seu produto pronto para chegar ao mercado com a sua marca.</p></div>
   </div>
   <div class="cond">
-    <div><b>1.000 peças</b><span>Pedido mínimo · compactados</span></div>
-    <div><b>3.000 peças</b><span>Pedido mínimo · perfumaria, loções e demais</span></div>
-    <div><b>~30 dias</b><span>Prazo de referência*</span></div>
+    <div><b>1.000 un. por cor</b><span>Pedido mínimo · compactados</span></div>
+    <div><b>3.000 unidades</b><span>Pedido mínimo · demais produtos</span></div>
+    <div><b>~45 dias</b><span>Prazo de referência*</span></div>
   </div>
-  <div class="faixa" style="bottom:68px;font-size:11px">* Pedido mínimo e prazo são referências; o prazo final e as condições são confirmados na análise do briefing.</div>
+  <div class="req"><span>Para começar</span><p>Empresa com <b>CNPJ com CNAE de cosméticos</b> e <b>marca registrada ou com protocolo no INPI</b>.</p></div>
+  <div class="faixa" style="bottom:62px;font-size:11px">* Pedido mínimo e prazo são referências; o prazo final (cerca de 45 dias) e as condições são confirmados após a análise do briefing.</div>
   <div class="marca">GARNET</div><div class="num">12</div>
 </section>
 
@@ -373,7 +380,7 @@ p{font-size:14px;line-height:1.65;font-weight:400;color:var(--texto)}
 <!-- 14 QUALIDADE -->
 <section class="pagina">
   <div class="topo"><div class="rotulo">Padrão Garnet de excelência</div><h2>Compromisso com <em>qualidade</em> e consistência</h2></div>
-  <div class="q-esq"><div class="c1"></div><div class="c2"></div><div class="t"><b>BPF</b><span>Boas Práticas<br>de Fabricação</span><i>1.000 m² de fábrica</i></div></div>
+  <div class="q-esq"><div class="c1"></div><div class="c2"></div><div class="t"><b>BPF</b><span>Boas Práticas<br>de Fabricação</span><i>1.000 m² de fábrica em SP</i></div></div>
   <div class="q-dir">
     <div class="b"><h4>Fórmulas seguras</h4><p>Todas as fórmulas são cruelty-free e dermatologicamente testadas.</p></div>
     <div class="b"><h4>Amostras antes da produção</h4><p>Textura, cor, fragrância, desempenho e acabamento avaliados e aprovados com você.</p></div>
@@ -391,7 +398,8 @@ p{font-size:14px;line-height:1.65;font-weight:400;color:var(--texto)}
     <div class="rotulo" style="color:var(--ouro-esc)">Próximo passo</div>
     <h2>Vamos desenvolver<br>sua <em>marca?</em></h2>
     <p>Tire sua ideia do papel com a Garnet. Envie seu briefing e nossa equipe responde em até 1 dia útil, com orçamento personalizado para o seu projeto.</p>
-    <p style="margin-top:14px;font-size:12px;color:var(--suave)">Pedido mínimo: 1.000 peças (compactados) e 3.000 peças (perfumaria, loções e demais). Prazo de referência: cerca de 30 dias.</p>
+    <p style="margin-top:14px;font-size:12px;color:var(--suave)">Pedido mínimo: 1.000 unidades por cor (compactados) e 3.000 unidades (demais produtos). Prazo de referência: cerca de 45 dias.</p>
+    <div class="req2"><span>Para começar</span><p>Empresa com <b>CNPJ com CNAE de cosméticos</b> e <b>marca registrada ou com protocolo no INPI</b>.</p></div>
   </div>
   <div class="ct-dir">
     <div class="ct"><div class="k">WA</div><div><small>WhatsApp comercial</small><b>(11) 98153-1188</b></div></div>
