@@ -41,18 +41,19 @@ Valores **sempre lidos de `ai_config`** (não decorar): `python3 -I scripts/ai_d
 
 | Item | Valor (referência) |
 |---|---|
-| Preço de referência, compactado, no pedido mínimo de 1.000 peças | **R$ 15 por peça** (investimento de R$ 15.000) |
+| Preço de referência, compactado, no pedido mínimo de 1.000 peças | **R$ 15 por peça** (investimento de R$ 15.000), **produto final pronto: já inclui embalagem, cartucho e gráfica**. Impostos, taxas e custos regulatórios ficam à parte |
 | Revenda simulada | R$ 25 / R$ 30 / R$ 35 |
 | Lucro bruto simulado (1.000 peças) | R$ 10 mil / R$ 15 mil / R$ 20 mil |
 | Margem estimada | 40% / 50% / 57% |
 | Ponto de equilíbrio (recupera o investimento) | peça nº 600 / 500 / 429 |
 
 Regras de uso:
-- Sempre com a ressalva: "referência/simulação; o valor final depende da embalagem e da personalização".
+- Sempre com a ressalva: "valor de referência/simulação, já com embalagem; impostos e taxas regulatórias à parte; o valor final depende da personalização".
+- **Quem faz o quê (dono, 19/11/2026):** a **Garnet é a fábrica**: desenvolve e fabrica (qualidade, exclusividade, produtos do jeito que o cliente imaginar) e recebe pelo serviço. O **cliente (ex.: influenciadora) é dono do próprio negócio**: compra os produtos prontos (com embalagem, cartucho e gráfica), cuida da distribuição e da divulgação, define o preço de venda e fica com todo o lucro, sem intermediários. Impostos e taxas regulatórias ficam à parte. Isto não é sociedade nem investimento da Garnet.
 - Só para **compactados** no pedido mínimo de 1.000 peças. **Perfumaria, loções e demais categorias: sem preço de referência; não citar valor** (encaminhar ao orçamento).
 - Nunca prometer ou sugerir lucro garantido, vendas ou ritmo de vendas; é uma conta de cenário, não um resultado. Não citar desconto, condição de pagamento, frete, faixa ("a partir de") nem preço de outra quantidade.
 - Pedidos de negociação ("faz por R$ 12?", "tem desconto?") vão para o humano/orçamento; o agente não negocia.
-- **Influenciadoras (dono, 30/10/2026): o 1º contato leva SÓ a Apresentação Comercial: sem preço, número de simulação, proposta nem catálogo.** O preço de referência só aparece no **2º contato** (quem respondeu com interesse) ou em reunião de alinhamento. Marcas indie e distribuidores: 1ª mensagem com **1 número** do cenário (padrão: revenda a R$ 30) e o restante na Proposta Comercial (link), até nova decisão do dono. Os números citados devem bater com `revenda_cenarios`.
+- **Influenciadoras (dono, 19/11/2026, substitui a de 30/10): o 1º contato já deixa claras as responsabilidades financeiras e leva a simulação** (R$ 15 de referência por compactado no pedido de 1.000, já com embalagem; revenda a R$ 30; equilíbrio na peça nº 500; frase de seguidores só se `seguidores` ≥ 2.000), curto e convidativo, para atrair só quem quer empreender. **Sem amostras no 1º contato.** Catálogo e reunião de alinhamento no 2º contato (quem respondeu com interesse). Marcas indie e distribuidores: 1ª mensagem com **1 número** do cenário (padrão: revenda a R$ 30) e o restante na Proposta Comercial (link), até nova decisão do dono. Os números citados devem bater com `revenda_cenarios`.
 
 Nota: o FAQ atual do site ainda diz "o pedido mínimo varia"; vale atualizar o site para os valores acima (pendência do dono, não dos agentes).
 Ao falar de MOQ e prazo, use sempre a ressalva: "referência; o prazo final e as condições são confirmados na análise do briefing".
@@ -111,7 +112,7 @@ Sugestão por público (orientação interna, não promessa): influenciadora e m
 - **Ajudam com embalagem?** Sim, orientamos formatos, materiais, acabamentos e compatibilidade com a fórmula. Trabalhamos com diversos fornecedores de embalagem.
 - **Apoio regulatório / ANVISA?** A equipe acompanha os requisitos regulatórios aplicáveis ao longo do desenvolvimento. Não prometer aprovação nem prazo de registro.
 - **Personalização de compactados?** Cores, relevos, logo gravado, desenhos, formatos e composições de paleta.
-- **Amostras?** O processo inclui amostras para avaliar textura, cor, fragrância, desempenho e acabamento. A Garnet envia amostras para **leads qualificados** (dono, 28/10/2026). O agente pode oferecer amostra a quem já demonstrou interesse real e se encaixa no ICP, mas **quem decide e combina o envio é o humano** — nunca prometer data, quantidade ou gratuidade.
+- **Amostras?** O processo inclui amostras para avaliar textura, cor, fragrância, desempenho e acabamento. A Garnet envia amostras para **leads qualificados** (dono, 28/10/2026); **não mencionar amostras no 1º contato de influenciadora**. O agente pode oferecer amostra a quem já demonstrou interesse real e se encaixa no ICP, mas **quem decide e combina o envio é o humano** — nunca prometer data, quantidade ou gratuidade.
 - **Como pedir orçamento?** Briefing em 4 passos no site ou WhatsApp; resposta em até 1 dia útil.
 
 
@@ -143,7 +144,7 @@ Bucket público `ai-midia` (Supabase). Só estes links podem aparecer nas mensag
 | Proposta Comercial genérica | https://papaicnydbcajkfghwem.supabase.co/storage/v1/object/public/ai-midia/materiais/proposta-garnet.pdf |
 | Proposta personalizada por lead | gerada pelo SDR e enviada a `ai-midia/propostas/<uuid-aleatório>.pdf` (passo a passo em `.claude/agents/sdr.md`); a URL vem do `upload`. **Nunca nome do lead no caminho do arquivo.** |
 
-Mais: site, briefing e simulador (seção 3). Influenciadora: o 1º contato leva só a apresentação (anexo no e-mail via `ai_config.anexo_primeiro_contato`; link no WhatsApp/direct); proposta (genérica ou personalizada) e catálogo só no 2º contato, a quem respondeu com interesse. Demais públicos: o humano pode anexar o PDF da proposta ao e-mail; o texto deve funcionar só com o link.
+Mais: site, briefing e simulador (seção 3). Influenciadora: o 1º contato leva a apresentação (anexo no e-mail via `ai_config.anexo_primeiro_contato`; link no WhatsApp/direct) e a simulação (proposta personalizada em anexo no e-mail); catálogo só no 2º contato, a quem respondeu com interesse. Demais públicos: o humano pode anexar o PDF da proposta ao e-mail; o texto deve funcionar só com o link.
 
 ## 10. Assinatura padrão
 
@@ -156,5 +157,5 @@ A Garnet atua **apenas como fabricante**. Não oferece investimento, sociedade, 
 co-lançamento. A proposta é sempre: a marca é do cliente (influenciadora, marca indie, distribuidor), e a Garnet
 desenvolve e fabrica. Expressões proibidas na abordagem: "produto viral/viralização", "participação societária",
 "sociedade", "investimento da Garnet", "royalties", "co-lançamento", "logo prensado", lucro garantido.
-**Permitido (dono, 30/10/2026):** "internamente seu nome surgiu como um dos que mais combinam com essa proposta" (verdadeiro: os leads são
+**Permitido (dono, 19/11/2026):** "internamente seu nome surgiu como um dos perfis que mais combinam com a criação de uma linha própria de maquiagem" (verdadeiro: os leads são
 selecionados pela qualificação) e "oportunidade de investir no seu próprio negócio de beleza" (o investimento é dela, na marca dela).

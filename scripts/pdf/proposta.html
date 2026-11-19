@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>Proposta Comercial | Garnet Cosméticos</title>
 <!--
-PROPOSTA COMERCIAL COM PROJEÇÃO DE LUCRO (Garnet) - 7 páginas 16:9, 1333x750 px.
+PROPOSTA COMERCIAL COM PROJEÇÃO DE LUCRO (Garnet) - 8 páginas 16:9, 1333x750 px.
 Gerar o PDF (a partir da raiz do repositório):
   Genérica:      node scripts/pdf/render.mjs scripts/pdf/proposta.html saida.pdf
   Personalizada: node scripts/pdf/render.mjs scripts/pdf/proposta.html saida.pdf dados.json
@@ -29,6 +29,7 @@ body{font-family:'Montserrat',sans-serif;color:var(--txt)}
 .eyebrow{font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--mut)}
 h1,h2,h3,.serif{font-family:'Playfair Display',serif;font-weight:400;color:var(--azul)}
 h2{font-size:46px;line-height:1.12;margin-top:10px}
+.pagina h2 em{display:inline}
 em{font-style:italic;color:var(--ouro)}
 .rod{position:absolute!important;left:72px;right:72px;bottom:26px;display:flex;justify-content:space-between;align-items:center;font-size:11px;letter-spacing:.16em;color:#9aa1b3;text-transform:uppercase}
 .rod b{font-family:'Montserrat';font-weight:300;letter-spacing:.4em;color:#b9a47a}
@@ -52,7 +53,7 @@ em{font-style:italic;color:var(--ouro)}
 .num .l{margin-top:8px;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--azul)}
 .qs p{font-size:15px;line-height:1.65;color:var(--txt)}
 .fotos{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:18px}
-.foto{position:relative;height:330px;background:var(--card);overflow:hidden;box-shadow:0 6px 18px rgba(30,47,77,.12)}
+.foto{position:relative;height:290px;background:var(--card);overflow:hidden;box-shadow:0 6px 18px rgba(30,47,77,.12)}
 .foto img{width:100%;height:100%;object-fit:cover;display:block}
 .foto span{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(transparent,rgba(30,47,77,.88));color:#fff;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:34px 10px 10px;text-align:center}
 .marcas{margin-top:10px;font-size:12px;color:var(--mut);letter-spacing:.04em}
@@ -62,6 +63,18 @@ em{font-style:italic;color:var(--ouro)}
 .it .n{font-family:'Playfair Display';font-style:italic;color:var(--ouro);font-size:26px}
 .it h3{font-size:21px;margin:4px 0 8px}
 .it p{font-size:13.5px;line-height:1.55;color:var(--txt)}
+/* quem faz o quê */
+.qfq{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:30px}
+.qc{background:var(--card);border:1px solid var(--linha);border-top:3px solid var(--ouro);padding:26px 30px;height:300px}
+.qc .k{font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ouro-esc)}
+.qc h3{font-size:30px;margin:6px 0 14px}
+.qc ul{list-style:none}
+.qc li{font-size:15px;line-height:1.5;padding:7px 0 7px 22px;position:relative;border-top:1px solid var(--linha)}
+.qc li:first-child{border-top:0}
+.qc li::before{content:"";position:absolute;left:2px;top:15px;width:8px;height:8px;border-radius:50%;background:var(--ouro)}
+.qbar{margin-top:20px;background:var(--azul);color:#fff;padding:16px 28px;font-family:'Playfair Display';font-size:22px;line-height:1.35}
+.qbar em{color:var(--ouro)}
+.qnota{margin-top:10px;font-size:12px;color:var(--mut);line-height:1.5}
 /* simulação */
 .sim{display:grid;grid-template-columns:620px 1fr;gap:36px;margin-top:20px}
 table{width:100%;border-collapse:collapse;font-size:14px}
@@ -118,11 +131,11 @@ tr.est td.dest{color:var(--azul)}
 <!-- 2 QUEM SOMOS -->
 <section class="pagina">
   <div class="eyebrow">Quem somos</div>
-  <h2>Fabricamos a sua marca <em>com quem já fabrica marcas</em></h2>
+  <h2>Fabricamos a sua marca, <em>com a experiência de quem já fabricou para grandes nomes</em></h2>
   <div class="qs">
     <div class="topo">
       <div>
-        <p>A Garnet atua <b>somente como fabricante</b>: desenvolvemos e produzimos a sua linha. A marca, o preço de venda e as vendas são seus.</p>
+        <p>A Garnet atua <b>somente como fabricante</b>: desenvolvemos e produzimos a sua linha, e recebemos pelo serviço. A marca, o preço de venda e o lucro são seus.</p>
         <p style="margin-top:8px;font-size:13px;color:var(--mut)">Produtos cruelty-free e dermatologicamente testados.</p>
       </div>
       <div class="nums">
@@ -143,22 +156,51 @@ tr.est td.dest{color:var(--azul)}
   <div class="rod"><span>Quem somos</span><b>GARNET</b></div>
 </section>
 
-<!-- 3 O QUE VOCÊ RECEBE -->
+<!-- 3 QUEM FAZ O QUÊ -->
+<section class="pagina">
+  <div class="eyebrow">Quem faz o quê</div>
+  <h2>A marca é sua, <em>a fábrica é nossa</em></h2>
+  <div class="qfq">
+    <div class="qc">
+      <div class="k">Garnet</div><h3>A fábrica</h3>
+      <ul>
+        <li>Desenvolvimento da sua linha, do jeito que você imaginar</li>
+        <li>Qualidade e produtos exclusivos</li>
+        <li>Fabricação própria, com BPF</li>
+        <li>Recebe pelo serviço de desenvolvimento e fabricação</li>
+      </ul>
+    </div>
+    <div class="qc">
+      <div class="k">Você</div><h3>Dona do seu negócio</h3>
+      <ul>
+        <li>Investe na produção: compra os produtos já prontos, com embalagem</li>
+        <li>Cuida da distribuição e da divulgação</li>
+        <li>Define o preço de venda</li>
+        <li>Fica com todo o lucro, sem intermediários</li>
+      </ul>
+    </div>
+  </div>
+  <div class="qbar">Empreender é ter a sua marca e <em>decidir o seu preço</em>.</div>
+  <div class="qnota">O valor de referência de R$ 15 por compactado (pedido de 1.000 peças) já inclui embalagem, cartucho e gráfica: é o produto final pronto. Impostos, taxas e custos regulatórios ficam à parte.</div>
+  <div class="rod"><span>Quem faz o quê</span><b>GARNET</b></div>
+</section>
+
+<!-- 4 O QUE VOCÊ RECEBE -->
 <section class="pagina">
   <div class="eyebrow">O que você recebe</div>
   <h2>Da ideia ao produto <em>pronto para vender</em></h2>
   <div class="grid6">
     <div class="it"><div class="n">01</div><h3>Desenvolvimento</h3><p>Desenhamos a linha com você: cores, acabamento e conceito alinhados ao estilo da sua marca.</p></div>
-    <div class="it"><div class="n">02</div><h3>Amostras</h3><p>Amostras para projetos qualificados, para você aprovar antes de produzir.</p></div>
+    <div class="it"><div class="n">02</div><h3>Qualidade</h3><p>Controle de qualidade em cada etapa e produtos exclusivos, desenvolvidos para a sua marca.</p></div>
     <div class="it"><div class="n">03</div><h3>Personalização</h3><p>Cores sob medida, relevo, logo gravado, desenhos exclusivos e embalagem com a sua identidade.</p></div>
     <div class="it"><div class="n">04</div><h3>Regulatório</h3><p>Orientação nas etapas regulatórias para o seu produto chegar ao mercado em conformidade.</p></div>
-    <div class="it"><div class="n">05</div><h3>Produção</h3><p>Fabricação própria em fábrica com BPF, com acompanhamento técnico em todas as etapas.</p></div>
+    <div class="it"><div class="n">05</div><h3>Produção</h3><p>Fabricação própria em fábrica com BPF. O produto chega pronto, com embalagem, cartucho e gráfica.</p></div>
     <div class="it"><div class="n">06</div><h3>Prazo de referência</h3><p>Cerca de <b>30 dias</b>. O prazo final varia com quantidade, complexidade e aprovações, e é confirmado na análise do briefing.</p></div>
   </div>
   <div class="rod"><span>O que você recebe</span><b>GARNET</b></div>
 </section>
 
-<!-- 4 SIMULAÇÃO -->
+<!-- 5 SIMULAÇÃO -->
 <section class="pagina">
   <div class="eyebrow">A simulação</div>
   <h2 id="sim-h2">Quanto uma linha própria <em>pode render</em></h2>
@@ -173,11 +215,11 @@ tr.est td.dest{color:var(--azul)}
       <svg id="grafico" width="100%" height="auto" viewBox="0 0 560 318"></svg>
     </div>
   </div>
-  <div class="aviso">Simulação ilustrativa. O preço de R$ 15 é uma referência para compactado com pedido mínimo de 1.000 peças; o valor final depende da embalagem e da personalização e é confirmado no orçamento. Lucro depende das vendas e dos custos de cada operação; não é garantia de resultado.</div>
+  <div class="aviso">Simulação ilustrativa. O preço de R$ 15 é uma referência para o compactado pronto (já com embalagem, cartucho e gráfica) no pedido mínimo de 1.000 peças; impostos, taxas e custos regulatórios ficam à parte, e o valor final depende da personalização e é confirmado no orçamento. Lucro depende das vendas e dos custos de cada operação; não é garantia de resultado.</div>
   <div class="rod"><span>A simulação</span><b>GARNET</b></div>
 </section>
 
-<!-- 5 PONTO DE EQUILÍBRIO -->
+<!-- 6 PONTO DE EQUILÍBRIO -->
 <section class="pagina">
   <div class="eyebrow">Ponto de equilíbrio</div>
   <div class="destaque" id="destaque"></div>
@@ -187,20 +229,20 @@ tr.est td.dest{color:var(--azul)}
   <div class="rod"><span>Ponto de equilíbrio</span><b>GARNET</b></div>
 </section>
 
-<!-- 6 PRÓXIMOS PASSOS -->
+<!-- 7 PRÓXIMOS PASSOS -->
 <section class="pagina">
   <div class="eyebrow">Próximos passos</div>
   <h2>Do primeiro contato <em>à produção</em></h2>
   <div class="passos">
     <div class="passo"><div class="n">1</div><h3>Responda com interesse</h3><p>Basta responder a nossa mensagem dizendo que quer saber mais.</p></div>
     <div class="passo"><div class="n">2</div><h3>Conversa de 15 minutos</h3><p>Uma conversa rápida para desenhar a sua linha: produtos, estilo e quantidade.</p></div>
-    <div class="passo"><div class="n">3</div><h3>Briefing e amostras</h3><p>Você envia o briefing e, em projetos qualificados, recebe amostras para aprovar.</p></div>
+    <div class="passo"><div class="n">3</div><h3>Briefing e aprovação</h3><p>Você envia o briefing e aprovamos juntos o desenvolvimento da sua linha antes de produzir.</p></div>
     <div class="passo"><div class="n">4</div><h3>Produção</h3><p>Produzimos a sua linha em cerca de 30 dias (referência, confirmada após a análise do briefing).</p></div>
   </div>
   <div class="rod"><span>Próximos passos</span><b>GARNET</b></div>
 </section>
 
-<!-- 7 CONTATO -->
+<!-- 8 CONTATO -->
 <section class="pagina">
   <div class="cantoE"></div><div class="cantoD"></div>
   <div class="eyebrow">Contato</div>
@@ -257,7 +299,7 @@ tr.est td.dest{color:var(--azul)}
     + row('Retorno sobre o investimento', function(s){return pc(s.roi);})
     + row('Ponto de equilíbrio', function(s){return n0(s.eq)+' peças';})
     + row('Lucro estimado após custos de venda*', function(s){return brl(s.liq);}, 'est');
-  $('hint').innerHTML = '* Estimativa: considera custos de venda de ' + pc(pct) + ' do faturamento (impostos, taxas de pagamento/plataforma e embalagem de envio). Ex.: R$ ' + n0(mid.r) + ' &rarr; ' + n0(mid.fat) + ' &minus; ' + n0(mid.custos) + ' &minus; ' + n0(inv) + ' = ' + n0(mid.liq) + '.';
+  $('hint').innerHTML = '* Estimativa: considera custos de venda de ' + pc(pct) + ' do faturamento (taxas de pagamento/plataforma, frete e outros custos da venda; impostos e taxas regulatórias ficam à parte do valor de referência). Ex.: R$ ' + n0(mid.r) + ' &rarr; ' + n0(mid.fat) + ' &minus; ' + n0(mid.custos) + ' &minus; ' + n0(inv) + ' = ' + n0(mid.liq) + '.';
 
   // gráfico SVG
   var W=560,H=318,pl=46,pb=44,pt=22,pr=8, ch=H-pb-pt, cw=W-pl-pr;
