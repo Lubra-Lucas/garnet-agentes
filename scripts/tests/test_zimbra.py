@@ -330,6 +330,112 @@ class MarcarEnviados(unittest.TestCase):
         self.assertFalse(any(c[0] in ('patch', 'post', 'evento', 'unico') for c in ch))
 
 
+class PropostaPersonalizada(unittest.TestCase):
+    URL_APRES = 'https://papaicnydbcajkfghwem.supabase.co/storage/v1/object/public/ai-midia/materiais/apresentacao-garnet.pdf'
+
+    def setUp(self):
+        p = mock.patch.dict(os.environ, ENV)
+        p.start()
+        self.addCleanup(p.stop)
+
+    def roda(self, texto, publico='influenciadora', passo=0, seguidores=15000, render_falha=False,
+             lead_nome='Maria Souza Lima'):
+        ras = [{'id': 'R1', 'lead_id': 'L1', 'assunto': 'A', 'texto': texto, 'texto_final': None,
+                'passo_cadencia': passo}]
+        ch, saves, ups, dados_render, baixados = [], [], [], [], []
+
+        def fake_db(*a):
+            ch.append(a)
+            if a[:2] == ('get', 'ai_rascunhos'):
+                return ras
+            if a[:2] == ('get', 'ai_fila'):
+                return []
+            if a[:2] == ('get', 'leads'):
+                return [{'id': 'L1', 'nome': lead_nome, 'email': 'm@x.com', 'extras': {}}]
+            if a[:2] == ('get', 'ai_v_leads_alvo'):
+                return [{'publico': publico, 'seguidores': seguidores}]
+            if a[0] == 'bloqueado':
+                return False
+            if a[:2] == ('config', 'anexo_primeiro_contato'):
+                return self.URL_APRES
+            return [{}]
+
+        def fake_gerar(dados, registrar=True):
+            dados_render.append(dados)
+            if render_falha:
+                raise z.ZimbraErro('render falhou')
+            return b'%PDF-p', 'https://x/ai-midia/propostas/uuid.pdf'
+
+        def fake_baixar(l):
+            baixados.append(l)
+            return b'%PDF-x'
+
+        def fake_upload(n, c, t='application/pdf'):
+            ups.append((n, c))
+            return f'AID{len(ups)}'
+
+        with mock.patch.object(z, 'db', fake_db), \
+                mock.patch.object(z, 'soap', lambda n, c: saves.append(c) or {'m': [{'id': 'D9'}]}), \
+                mock.patch.object(z, 'baixar_pdf', fake_baixar), mock.patch.object(z, 'upload_zimbra', fake_upload), \
+                mock.patch.object(z, 'gerar_proposta_pdf', fake_gerar), \
+                mock.patch.object(z, 'db_post_unico', lambda t, c: (ch.append(('unico', t, c)) or ({}, False))):
+            r = z.cmd_criar_rascunhos(False)
+        marca = [c for c in ch if c[0] == 'unico'][0][2]
+        return r, saves, ups, dados_render, baixados, marca
+
+    def test_dois_anexos_passo0_influenciadora(self):
+        r, saves, ups, dados, _, marca = self.roda('Boa tarde, Dani Beauty, tudo bem?\n\nTexto.')
+        self.assertEqual([u[0] for u in ups], ['Apresentacao Comercial Garnet.pdf', 'Proposta para Dani.pdf'])
+        self.assertEqual(saves[0]['m']['attach'], {'aid': 'AID1,AID2'})
+        self.assertEqual(dados, [{'nome': 'Dani Beauty', 'publico': 'influenciadora', 'seguidores': 15000}])
+        self.assertEqual(marca['resultado']['anexos'], ['apresentacao', 'proposta_personalizada'])
+        self.assertEqual(marca['resultado']['proposta_url'], 'https://x/ai-midia/propostas/uuid.pdf')
+        self.assertNotIn('aviso', marca['resultado'])
+
+    def test_extrai_nome_da_saudacao(self):
+        for t, esperado in [('Boa tarde, Dani, tudo bem?\nx', 'Dani'), ('Bom dia, Ana Clara! Tudo bem?', 'Ana Clara'),
+                            ('Oi, Bia Silva, tudo bem?', 'Bia Silva'), ('\n\nBoa noite, Jô, tudo bem?', 'Jô'),
+                            ('Oi, tudo bem?', None), ('Olá, equipe, tudo bem?', None), ('Sem saudação', None)]:
+            self.assertEqual(z.extrair_nome_saudacao(t), esperado, t)
+
+    def test_sem_saudacao_usa_nome_do_lead(self):
+        _, saves, ups, dados, _, _ = self.roda('Oi, tudo bem?\n\nTexto.')
+        self.assertEqual(dados[0]['nome'], 'Maria')
+        self.assertEqual(ups[1][0], 'Proposta para Maria.pdf')
+
+    def test_seguidores_abaixo_de_2000_omitidos(self):
+        for seg in (1999, None, 0):
+            _, _, _, dados, _, _ = self.roda('Boa tarde, Dani, tudo bem?', seguidores=seg)
+            self.assertNotIn('seguidores', dados[0])
+        _, _, _, dados, _, _ = self.roda('Boa tarde, Dani, tudo bem?', seguidores=2000)
+        self.assertEqual(dados[0]['seguidores'], 2000)
+
+    def test_fallback_quando_render_falha(self):
+        r, saves, ups, _, baixados, marca = self.roda('Boa tarde, Dani, tudo bem?', render_falha=True)
+        self.assertEqual(baixados[-1], z.URL_PROPOSTA_GENERICA)
+        self.assertEqual([u[0] for u in ups], ['Apresentacao Comercial Garnet.pdf', 'Proposta Garnet.pdf'])
+        self.assertEqual(saves[0]['m']['attach'], {'aid': 'AID1,AID2'})
+        self.assertIn('genérica', marca['resultado']['aviso'])
+        self.assertNotIn('proposta_url', marca['resultado'])
+
+    def test_marca_indie_e_outros_passos_mantem_regra(self):
+        _, _, ups, dados, _, _ = self.roda('Boa tarde, Dani, tudo bem?', publico='marca_indie')
+        self.assertEqual([u[0] for u in ups], ['Apresentacao Comercial Garnet.pdf'])
+        self.assertEqual(dados, [])
+        _, _, ups, _, _, _ = self.roda('Oi', passo=2)
+        self.assertEqual(ups, [])
+        _, _, ups, dados, _, _ = self.roda('Oi', passo=1)  # influenciadora passo 1: só apresentação
+        self.assertEqual([u[0] for u in ups], ['Apresentacao Comercial Garnet.pdf'])
+
+    def test_nome_do_anexo_so_primeiro_nome(self):
+        self.assertEqual(z.nome_arquivo_proposta('Jô Silva da Costa'), 'Proposta para Jo.pdf')
+        self.assertEqual(z.nome_arquivo_proposta('../x/ y'), 'Proposta para x.pdf')
+        self.assertEqual(z.nome_arquivo_proposta('...'), 'Proposta Garnet.pdf')
+
+    def test_savedraft_varios_aids(self):
+        self.assertEqual(z.montar_savedraft('a@x.com', 's', 'c', ['A', 'B'])['m']['attach'], {'aid': 'A,B'})
+
+
 class Config(unittest.TestCase):
     def test_sem_variaveis_sai_2(self):
         with mock.patch.dict(os.environ, {}, clear=True):

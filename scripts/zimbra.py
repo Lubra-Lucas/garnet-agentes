@@ -21,8 +21,10 @@ Uso (python3 -I scripts/zimbra.py ...):
   criar-rascunhos [--dry-run]
         Para cada ai_rascunhos aprovado, canal email e ainda sem `zdraft-<id>` na fila: converte o texto em
         HTML (multipart text/plain + text/html) com a assinatura de `ai_config.assinatura` e salva o RASCUNHO
-        no Zimbra. Anexo: a proposta, se o texto trouxer o link dela (2º contato); senão a apresentação
-        (`ai_config.anexo_primeiro_contato`) quando passo_cadencia for 0 ou 1. Não muda o status do rascunho.
+        no Zimbra. Anexos: 1º contato (passo 0) de INFLUENCIADORA = apresentação + "Proposta para <Primeiro nome>.pdf"
+        personalizada (gerada na hora com scripts/pdf/render.mjs; falhando, usa a proposta genérica); demais casos:
+        a proposta, se o texto trouxer o link dela; senão a apresentação (`ai_config.anexo_primeiro_contato`) nos
+        passos 0 e 1. Não muda o status do rascunho.
   marcar-enviados [--dry-run]
         Para cada rascunho aprovado de e-mail com `zdraft-<id>` concluído, procura em `in:sent to:<lead>` uma
         mensagem de mesmo assunto; se achar: rascunho `enviado` (+ enviado_em), ai_interacoes saída/email,
@@ -49,6 +51,11 @@ LOGO_URL = 'https://papaicnydbcajkfghwem.supabase.co/storage/v1/object/public/ai
 AVISO_SAIR = 'Caso não queira receber novos contatos, é só nos avisar.'
 NOME_APRESENTACAO = 'Apresentacao Comercial Garnet.pdf'
 NOME_PROPOSTA = 'Proposta Garnet.pdf'
+URL_PROPOSTA_GENERICA = ('https://papaicnydbcajkfghwem.supabase.co/storage/v1/object/public/ai-midia/'
+                         'materiais/proposta-garnet.pdf')
+RAIZ = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
+TIMEOUT_RENDER = 180
+MIN_SEGUIDORES = 2000
 
 _cache = {'token': None}
 
@@ -134,7 +141,8 @@ def montar_savedraft(para, assunto, corpo, aid=None, html=None):
         mp = {'ct': 'text/plain', 'content': corpo}
     m = {'e': [{'t': 't', 'a': para}], 'su': assunto, 'mp': mp}
     if aid:
-        m['attach'] = {'aid': aid}
+        # vários anexos: aids separados por vírgula (API do Zimbra)
+        m['attach'] = {'aid': ','.join(aid) if isinstance(aid, (list, tuple)) else aid}
     return {'_jsns': 'urn:zimbraMail', 'm': m}
 
 
@@ -422,6 +430,91 @@ def escolher_anexo(texto, passo, url_apresentacao):
     return None
 
 
+def sem_acento(s):
+    return ''.join(c for c in unicodedata.normalize('NFKD', s or '') if not unicodedata.combining(c))
+
+
+def primeiro_nome(nome):
+    p = (nome or '').strip().split()
+    return p[0] if p else ''
+
+
+def extrair_nome_saudacao(texto):
+    """Nome da saudação ("Boa tarde, X, tudo bem?") na 1ª linha não vazia do texto; None se não houver."""
+    for linha in (texto or '').splitlines():
+        if not linha.strip():
+            continue
+        m = re.match(r'\s*(?:bom dia|boa tarde|boa noite|ol[aá]|oi)\s*,?\s+([^,!?\n.:;]{2,40}?)\s*[,!?]', linha, re.I)
+        if not m:
+            return None
+        nome = m.group(1).strip()
+        if (not re.fullmatch(r"[^\W\d_]+(?:[ '-][^\W\d_]+){0,2}", nome)
+                or nome.casefold().split()[0] in ('tudo', 'td', 'pessoal', 'time', 'equipe')):
+            return None
+        return nome
+    return None
+
+
+def montar_dados_proposta(nome_saudacao, nome_lead, seguidores):
+    nome = (nome_saudacao or '').strip() or primeiro_nome(nome_lead)
+    dados = {'nome': nome, 'publico': 'influenciadora'}
+    try:
+        n = int(seguidores)
+    except (TypeError, ValueError):
+        n = 0
+    if n >= MIN_SEGUIDORES:
+        dados['seguidores'] = n
+    return dados
+
+
+def nome_arquivo_proposta(nome):
+    p = re.sub(r'[^A-Za-z0-9]', '', sem_acento(primeiro_nome(nome)))
+    return f'Proposta para {p}.pdf' if p else NOME_PROPOSTA
+
+
+def escolher_anexos(texto, passo, url_apresentacao, publico=None, nome=None):
+    """Lista de anexos: dicts (tipo, link|None, nome). tipo `proposta_personalizada` = gerar na hora.
+    Influenciadora no passo 0: apresentação + proposta personalizada. Demais: regra de `escolher_anexo`."""
+    if publico == 'influenciadora' and passo == 0 and url_apresentacao:
+        return [{'tipo': 'apresentacao', 'link': url_apresentacao, 'nome': NOME_APRESENTACAO},
+                {'tipo': 'proposta_personalizada', 'link': None, 'nome': nome_arquivo_proposta(nome)}]
+    a = escolher_anexo(texto, passo, url_apresentacao)
+    return [{'tipo': a[0], 'link': a[1], 'nome': a[2]}] if a else []
+
+
+def gerar_proposta_pdf(dados, registrar=True):
+    """Renderiza a proposta personalizada num diretório temporário exclusivo (removido ao final); devolve
+    (bytes, url_do_registro|None). Nada vai para o repositório. Erro vira ZimbraErro."""
+    import shutil
+    import tempfile
+    import uuid
+    tmp = tempfile.mkdtemp(prefix='proposta-')
+    try:
+        arq_dados, saida = os.path.join(tmp, 'dados.json'), os.path.join(tmp, 'proposta.pdf')
+        with open(arq_dados, 'w', encoding='utf-8') as f:
+            json.dump(dados, f, ensure_ascii=False)
+        try:
+            r = subprocess.run(['node', 'scripts/pdf/render.mjs', 'scripts/pdf/proposta.html', saida, arq_dados],
+                               capture_output=True, text=True, timeout=TIMEOUT_RENDER, cwd=RAIZ)
+        except (subprocess.TimeoutExpired, OSError) as e:
+            raise ZimbraErro(f'render da proposta falhou: {type(e).__name__}')
+        if r.returncode != 0 or not os.path.exists(saida):
+            raise ZimbraErro('render da proposta falhou (código %s)' % r.returncode)
+        with open(saida, 'rb') as f:
+            pdf = f.read(LIMITE_PDF + 1)
+        if not pdf.startswith(b'%PDF') or len(pdf) > LIMITE_PDF:
+            raise ZimbraErro('render da proposta devolveu PDF inválido')
+        url = None
+        if registrar:  # registro opcional no bucket, caminho aleatório (sem nome do lead)
+            try:
+                url = (db('upload', saida, f'propostas/{uuid.uuid4()}.pdf') or {}).get('url')
+            except Exception:
+                url = None
+        return pdf, url
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
 def normalizar_assunto(s):
     s = unicodedata.normalize('NFKD', s or '')
     s = ''.join(c for c in s if not unicodedata.combining(c)).casefold()
@@ -614,21 +707,39 @@ def cmd_criar_rascunhos(dry):
             ap = db('config', 'anexo_primeiro_contato')
             cfg['apresentacao'] = ap if isinstance(ap, str) else None
             cfg['assinatura'] = db('config', 'assinatura')
-        anexo = escolher_anexo(corpo, r.get('passo_cadencia'), cfg['apresentacao'])
+        lead_alvo = (db('get', 'ai_v_leads_alvo',
+                        f'id=eq.{q(r["lead_id"])}&select=publico,seguidores&limit=1') or [{}])[0]
+        passo = r.get('passo_cadencia')
+        publico = lead_alvo.get('publico')
+        nome_saud = extrair_nome_saudacao(corpo) if publico == 'influenciadora' and passo == 0 else None
+        anexos = escolher_anexos(corpo, passo, cfg['apresentacao'], publico, nome_saud or nome)
         if dry:
             cont['criados'] += 1
-            cont['sem_anexo'] += 0 if anexo else 1
-            cont.setdefault('anexo_proposta', 0)
-            cont.setdefault('anexo_apresentacao', 0)
-            if anexo:
-                cont['anexo_' + anexo[0]] += 1
+            cont['sem_anexo'] += 0 if anexos else 1
+            for t in ('proposta', 'apresentacao', 'proposta_personalizada'):
+                cont.setdefault('anexo_' + t, 0)
+            for a in anexos:
+                cont['anexo_' + a['tipo']] += 1
             continue
-        aid, aviso = None, None
-        if anexo:
+        aids, tipos, avisos, proposta_url = [], [], [], None
+        for a in anexos:
             try:
-                aid = upload_zimbra(anexo[2], baixar_pdf(anexo[1]))
+                if a['tipo'] == 'proposta_personalizada':
+                    try:
+                        pdf, proposta_url = gerar_proposta_pdf(montar_dados_proposta(
+                            nome_saud, nome, lead_alvo.get('seguidores')))
+                    except ZimbraErro as e:
+                        avisos.append(censurar(f'proposta personalizada indisponível, usada a genérica: {e}'))
+                        pdf = baixar_pdf(URL_PROPOSTA_GENERICA)
+                        a = {**a, 'nome': NOME_PROPOSTA, 'tipo': 'proposta'}
+                else:
+                    pdf = baixar_pdf(a['link'])
+                aids.append(upload_zimbra(a['nome'], pdf))
+                tipos.append(a['tipo'])
             except (ZimbraErro, urllib.error.URLError, OSError) as e:
-                aviso = censurar(f'anexo não criado: {e}')
+                avisos.append(censurar(f'anexo {a["tipo"]} não criado: {e}'))
+        aid = aids or None
+        aviso = '; '.join(avisos) or None
         if not aid:
             cont['sem_anexo'] += 1
         res = soap('SaveDraftRequest', montar_savedraft(
@@ -639,7 +750,10 @@ def cmd_criar_rascunhos(dry):
             raise ZimbraErro('SaveDraftResponse sem id do rascunho.')
         resultado = {'zimbra_draft_id': draft_id, 'anexo': bool(aid)}
         if aid:
-            resultado['anexo_tipo'] = anexo[0]
+            resultado['anexo_tipo'] = tipos[0]
+            resultado['anexos'] = tipos
+        if proposta_url:
+            resultado['proposta_url'] = proposta_url
         if aviso:
             resultado['aviso'] = aviso
         db_post_unico('ai_fila', {
