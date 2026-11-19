@@ -181,7 +181,7 @@ tr.est td.dest{color:var(--azul)}
     </div>
   </div>
   <div class="qbar">Empreender é ter a sua marca e <em>decidir o seu preço</em>.</div>
-  <div class="qnota">O valor de referência de R$ 15 por compactado (pedido de 1.000 peças por cor) já inclui embalagem, cartucho e gráfica: é o produto final pronto. Impostos, taxas e custos regulatórios ficam à parte.</div>
+  <div class="qnota">O valor de referência de R$ 15 por compactado (pedido de 1.000 peças por cor) já inclui embalagem, cartucho e gráfica: é o produto final pronto. Valor não incluso impostos e taxas.</div>
   <div class="rod"><span>Quem faz o quê</span><b>GARNET</b></div>
 </section>
 
@@ -215,7 +215,7 @@ tr.est td.dest{color:var(--azul)}
       <svg id="grafico" width="100%" height="auto" viewBox="0 0 560 318"></svg>
     </div>
   </div>
-  <div class="aviso">Simulação ilustrativa. O preço de R$ 15 é uma referência para o compactado pronto (já com embalagem, cartucho e gráfica) no pedido mínimo de 1.000 peças por cor; impostos, taxas e custos regulatórios ficam à parte, e o valor final depende da personalização e é confirmado no orçamento. Lucro depende das vendas e dos custos de cada operação; não é garantia de resultado.</div>
+  <div class="aviso">Simulação ilustrativa. O preço de R$ 15 é uma referência para o compactado pronto (já com embalagem, cartucho e gráfica) no pedido mínimo de 1.000 peças por cor; valor não incluso impostos e taxas; o valor final depende da personalização e é confirmado no orçamento. Lucro depende das vendas e dos custos de cada operação; não é garantia de resultado.</div>
   <div class="rod"><span>A simulação</span><b>GARNET</b></div>
 </section>
 
@@ -292,14 +292,14 @@ tr.est td.dest{color:var(--azul)}
   var th = '<tr><th></th>' + S.map(function(s,i){return '<th class="'+(i===1?'dest':'')+'">Revenda R$ '+n0(s.r)+'</th>';}).join('') + '</tr>';
   var row = function(lbl, f, cls){ return '<tr class="'+(cls||'')+'"><td>'+lbl+'</td>' + S.map(function(s,i){return '<td class="'+(i===1?'dest':'')+'">'+f(s)+'</td>';}).join('') + '</tr>'; };
   $('tabela').innerHTML = th
-    + '<tr><td>Investimento ('+n0(qtd)+' × R$ '+n0(preco)+')</td>' + S.map(function(s,i){return '<td class="'+(i===1?'dest':'')+'">'+brl(inv)+'</td>';}).join('') + '</tr>'
+    + '<tr><td>Investimento** ('+n0(qtd)+' × R$ '+n0(preco)+')</td>' + S.map(function(s,i){return '<td class="'+(i===1?'dest':'')+'">'+brl(inv)+'</td>';}).join('') + '</tr>'
     + row('Faturamento', function(s){return brl(s.fat);})
     + row('Lucro bruto', function(s){return brl(s.bruto);}, 'lucro')
     + row('Margem', function(s){return pc(s.margem);})
     + row('Retorno sobre o investimento', function(s){return pc(s.roi);})
     + row('Ponto de equilíbrio', function(s){return n0(s.eq)+' peças';})
     + row('Lucro estimado após custos de venda*', function(s){return brl(s.liq);}, 'est');
-  $('hint').innerHTML = '* Estimativa: considera custos de venda de ' + pc(pct) + ' do faturamento (taxas de pagamento/plataforma, frete e outros custos da venda; impostos e taxas regulatórias ficam à parte do valor de referência). Ex.: R$ ' + n0(mid.r) + ' &rarr; ' + n0(mid.fat) + ' &minus; ' + n0(mid.custos) + ' &minus; ' + n0(inv) + ' = ' + n0(mid.liq) + '.';
+  $('hint').innerHTML = '* Estimativa: considera custos de venda de ' + pc(pct) + ' do faturamento (taxas de pagamento/plataforma, frete e outros custos da venda). Ex.: R$ ' + n0(mid.r) + ' &rarr; ' + n0(mid.fat) + ' &minus; ' + n0(mid.custos) + ' &minus; ' + n0(inv) + ' = ' + n0(mid.liq) + '.<br>** Valor não incluso impostos e taxas.';
 
   // gráfico SVG
   var W=560,H=318,pl=46,pb=44,pt=22,pr=8, ch=H-pb-pt, cw=W-pl-pr;
