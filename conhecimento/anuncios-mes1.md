@@ -40,7 +40,7 @@ Ritmo: cerca de R$ 33/dia no total; semana 1 gasta no máximo R$ 200 (fase de ap
 
 **Frente A: mensagens ou Lead Ads** ("Quer criar sua marca de maquiagem?").
 - Público (hipótese): mulheres e homens 22–45, SP, interesses em empreendedorismo de beleza, maquiagem profissional, criação de conteúdo de beleza; testar 2 conjuntos.
-- Criativo: 3 peças (carrossel com os 5 modelos de produção; vídeo curto do passo a passo em 8 etapas; imagem do simulador). Usar apenas imagens autorizadas: fotos reais da fábrica **sem ampliar nem legendar** e sem usar pessoas fora da autorização; imagens de conceito/IA devem ser apresentadas como "ilustração" e nunca como produto fabricado.
+- Criativo: 3 peças (carrossel com os 2 modelos de produção (Full Service e Terceirização por Encomenda); vídeo curto do passo a passo em 8 etapas; imagem do simulador). Usar apenas imagens autorizadas: fotos reais da fábrica **sem ampliar nem legendar** e sem usar pessoas fora da autorização; imagens de conceito/IA devem ser apresentadas como "ilustração" e nunca como produto fabricado.
 - Formulário curto: nome, marca/@, categoria de interesse, quantidade estimada, WhatsApp. Aviso de privacidade e consentimento; sem dados sensíveis.
 **Frente B: remarketing** do site (visitantes dos últimos 30 dias, quem abriu o simulador): requer pixel/evento no site (a confirmar com a Garnet se instalado). Texto: lembrete do simulador e briefing.
 **Proibido em anúncios**: preço, depoimento, "resultado garantido", citar cliente como "indicando" a Garnet, veículos (Vogue/Elle etc.) como se a Garnet tivesse saído neles. Ver `garnet.md` seção 9.

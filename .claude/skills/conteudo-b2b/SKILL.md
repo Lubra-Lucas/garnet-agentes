@@ -37,7 +37,7 @@ Período (ex.: 2 semanas), públicos prioritários, métricas recentes (`funil-a
 Depois de auditado: `aguardando_aprovacao`. `auditoria` no formato da skill `auditoria-conformidade`.
 
 ## Regras de decisão
-1. Pilares (hipótese): (a) bastidores e processo em 8 etapas; (b) 5 modelos de produção; (c) mitos sobre pedido mínimo e prazo; (d) como montar um briefing; (e) simulador "Monte a sua make".
+1. Pilares (hipótese): (a) bastidores e processo em 8 etapas; (b) os 2 modelos de produção; (c) mitos sobre pedido mínimo e prazo; (d) como montar um briefing; (e) simulador "Monte a sua make".
 2. Cada peça tem um CTA único: briefing (`#contato`), simulador (`#personalize`) ou WhatsApp.
 3. Imagens: apenas fotos reais autorizadas. Imagens de conceito geradas por IA só como "ilustração", nunca como produto fabricado. Fotos da fábrica sem legenda nem ampliação.
 4. Cases: nomes da lista citável, como "marcas que já fabricamos", sem resultados ou citações.

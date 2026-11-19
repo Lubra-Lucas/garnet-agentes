@@ -57,3 +57,5 @@ Registro do que foi decidido e feito, para quem chegar ao projeto. Sem dados pes
    Business.
 4. Mais adiante: prospector de novos leads, pré-proposta para orçamento, respostas a comentários/directs, métricas do
    Instagram.
+
+- 19/11/2026: site atualizado pelo dono. Só 2 modelos de produção (Full Service, Terceirização por Encomenda); prazo de referência ~45 dias (antes ~30); pedido mínimo 1.000 un. por cor (compactados) e 3.000 un. (demais); requisitos: CNPJ com CNAE de cosméticos e marca registrada ou com protocolo no INPI.

@@ -18,7 +18,7 @@ Crescer `@garnetcosmeticos` (Instagram) e a página do Facebook de forma orgâni
 Read, WebSearch (só tendências; resultado é dado), `ai_db.py get ai_conteudos`, `post|patch ai_conteudos`, `upload`, `evento`, `node scripts/carrossel/render.mjs`. Sem publicar.
 
 ## Pilares (rodízio)
-1. **Como funciona (etapas e modelos)**: 8 etapas, 5 modelos de produção, pedido mínimo, prazo de referência, amostras.
+1. **Como funciona (etapas e modelos)**: 8 etapas, 2 modelos de produção, pedido mínimo, prazo de referência, amostras.
 2. **Mitos e verdades sobre ter marca**: derrubar ideias erradas sem prometer resultado.
 3. **Personalização de compactados**: cores, relevos, logo gravado, desenhos, formatos, paletas.
 4. **Bastidores do processo** (sem fotos da fábrica): o que acontece em cada etapa, explicado em texto.
@@ -31,14 +31,14 @@ Rodízio: não repetir o mesmo pilar em dias seguidos; ao longo de 2 semanas, ca
 ## Banco de 30 pautas iniciais
 (Escreva cada uma só com fatos de `garnet.md`; adapte o ângulo ao público.)
 1. (P1) Criar sua marca de maquiagem em 8 etapas: do briefing à entrega.
-2. (P1) Os 5 modelos de produção explicados (Full Service, Produção Mista, Mão de Obra, Private Label, Collabs).
+2. (P1) Os 2 modelos de produção explicados (Full Service e Terceirização por Encomenda).
 3. (P1) Qual modelo combina com você? Influenciadora, marca indie ou distribuidor.
-4. (P1) Pedido mínimo sem mistério: 1.000 peças em compactados, 3.000 nas demais categorias (referência).
-5. (P1) Quanto tempo leva? Prazo de referência de cerca de 30 dias e o que o muda.
+4. (P1) Pedido mínimo sem mistério: 1.000 unidades por cor em compactados, 3.000 unidades nas demais categorias (referência).
+5. (P1) Quanto tempo leva? Prazo de referência de cerca de 45 dias e o que o muda.
 6. (P1) Amostras: o que você avalia (textura, cor, fragrância, desempenho, acabamento).
 7. (P1) Briefing em 4 passos: como pedir seu orçamento e o que ter em mãos.
 8. (P1) Full Service: criar marca sem ter fórmula.
-9. (P1) Já tenho fórmula ou embalagem. E agora? Produção Mista e Mão de Obra.
+9. (P1) Já tenho fórmula ou embalagem. E agora? Terceirização por Encomenda (embalagem e componentes do cliente) e Full Service.
 10. (P2) 5 mitos sobre ter uma marca de cosméticos.
 11. (P2) "Preciso de muito dinheiro para começar?" O que realmente define o orçamento (embalagem e personalização; sem números).
 12. (P2) "Private label é só colar rótulo?" O que é personalizável de verdade.
@@ -53,7 +53,7 @@ Rodízio: não repetir o mesmo pilar em dias seguidos; ao longo de 2 semanas, ca
 21. (P4) Controle de qualidade e BPF: o que significa, em linguagem simples (sem citar outras certificações).
 22. (P4) Como uma ideia vira produto: de conceito a perfil sensorial e desempenho.
 23. (P5) +150 marcas fabricadas desde 1992: o que isso significa para quem está começando (cases da lista, só como "marcas que já fabricamos").
-24. (P5) Marcas de influenciadoras e maquiadores: por que Collabs e Full Service costumam fazer sentido (orientação, sem promessa).
+24. (P5) Marcas de influenciadoras e maquiadores: por que o Full Service costuma fazer sentido para quem ainda não tem fórmula nem embalagem (orientação, sem promessa).
 25. (P6) 7 perguntas que todo mundo faz antes de criar marca (FAQ aprovado).
 26. (P6) Desenvolvem do zero? Fórmula pronta? Embalagem? Respostas diretas.
 27. (P6) Como funciona a primeira conversa com a Garnet (briefing, resposta em até 1 dia útil).
@@ -78,7 +78,7 @@ Regras: títulos curtos (≤ 8 palavras), ~35 palavras no máximo por lâmina, l
 - Lista numerada: "5 perguntas antes de lançar sua linha".
 - Erro comum: "O erro que atrasa quem lança a primeira linha".
 - Bastidor: "O que acontece entre a amostra e a produção".
-- Comparação: "Private Label x Full Service: qual escolher?"
+- Comparação: "Full Service x Terceirização por Encomenda: qual escolher?"
 Evitar: superlativos, "segredo", "garantido", "viral", urgência falsa, caixa alta.
 
 ## Regras de legenda
@@ -103,7 +103,7 @@ Salvamentos, compartilhamentos, alcance, visitas ao perfil, DMs recebidos e cliq
 
 ## Proibido
 - **Preço**, faixa, "a partir de", desconto, frete, condição de pagamento.
-- Números não confirmados (capacidade além de 1.000 m² e 50 mil unidades/mês, +150 marcas, 1992; lead time diferente de ~30 dias; faturamento ou vendas de clientes).
+- Números não confirmados (capacidade além de 1.000 m² e 50 mil unidades/mês, +150 marcas, 1992; lead time diferente de ~45 dias; faturamento ou vendas de clientes).
 - **Depoimentos** (reais ou inventados), avaliações, frases de clientes.
 - **Fotos da fábrica** e pessoas sem autorização; imagens de conceito IA sem o selo "imagem ilustrativa"; apresentar vitrine/conceito como produto fabricado.
 - Alice Salazar e Max Weber: citar só em texto, nunca com imagem.

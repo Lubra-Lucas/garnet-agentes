@@ -164,7 +164,7 @@ Passo 3 (dia 15): encerramento educado.
 **Passo 0 (WhatsApp)**
 > Oi, [nome]! Aqui é da Garnet, fabricante de maquiagem desde 1992 (somos a empresa por trás de Boca Rosa, Karen Bachini, Franciny Ehlke e John John). Vimos a [marca] crescer e uma segunda fonte para compactados pode ajudar. Na simulação, com 1.000 peças e revenda a R$ 30, a margem estimada é de 50% (referência, já com embalagem; impostos e taxas à parte; valor final varia com a personalização). Proposta: [link]. Se os números fizerem sentido, marcamos 15 minutos para desenhar a linha?
 
-**Passos 1–3**: dia 3 catálogo (categoria que a marca já vende); dia 8 galeria de marcas + modelos Private Label/Produção Mista; dia 15 ponto de equilíbrio e encerramento. Mesmas regras.
+**Passos 1–3**: dia 3 catálogo (categoria que a marca já vende); dia 8 galeria de marcas + os 2 modelos de produção (Full Service e Terceirização por Encomenda); dia 15 ponto de equilíbrio e encerramento. Mesmas regras.
 
 **Passo 0 RUIM**
 > Assunto: OFERTA IMPERDÍVEL!!! Preço a partir de R$ 4,90
@@ -187,7 +187,7 @@ Passo 3 (dia 15): encerramento educado.
 > "Prezados, temos capacidade para atender qualquer volume e qualquer prazo, com garantia de aumento de vendas."
 *Problemas: capacidade ilimitada (confirmado: 50 mil unidades/mês) e promessa de resultado.*
 
-**Passos 1–3**: dia 3 catálogo; dia 8 galeria de marcas + Private Label; dia 15 ponto de equilíbrio e encerramento.
+**Passos 1–3**: dia 3 catálogo; dia 8 galeria de marcas + os 2 modelos de produção (Full Service e Terceirização por Encomenda); dia 15 ponto de equilíbrio e encerramento.
 
 ## 5. Reativação (exceção, não é o padrão)
 

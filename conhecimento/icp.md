@@ -53,7 +53,7 @@ Fatos comerciais: ver `garnet.md`. Pedido mínimo (1.000 / 3.000 peças) é um *
 **Objeções e respostas.**
 - "Meu volume por SKU é pequeno." Falar do mínimo confirmado (1.000 / 3.000 peças) e oferecer análise do briefing; não prometer exceção.
 - "Já produzo em outro lugar." Segunda fonte para reduzir risco de ruptura; compactados como especialidade.
-- "Preciso de prazo curto." Referência de ~30 dias; confirmado após o briefing.
+- "Preciso de prazo curto." Referência de ~45 dias; confirmado após o briefing.
 - "Como garantem qualidade?" BPF e controle de qualidade em todas as etapas (ver `garnet.md`); sem citar certificações não listadas.
 
 ## 3. Distribuidor (especialmente com marca própria)
